@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="@string/introduction"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true" />
+    <ToggleButton
+        android:id="@+id/tbt_screen_capture_service"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textOn="点击关闭屏幕录制"
+        android:textOff="点击开启屏幕录制"
+        android:textSize="40sp"
+        android:checked="false"
+        android:visibility="gone"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/tv"/>
+</LinearLayout>

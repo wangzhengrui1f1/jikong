@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/jianbian"
+    android:orientation="vertical"
+    >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="100dp"
+                />
+
+            <ImageView
+                android:id="@+id/caipu_i1"
+                android:layout_width="50dp"
+                android:background="@drawable/as1"
+                android:layout_gravity="center"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:text="点击图片上传" />
+
+            <EditText
+                android:id="@+id/e1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textColor="#ffffff"
+                android:textColorHint="#EDDFD9D9"
+                android:hint="请描述一下您需要跑腿的事情"
+                android:text="" />
+
+            <EditText
+                android:id="@+id/e2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:textColor="#ffffff"
+                android:textColorHint="#EDDFD9D9"
+                android:hint="留下您的联系方式QQ/微信/电话"
+                android:text="" />
+
+            <EditText
+                android:id="@+id/e3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="金额(元)"
+                android:inputType="textPersonName"
+                android:text=""
+                android:textColor="#ffffff"
+                android:textColorHint="#EDDFD9D9" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/as1"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:text="完成" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

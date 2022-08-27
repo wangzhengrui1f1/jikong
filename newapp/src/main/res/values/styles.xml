@@ -1,0 +1,53 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. Theme.AppCompat.Light.NoActionBar-->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+
+    <style name="EditTextStyle">
+        <!--表示控件默认的颜色-->
+        <item name="android:colorControlNormal" tools:ignore="NewApi">#E6E6E6</item>
+        <!--表示控件被激活时的颜色-->
+        <item name="android:colorControlActivated" tools:ignore="NewApi">#ccc</item>
+    </style>
+    复制代码
+    <style name="GridLayoutDataTextView">
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:ellipsize">none</item>
+        <item name="android:singleLine">false</item>
+        <item name="android:scrollHorizontally">false</item>
+        <item name="android:maxLines">100</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="GridLayoutDataTextViewMonospace" parent="@style/GridLayoutDataTextView">
+        <item name="android:typeface">monospace</item>
+    </style>
+
+    <style name="GridLayoutTitleTextView">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TransparentDialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowBackground">@color/transparent</item>
+    </style>
+
+    <style name="dialog_ocr_result">
+        <item name="android:windowEnterAnimation">@anim/open_ocr_result</item>
+        <item name="android:windowExitAnimation">@anim/close_ocr_result</item>
+    </style>
+
+    <!--名字自定义-->
+    <style name="CheckBoxTheme">
+        <item name="colorAccent">#0c1120</item><!--选中颜色-->
+        <item name="colorControlNormal">#0c1120</item><!--未选中颜色-->
+    </style>
+</resources>

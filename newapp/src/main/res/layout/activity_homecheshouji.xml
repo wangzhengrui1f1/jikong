@@ -1,0 +1,82 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home15"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.vise.bledemo.utils.NoScrollViewPager
+        android:id="@+id/main_ViewPager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+    </com.vise.bledemo.utils.NoScrollViewPager>
+
+    <LinearLayout
+        android:id="@+id/root1"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:visibility="gone"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+    </LinearLayout>
+    <RadioGroup
+        android:id="@+id/main_tab_RadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#061A3D"
+        android:alpha="0.9"
+        android:orientation="horizontal"
+        android:padding="3dp">
+
+        <RadioButton
+            android:id="@+id/radio_1"
+            android:layout_width="10dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:width="100dp"
+            android:height="100dp"
+            android:background="@null"
+            android:button="@null"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:text="巡检"
+            android:textColor="#ffffff" />
+
+        <RadioButton
+            android:id="@+id/radio_2"
+            android:layout_width="10dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:width="100dp"
+            android:height="100dp"
+            android:background="@null"
+            android:button="@null"
+            android:gravity="center"
+            android:text="设备信息"
+            android:textStyle="bold"
+            android:textColor="#ffffff" />
+
+        <RadioButton
+            android:id="@+id/radio_3"
+            android:layout_width="10dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:width="100dp"
+            android:height="100dp"
+            android:background="@null"
+            android:button="@null"
+            android:gravity="center"
+            android:text="报警信息"
+            android:textColor="#ffffff"
+            android:textStyle="bold" />
+
+
+    </RadioGroup>
+
+</LinearLayout>

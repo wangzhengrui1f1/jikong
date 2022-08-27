@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:ignore="HardcodedText" >
+
+    <RelativeLayout 
+         android:layout_width="fill_parent"
+  	 	 android:layout_height="fill_parent"
+   		 android:gravity="center"
+        >
+    <SurfaceView
+        android:id="@+id/sf_VideoMonitor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp" 
+        />
+
+    <TextView
+        android:id="@+id/tv_Loading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="11111"
+        android:textColor="@android:color/white"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        android:visibility="visible" />
+
+
+    
+    <LinearLayout 
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:layout_alignParentBottom="true"
+	    android:gravity="center_horizontal"
+        >
+        <TableRow 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+        
+        	<Button 
+            	android:id="@+id/start"
+            	android:layout_width="wrap_content"
+	    		android:layout_height="wrap_content"
+	    		android:text="预览"
+            	/>
+        	<Button 
+            	android:id="@+id/stop"
+            	android:layout_width="wrap_content"
+	    		android:layout_height="wrap_content"
+	    		android:text="停止"
+            	/>
+        	<Button 
+            	android:id="@+id/set"
+            	android:layout_width="wrap_content"
+	    		android:layout_height="wrap_content"
+	    		android:text="设置"
+            	/>
+        	<Button 
+            	android:id="@+id/btn_ZoomIn"
+            	android:layout_width="50dp"
+	    		android:layout_height="50dp"
+            	/>
+        </TableRow>
+        <TableRow 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        	<Button 
+            	android:id="@+id/btn_UpLeft"
+            	android:layout_width="50dp"
+	    		android:layout_height="50dp"
+            	/>
+            <Button 
+            	android:id="@+id/btn_Up"
+            	android:layout_width="50dp"
+	    		android:layout_height="50dp"
+            	/>
+            <Button 
+            	android:id="@+id/btn_UpRight"
+            	android:layout_width="50dp"
+	    		android:layout_height="50dp"
+            	/>
+            <Button 
+            	android:id="@+id/btn_ZoomOut"
+            	android:layout_width="50dp"
+	    		android:layout_height="50dp"
+            	/>
+        </TableRow>
+        
+        <TableRow 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+             <Button 
+            	android:id="@+id/btn_Left"
+            	android:layout_width="50dp"
+	    		android:layout_height="50dp"
+            	/>
+             <Button 
+            	android:id="@+id/btn_Auto"
+            	android:layout_width="50dp"
+	    		android:layout_height="50dp"
+            	/>
+             
+             <Button 
+            	android:id="@+id/btn_Right"
+            	android:layout_width="50dp"
+	    		android:layout_height="50dp"
+            	/>
+			<Button 
+            	android:id="@+id/btn_FocusFar"
+            	android:layout_width="50dp"
+	    		android:layout_height="50dp"
+            	/>
+              
+        </TableRow>
+        <TableRow 
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+         
+            <Button 
+            	android:id="@+id/btn_DownLeft"
+            	android:layout_width="50dp"
+	    		android:layout_height="50dp"
+            	/>
+            <Button 
+            	android:id="@+id/btn_Down"
+            	android:layout_width="50dp"
+	    		android:layout_height="50dp"
+            	/>
+            <Button 
+            	android:id="@+id/btn_DownRight"
+            	android:layout_width="50dp"
+	    		android:layout_height="50dp"
+            	/>
+            <Button 
+            	android:id="@+id/btn_FocusNear"
+            	android:layout_width="50dp"
+	    		android:layout_height="50dp"
+            	/>
+        </TableRow>
+      
+	</LinearLayout>
+  </RelativeLayout>  
+    
+</LinearLayout>
