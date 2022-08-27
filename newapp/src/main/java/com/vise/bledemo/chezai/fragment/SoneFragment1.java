@@ -226,7 +226,6 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
     public static final String ACCESS_BUCKET_NAME = "lingjiedian";
     public static final String ACCESS_ENDPOINT = "http://oss-cn-beijing.aliyuncs.com/";
     public static final String ACCESS_DOMAINNAME = "http:xxxxx";
-
     View view;
     private static String TAG = "MainActivity";
     private Context mContext;
