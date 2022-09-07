@@ -1,4 +1,4 @@
-package com.vise.bledemo.utils;
+package com.vise.bledemo.utils.screen.luxiang;
 
 import android.content.Context;
 import android.os.Environment;
