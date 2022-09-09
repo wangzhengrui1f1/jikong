@@ -244,7 +244,7 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
     public LocationClient mLocationClient = null;
     private LocationClientOption option = null;
     private boolean isFirstLocation = true;
-    private LatLng currentLatLng =null;//当前所在位置
+    private LatLng currentLatLng = null;//当前所在位置
     private Marker marker;//地图标注
     //poi检索
     private GeoCoder mGeoCoder;//反向地理解析，获取周边poi
@@ -271,14 +271,14 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
     int packInterval = 12;
     //设置位置采集和打包周期
     private LinearLayout h1;
-    private LinearLayout up,down,left,right;
-    private TextView xiazai, textview_lixianditu, text5, text_add,text_number,text_less,username;
-    boolean isFrist =true;
+    private LinearLayout up, down, left, right;
+    private TextView xiazai, textview_lixianditu, text5, text_add, text_number, text_less, username;
+    boolean isFrist = true;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             "android.permission.READ_EXTERNAL_STORAGE",
             "android.permission.WRITE_EXTERNAL_STORAGE"};
-    private int FirstFlag = 0,FirstFlag2=0;
+    private int FirstFlag = 0, FirstFlag2 = 0;
     private MyNetworkReceiver myNetworkReceiver;
     private int myNetwork = 0;
     //todo 运动轨迹点 录入时间间隔
@@ -286,10 +286,10 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
     private int daka = 0;
     private BDLocation dakalocation;
     private LinearLayout ls1, ls2, ls6, ls7, ls8, ls11, ls12, ls15, sview1, sview2;
-    private ImageView ima1,ima2,back,lvguangb, tname3;
+    private ImageView ima1, ima2, back, lvguangb, tname3;
     private int shensuo = 0;//3最长 2中间 1最短
-    List<LatLng> list= new ArrayList<>();
-    private TextView text3,text_shebei;
+    List<LatLng> list = new ArrayList<>();
+    private TextView text3, text_shebei;
     Boolean lineStop = false;
     //todo 蓝牙------------------------------------------------------------------
     private static final int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 100;
@@ -299,9 +299,9 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
     //摄像头---
     private FragmentManager fragmentManager2 = null;
     private FragmentTransaction fragmentTransaction2 = null;
-    int ss=0;
+    int ss = 0;
     private ListView deviceLv;
-    private TextView scanCountTv,text_nongdu,text_wendu,text_guangqiang;
+    private TextView scanCountTv, text_nongdu, text_wendu, text_guangqiang;
     //设备扫描结果展示适配器
     private DeviceAdapter adapter;
     private BluetoothLeDeviceStore bluetoothLeDeviceStore = new BluetoothLeDeviceStore();
@@ -313,7 +313,7 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
     View displayView;
     private WindowManager windowManager2;
     private WindowManager.LayoutParams layoutParams2;
-    int DisFirst=0,xunjianFlag=0,sFlag = 0;
+    int DisFirst = 0, xunjianFlag = 0, sFlag = 0;
 
     int saveNongdu = 0;
     List<String> sendList = new ArrayList<>();
@@ -333,7 +333,7 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
                 public void run() {
                     if (adapter != null && bluetoothLeDeviceStore != null) {
                         adapter.setListAll(bluetoothLeDeviceStore.getDeviceList());
-                     //   updateItemCount(adapter.getCount());
+                        //   updateItemCount(adapter.getCount());
                     }
                 }
             });
@@ -353,73 +353,73 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
     boolean appQian = true;
     int findex = 0;
     private ViewPager main_viewPager;
-    private List<Integer> laa =new ArrayList<>();
+    private List<Integer> laa = new ArrayList<>();
     //todo 报警未关闭
-    int VisDialog =0;
+    int VisDialog = 0;
     //todo wifi
-    private TextView kaishi,qiehuan,quzheng;
+    private TextView kaishi, qiehuan, quzheng;
     //todo 数据获取解析更新多线程
     public Thread dataCheckThread;
     //
-    public Handler dataCheckHandler=new Handler(){
+    public Handler dataCheckHandler = new Handler() {
         @SuppressLint("NewApi")
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         @Override
         public void handleMessage(Message msg) {
-            if(msg.what == 70){
-                if(displayView.getVisibility()==View.VISIBLE){
+            if (msg.what == 70) {
+                if (displayView.getVisibility() == View.VISIBLE) {
                     displayView.setVisibility(View.GONE);
                 }
             }
-            if(msg.what==1001){
+            if (msg.what == 1001) {
                 if (xunjianFlag == 1) {
                     tname3.setBackground(getActivity().getDrawable(R.drawable.shuangchuan2));
                 }
             }
-            if(msg.what==1002){
+            if (msg.what == 1002) {
                 if (xunjianFlag == 1) {
                     tname3.setBackground(getActivity().getDrawable(R.drawable.shangchuan));
                 }
             }
-            if(msg.what==1003){
+            if (msg.what == 1003) {
                 tname3.setBackground(null);
             }
             //刷新重绘view
             //todo 更新浓度
-            if(msg.what == 101){
+            if (msg.what == 101) {
                 text_shebei.setText(String.valueOf(ss++));
-            //todo 绘制曲线图
-            }else if(msg.what==50 && wifidata13.size()==12){
+                //todo 绘制曲线图
+            } else if (msg.what == 50 && wifidata13.size() == 12) {
                 Random random = new Random();
-                int s=random.nextInt(30000)+1;
+                int s = random.nextInt(30000) + 1;
 //                if(findex>23){
 //                    findex = 0;
 //                }
 //                wifidata13.set(0, String.valueOf(laa.get(findex++)));
-               // saveIma();
+                // saveIma();
                 mylista.add(Integer.valueOf(wifidata13.get(0)));
                 Log.e("jeixiwifi13", wifidata13.get(0));
-                if(getpre("TESTTYPE_CHEZAI").equals("PPM.M")){
-                    text_nongdu.setText(String.valueOf(wifidata13.get(0))+" PPM.M");
-                }else if(getpre("TESTTYPE_CHEZAI").equals("VOL.M")){
-                    text_nongdu.setText(String.valueOf(Float.valueOf(wifidata13.get(0))/500)+" VOL.M");
-                }else if(getpre("TESTTYPE_CHEZAI").equals("LEL.M")){
-                    text_nongdu.setText(String.valueOf(Float.valueOf(wifidata13.get(0))/1000)+" LEL.M");
+                if (getpre("TESTTYPE_CHEZAI").equals("PPM.M")) {
+                    text_nongdu.setText(String.valueOf(wifidata13.get(0)) + " PPM.M");
+                } else if (getpre("TESTTYPE_CHEZAI").equals("VOL.M")) {
+                    text_nongdu.setText(String.valueOf(Float.valueOf(wifidata13.get(0)) / 500) + " VOL.M");
+                } else if (getpre("TESTTYPE_CHEZAI").equals("LEL.M")) {
+                    text_nongdu.setText(String.valueOf(Float.valueOf(wifidata13.get(0)) / 1000) + " LEL.M");
                 }
                 // 自动报警
-                if(Integer.valueOf(wifidata13.get(0))>=Integer.valueOf(getpre("GAOJINGZHI1_CHEZAI"))
-                        &&VisDialog == 0){
-                    if(sFlag == 0){
+                if (Integer.valueOf(wifidata13.get(0)) >= Integer.valueOf(getpre("GAOJINGZHI1_CHEZAI"))
+                        && VisDialog == 0) {
+                    if (sFlag == 0) {
                         nowifidata13 = wifidata13;
-                        nowifidata10 =wifidata10;
-                        Log.e("nowifidata",nowifidata13.get(0));
-                        pre("setflag","2");
+                        nowifidata10 = wifidata10;
+                        Log.e("nowifidata", nowifidata13.get(0));
+                        pre("setflag", "2");
                         setQuz();
                         onClickReqPermission();
                         //baojings();
                         saveNongdu = Integer.parseInt(wifidata13.get(0));
                         sFlag = 1;
-                        VisDialog =1;
+                        VisDialog = 1;
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
@@ -427,40 +427,40 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
                                 dialogFlag = 0;
                                 sFlag = 0;
                             }
-                        },30000);
+                        }, 30000);
                     }
                 }
-                if(mylista.size()>25){
+                if (mylista.size() > 25) {
                     mylista.remove(0);
                 }
-                if(mylista.get(23)<Integer.valueOf(getpre("GAOJINGZHI1_CHEZAI"))&&
-                        mylista.get(24)>Integer.valueOf(getpre("GAOJINGZHI1_CHEZAI"))&&VisDialog==0){
-                    pre("setflag","2");
+                if (mylista.get(23) < Integer.valueOf(getpre("GAOJINGZHI1_CHEZAI")) &&
+                        mylista.get(24) > Integer.valueOf(getpre("GAOJINGZHI1_CHEZAI")) && VisDialog == 0) {
+                    pre("setflag", "2");
                     VisDialog = 1;
-                    nowifidata13 =wifidata13;
+                    nowifidata13 = wifidata13;
                     onClickReqPermission();
-                   // baojings();
+                    // baojings();
                 }
                 setData2(mylista);
-                if(wifidata10.size()>=3){
-                    text_wendu.setText(Float.valueOf(wifidata10.get(2))*1.852+"km/h");
-                   // text_wendu.setText(Float.valueOf(String.valueOf(s))*1.852+"km/h");
-                    Log.e("eeeeeeeee","111111");
+                if (wifidata10.size() >= 3) {
+                    text_wendu.setText(Float.valueOf(wifidata10.get(2)) * 1.852 + "km/h");
+                    // text_wendu.setText(Float.valueOf(String.valueOf(s))*1.852+"km/h");
+                    Log.e("eeeeeeeee", "111111");
                 }
-                Log.e("eeeeeeeee",String.valueOf(wifidata10.size()));
+                Log.e("eeeeeeeee", String.valueOf(wifidata10.size()));
                 pro_guangqiang.setProgress(Integer.parseInt(wifidata13.get(2)));
                 text_guangqiang.setText(wifidata13.get(2));
 
 
                 // wifidata13.set(3,"1");
                 //todo 绿光 0 关 1开
-                if(wifidata13.get(3).equals("1")){
+                if (wifidata13.get(3).equals("1")) {
                     lvguangb.setImageDrawable(getResources().getDrawable(R.drawable.jiguang2));
-                }else {
+                } else {
                     lvguangb.setImageDrawable(getResources().getDrawable(R.drawable.jiguang));
                 }
-            }else if(msg.what==77){
-                Log.e("sadasdtan","aaa");
+            } else if (msg.what == 77) {
+                Log.e("sadasdtan", "aaa");
 
             }
         }
@@ -511,6 +511,7 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
     private static final int WRITE_EXTERNAL_STORAGE_REQUEST_CODE = 123;
     private List<String> timeList = new ArrayList<>();
     private int saveTime = 0;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -530,7 +531,7 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
         wifidata10.add("0");
         sendList.add(getWifiData);
         sendList.add(getWifiData2);
-        for(int i =0 ;i<25;i++){
+        for (int i = 0; i < 25; i++) {
             mylista.add(0);
         }
         laa.add(10000);
@@ -562,7 +563,7 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
         myDatebaseHelper = new MyDatabase(getActivity(), SQLITE_NAME, null, 1);
         LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
         displayView = layoutInflater.inflate(R.layout.image_display, null);
-        activity=getActivity();
+        activity = getActivity();
         //初始化蓝牙
         ViseLog.getLogConfig().configAllowLog(true);//配置日志信息
         ViseLog.plant(new LogcatTree());//添加Logcat打印信息
@@ -691,16 +692,16 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
 //                    lineStop = true;
 //                    Toast.makeText(mContext, "关闭", Toast.LENGTH_SHORT).show();
 //                }
-                Toast.makeText(mContext, ""+calculateDistance(), Toast.LENGTH_SHORT).show();
-                if(calculateDistance()>0){
+                Toast.makeText(mContext, "" + calculateDistance(), Toast.LENGTH_SHORT).show();
+                if (calculateDistance() > 0) {
                     mBaiduMap.setMapStatus(MapStatusUpdateFactory.newMapStatus(new MapStatus.Builder().zoom(16).build()));
                 }
             }
         });
-       // pppa.add(new LatLng(39.3333333,122.3213533));
-       // pppa.add(new LatLng(39.3333332,122.3213532));
+        // pppa.add(new LatLng(39.3333333,122.3213533));
+        // pppa.add(new LatLng(39.3333332,122.3213532));
         //更新数据多线程类
-       // updateDataByBuleTooth();
+        // updateDataByBuleTooth();
 
         Handler hs = new Handler();
         hs.postDelayed(new Runnable() {
@@ -708,11 +709,11 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
             public void run() {
                 pppa.clear();
             }
-        },15000);
+        }, 15000);
 
 
         mMapView.showZoomControls(false);
-       // mMapView2.showZoomControls(false);
+        // mMapView2.showZoomControls(false);
         //
 
         Handler handler1 = new Handler();
@@ -720,14 +721,14 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
             @Override
             public void run() {
                 mMapView.bringToFront();
-             //  mMapView2.bringToFront();
+                //  mMapView2.bringToFront();
             }
-        },20000);
+        }, 20000);
         View views = view.findViewById(R.id.bmapView);
         views.bringToFront();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             mMapView.setStateListAnimator(null);
-          //  mMapView2.setStateListAnimator(null);
+            //  mMapView2.setStateListAnimator(null);
         }
 
         //todo 初始化局域网
@@ -737,15 +738,15 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
         connect();
 
         //悬浮窗
-        InitView(730,850,1657,668);
+        InitView(730, 850, 1657, 668);
 
         // 隐藏logo
         View child = mMapView.getChildAt(1);
-        if (child != null && (child instanceof ImageView || child instanceof ZoomControls)){
+        if (child != null && (child instanceof ImageView || child instanceof ZoomControls)) {
             child.setVisibility(View.INVISIBLE);
         }
         child = mMapView2.getChildAt(1);
-        if (child != null && (child instanceof ImageView || child instanceof ZoomControls)){
+        if (child != null && (child instanceof ImageView || child instanceof ZoomControls)) {
             child.setVisibility(View.INVISIBLE);
         }
         mMapView.showZoomControls(false);
@@ -796,55 +797,55 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
 
 
     private void updateData() {
-        if(dataCheckThread==null){
-                dataCheckThread=new Thread(){
-                    @Override
-                    public void run() {
-                        super.run();
-                        while (true){
-                            try {
-                                //休眠500ms
-                                sleep(150);
+        if (dataCheckThread == null) {
+            dataCheckThread = new Thread() {
+                @Override
+                public void run() {
+                    super.run();
+                    while (true) {
+                        try {
+                            //休眠500ms
+                            sleep(150);
 
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        //判断是否是暂停
+                        //TODO 暂停
+                        if (xunjianFlag == 1) {
+                            //发送wifi数据
+                            if (sendListIndex >= sendList.size()) {
+                                sendListIndex = 0;
                             }
-                            //判断是否是暂停
-                            //TODO 暂停
-                            if(xunjianFlag == 1){
-                                //发送wifi数据
-                                if(sendListIndex >= sendList.size()){
-                                    sendListIndex = 0;
-                                }
-                                Log.e("sendListindex", String.valueOf(sendListIndex));
-                                sendMessage(sendList.get(sendListIndex));
-                                sendListIndex++;
-                            } else {
-                                dataCheckHandler.sendEmptyMessage(1003);
-                            }
+                            Log.e("sendListindex", String.valueOf(sendListIndex));
+                            sendMessage(sendList.get(sendListIndex));
+                            sendListIndex++;
+                        } else {
+                            dataCheckHandler.sendEmptyMessage(1003);
+                        }
 
-                            saveTime +=150;
+                        saveTime += 150;
 
-                            Log.e("xianchen","start");
+                        Log.e("xianchen", "start");
 
-                            if(sendPlaceFalg > 40 && sendlocation!=null && wifidata13.size() == 12){
-                                Log.e("sendpostaa1","start");
-                                sendPlaceFalg = 0;
-                                CheckData();
-                            }else {
-                                sendPlaceFalg++;
-                            }
+                        if (sendPlaceFalg > 40 && sendlocation != null && wifidata13.size() == 12) {
+                            Log.e("sendpostaa1", "start");
+                            sendPlaceFalg = 0;
+                            CheckData();
+                        } else {
+                            sendPlaceFalg++;
+                        }
 
 //                            if(!appQian){
 //                                dataCheckHandler.sendEmptyMessage(70);
 //                            }
-                            //通知主线程刷新
-                            //dataCheckHandler.sendEmptyMessage(50);
-                        }
+                        //通知主线程刷新
+                        //dataCheckHandler.sendEmptyMessage(50);
                     }
-                };
-                dataCheckThread.start();
-            }
+                }
+            };
+            dataCheckThread.start();
+        }
     }
 
     private void initView() {
@@ -875,13 +876,13 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
         ls6.setVisibility(View.GONE);
         ls7.setVisibility(View.GONE);
         Log.e("ls6ls7", "gone");
-        text3 = (TextView)view.findViewById(R.id.text3);
+        text3 = (TextView) view.findViewById(R.id.text3);
         text_shebei = (TextView) view.findViewById(R.id.text_shebei);
         kaishi = (TextView) view.findViewById(R.id.kaishi);
         qiehuan = (TextView) view.findViewById(R.id.qiehuan);
         quzheng = (TextView) view.findViewById(R.id.quzheng);
         text_nongdu = (TextView) view.findViewById(R.id.text_nongdu);
-        lineChart =(LineChart) view.findViewById(R.id.lineChart);
+        lineChart = (LineChart) view.findViewById(R.id.lineChart);
         sview1 = (LinearLayout) view.findViewById(R.id.sview1);
         sview2 = (LinearLayout) view.findViewById(R.id.sview2);
         text_wendu = (TextView) view.findViewById(R.id.text_wendu);
@@ -903,7 +904,7 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
                     public void run() {
                         sendMessage(StopController);
                     }
-                },500);
+                }, 500);
             }
         });
         sxt.setOnClickListener(new View.OnClickListener() {
@@ -918,24 +919,24 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
             }
         });
 
-        username.setText("| "+getpre("username"));
+        username.setText("| " + getpre("username"));
         //TODO 光强最大值14
         pro_guangqiang.setMax(14);
         kaishi.setOnClickListener(new View.OnClickListener() {
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View view) {
-                if(kaishi.getText().toString().equals("开始巡检")){
-                    pre("starttime",disposeTime());
+                if (kaishi.getText().toString().equals("开始巡检")) {
+                    pre("starttime", disposeTime());
                     //todo 开始巡检
                     xunjianFlag = 1;
                     kaishi.setText("停止巡检");
                     kaishi.setBackgroundResource(R.drawable.bbhuang);
                     kaishi.setTextColor(getResources().getColor(R.color.black));
-                    Log.e("xunjian-开始时间",getpre("starttime"));
+                    Log.e("xunjian-开始时间", getpre("starttime"));
                     sendPostStart();
                     TaskCenter.sharedCenter().connect(getpre("e6"), Integer.parseInt(getpre("e8")));
-                }else {
+                } else {
                     //todo 停止巡检
                     xunjianFlag = 0;
                     kaishi.setText("开始巡检");
@@ -988,12 +989,12 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
             public void onClick(View view) {
                 shituqiehuanFlag++;
                 //todo 视频全图
-                if(shituqiehuanFlag%2==0){
+                if (shituqiehuanFlag % 2 == 0) {
                     sview1.setVisibility(View.VISIBLE);
                     sview2.setVisibility(View.GONE);
                     sxt.setVisibility(View.VISIBLE);
                     //todo 地图全图
-                }else if(shituqiehuanFlag%2==1){
+                } else if (shituqiehuanFlag % 2 == 1) {
                     sview2.setVisibility(View.VISIBLE);
                     sview1.setVisibility(View.GONE);
                     ls8.setVisibility(View.GONE);
@@ -1012,21 +1013,21 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
         quzheng.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(!getpre("starttime").equals("1")){
-                    pre("setflag","1");
-                    if(wifidata13.size()==12){
+                if (!getpre("starttime").equals("1")) {
+                    pre("setflag", "1");
+                    if (wifidata13.size() == 12) {
                         nowifidata13 = wifidata13;
                         onClickReqPermission();
                         // baojings();
                         //createScreenCaptureIntenttips_che_shou(saveIma());
 
-                    }else {
+                    } else {
                         toastShow("未检测到数据.");
                     }
 
-                }else {
+                } else {
                     toastShow("未开始巡检");
-                    Log.e("ajietu","1");
+                    Log.e("ajietu", "1");
 
                 }
             }
@@ -1035,18 +1036,18 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
         text_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Integer.valueOf(getpre("setchesu"))<64){
-                    String chesu = String.valueOf(Integer.valueOf(getpre("setchesu"))+1);
+                if (Integer.valueOf(getpre("setchesu")) < 64) {
+                    String chesu = String.valueOf(Integer.valueOf(getpre("setchesu")) + 1);
                     text_number.setText(chesu);
-                    pre("setchesu",chesu);
-                    if(Integer.valueOf(chesu)<10){
-                        sendMessage(SuduController+"0"+chesu);
-                        Log.e("setchesu1",SuduController+"0"+chesu);
-                    }else {
-                        sendMessage(SuduController+chesu);
-                        Log.e("setchesu2",SuduController+chesu);
+                    pre("setchesu", chesu);
+                    if (Integer.valueOf(chesu) < 10) {
+                        sendMessage(SuduController + "0" + chesu);
+                        Log.e("setchesu1", SuduController + "0" + chesu);
+                    } else {
+                        sendMessage(SuduController + chesu);
+                        Log.e("setchesu2", SuduController + chesu);
                     }
-                }else {
+                } else {
                     toastShow("速度已达到上限");
                 }
 
@@ -1056,31 +1057,32 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
         text_less.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(Integer.valueOf(getpre("setchesu"))>0){
-                    String chesu = String.valueOf(Integer.valueOf(getpre("setchesu"))-1);
+                if (Integer.valueOf(getpre("setchesu")) > 0) {
+                    String chesu = String.valueOf(Integer.valueOf(getpre("setchesu")) - 1);
                     text_number.setText(chesu);
-                    pre("setchesu",chesu);
-                    if(Integer.valueOf(chesu)<10){
-                        sendMessage(SuduController+"0"+chesu);
-                        Log.e("setchesu1",SuduController+"0"+chesu);
-                    }else {
-                        sendMessage(SuduController+chesu);
-                        Log.e("setchesu2",SuduController+chesu);
+                    pre("setchesu", chesu);
+                    if (Integer.valueOf(chesu) < 10) {
+                        sendMessage(SuduController + "0" + chesu);
+                        Log.e("setchesu1", SuduController + "0" + chesu);
+                    } else {
+                        sendMessage(SuduController + chesu);
+                        Log.e("setchesu2", SuduController + chesu);
                     }
 
-                }else {
+                } else {
                     toastShow("速度已达到下限");
                 }
 
             }
         });
     }
+
     public void onClickReqPermission() {
-        Log.e("ajietu","2");
+        Log.e("ajietu", "2");
         if (Build.VERSION.SDK_INT >= 21) {
             startActivityForResult(createScreenCaptureIntent(), REQ_CODE_PER);
         }
-        Log.e("ajietu","4");
+        Log.e("ajietu", "4");
     }
 
 
@@ -1088,26 +1090,27 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private Intent createScreenCaptureIntent() {
         //Here using media_projection instead of Context.MEDIA_PROJECTION_SERVICE to  make it successfully build on low api.
-        Log.e("ajietu","3");
+        Log.e("ajietu", "3");
         return ((MediaProjectionManager) getActivity().getSystemService("media_projection")).createScreenCaptureIntent();
     }
+
     public void InitViewPager() {
-        if(fragmentManager == null){
+        if (fragmentManager == null) {
             fragmentManager = getFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.zt1, new blueToothDataFragment(),"one");
+            fragmentTransaction.add(R.id.zt1, new blueToothDataFragment(), "one");
             fragmentTransaction.commit();
-        }else {
+        } else {
             //销毁
-            fragmentManager=getFragmentManager();
-            Fragment fragment=fragmentManager.findFragmentByTag("one");
-            fragmentTransaction=fragmentManager.beginTransaction();
+            fragmentManager = getFragmentManager();
+            Fragment fragment = fragmentManager.findFragmentByTag("one");
+            fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.remove(fragment);
             fragmentTransaction.commit();
             //创建
             fragmentManager = getFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.add(R.id.zt1, new blueToothDataFragment(),"one");
+            fragmentTransaction.add(R.id.zt1, new blueToothDataFragment(), "one");
             fragmentTransaction.commit();
         }
 
@@ -1224,7 +1227,7 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
                     public void onSnapshotReady(Bitmap bitmap) {
                         ima2.setBackground(null);
                         ima2.setImageBitmap(bitmap);
-                        saveImageToGallery(getActivity(),bitmap);
+                        saveImageToGallery(getActivity(), bitmap);
                         Handler handler = new Handler();
                         handler.postDelayed(new Runnable() {
                             @Override
@@ -1232,7 +1235,7 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
                                 ima2.setBackground(getActivity().getDrawable(R.drawable.qiandao));
                                 ima2.setImageBitmap(null);
                             }
-                        },1500);
+                        }, 1500);
                     }
                 });
                 return false;
@@ -1243,9 +1246,9 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
             @Override
             public void onClick(View v) {
                 startScan();
-                if(deviceLv.getVisibility()==View.GONE){
+                if (deviceLv.getVisibility() == View.GONE) {
                     deviceLv.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     deviceLv.setVisibility(View.GONE);
                 }
             }
@@ -1352,13 +1355,13 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
         guiji.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(lineStop){
+                if (lineStop) {
                     lineStop = false;
                     guiji.setText("开启轨迹");
-                }else {
+                } else {
                     lineStop = true;
                     pppa.clear();
-                   // mBaiduMap.clear();
+                    // mBaiduMap.clear();
                     guiji.setText("关闭轨迹");
                 }
             }
@@ -1378,7 +1381,6 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
             }
         });
     }
-
 
 
     /**
@@ -1448,7 +1450,7 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
                 // 离线定位失败
                 Log.i("baidu_location_result", "offline location fail");
             } else {
-                if(lineStop==true){
+                if (lineStop == true) {
                     onReceiveLocation2(location);
                     if (runtime >= 10) {
                         pppa.add(new LatLng(location.getLatitude(), location.getLongitude()));
@@ -1461,7 +1463,7 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
                 ConnectionDetector cd = new ConnectionDetector(getActivity().getApplicationContext());
                 Boolean isInternetPresent = cd.isConnectingToInternet(); // true or false
                 //  Toast.makeText(mContext, ""+location.getLatitude(), Toast.LENGTH_SHORT).show();
-                if(!isInternetPresent){
+                if (!isInternetPresent) {
                     //模拟定位
 //                    location.setLatitude(gpslatitude+0.008774687519+0.00074331248099);
 //                    location.setLongitude(gpslongitude+0.00374531687912+0.00960631645);
@@ -2002,45 +2004,45 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
     public void onResume() {
         super.onResume();
         // mMapView.onResume();
-       // showMapView();
-        Log.e("onresume11","1");
-        Handler handler =new Handler();
+        // showMapView();
+        Log.e("onresume11", "1");
+        Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(fragmentManager2 == null){
+                if (fragmentManager2 == null) {
                     fragmentManager2 = getFragmentManager();
                     fragmentTransaction2 = fragmentManager2.beginTransaction();
-                    fragmentTransaction2.add(R.id.ship, new shexiangtouFragment(),"shipin");
+                    fragmentTransaction2.add(R.id.ship, new shexiangtouFragment(), "shipin");
                     fragmentTransaction2.commit();
                     SxtTime = 0;
-                }else {
+                } else {
 //                        //销毁
-                    fragmentManager2=getFragmentManager();
-                    Fragment fragment=fragmentManager2.findFragmentByTag("shipin");
-                    fragmentTransaction2=fragmentManager2.beginTransaction();
+                    fragmentManager2 = getFragmentManager();
+                    Fragment fragment = fragmentManager2.findFragmentByTag("shipin");
+                    fragmentTransaction2 = fragmentManager2.beginTransaction();
                     fragmentTransaction2.remove(fragment);
                     fragmentTransaction2.commit();
                     //创建
                     fragmentManager2 = getFragmentManager();
                     fragmentTransaction2 = fragmentManager2.beginTransaction();
-                    fragmentTransaction2.add(R.id.ship, new shexiangtouFragment(),"shipin");
+                    fragmentTransaction2.add(R.id.ship, new shexiangtouFragment(), "shipin");
                     fragmentTransaction2.commit();
 
                 }
-                if(isBackground(getActivity())){
+                if (isBackground(getActivity())) {
 
                 }
 
-                Log.e("displayView","222");
-                Log.e("displayView","333");
+                Log.e("displayView", "222");
+                Log.e("displayView", "333");
                 appQian = isBackground(getActivity());
             }
-        },SxtTime);
+        }, SxtTime);
 
-        if(displayView.getVisibility()==View.GONE){
+        if (displayView.getVisibility() == View.GONE) {
             displayView.setVisibility(View.VISIBLE);
-            Log.e("displayView","111");
+            Log.e("displayView", "111");
         }
 
 
@@ -2049,10 +2051,10 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
     @Override
     public void onPause() {
         super.onPause();
-       // mMapView.onPause();
-        if(!isBackground(getActivity())){
-            if(displayView.getVisibility()==View.VISIBLE){
-                    displayView.setVisibility(View.GONE);
+        // mMapView.onPause();
+        if (!isBackground(getActivity())) {
+            if (displayView.getVisibility() == View.VISIBLE) {
+                displayView.setVisibility(View.GONE);
             }
         }
         appQian = isBackground(getActivity());
@@ -2167,10 +2169,10 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
             }
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 1000, 0, locationListener);
         }
-        double a[]=WGS84_To_GCJ02(gpslongitude,gpslatitude);
-        double b[]=GCJ02_To_BD09(a[0],a[1]);
-        Log.e("pianyi gps偏移前", String.valueOf(gpslongitude)+"---"+String.valueOf(gpslatitude));
-        Log.e("pianyi gps偏移后", String.valueOf(b[0])+"---"+String.valueOf(b[1]));
+        double a[] = WGS84_To_GCJ02(gpslongitude, gpslatitude);
+        double b[] = GCJ02_To_BD09(a[0], a[1]);
+        Log.e("pianyi gps偏移前", String.valueOf(gpslongitude) + "---" + String.valueOf(gpslatitude));
+        Log.e("pianyi gps偏移后", String.valueOf(b[0]) + "---" + String.valueOf(b[1]));
         Toast.makeText(mContext, "GPS定位:" + '\n' + "纬度：" + gpslatitude + "\n" + "经度：" + gpslongitude, Toast.LENGTH_SHORT).show();
 
     }
@@ -2227,23 +2229,23 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
         mBaiduMap2.animateMapStatus(msu);
         LatLng pointsss = new LatLng(bdLocation.getLatitude(), bdLocation.getLongitude());
         if (pointsss.longitude > 0 && pointsss.latitude > 0)
-        if (pppa.size() >= 2) {
-            OverlayOptions mOverlay;
-            if (daka == 0) {
-                mOverlay = new PolylineOptions()
-                        .width(10)
-                        .color(0xAAFF0000)
-                        .points(pppa);
-            } else {
-                mOverlay = new PolylineOptions()
-                        .width(10)
-                        .color(R.color.orange)
-                        .points(pppa);
-            }
+            if (pppa.size() >= 2) {
+                OverlayOptions mOverlay;
+                if (daka == 0) {
+                    mOverlay = new PolylineOptions()
+                            .width(10)
+                            .color(0xAAFF0000)
+                            .points(pppa);
+                } else {
+                    mOverlay = new PolylineOptions()
+                            .width(10)
+                            .color(R.color.orange)
+                            .points(pppa);
+                }
 
-            Overlay mPolyline = (Polyline) mBaiduMap.addOverlay(mOverlay);
-            mPolyline.setZIndex(3);
-        }
+                Overlay mPolyline = (Polyline) mBaiduMap.addOverlay(mOverlay);
+                mPolyline.setZIndex(3);
+            }
 
         Log.i("MyMaps", " latitude:" + bdLocation.getLatitude()
                 + " longitude:" + bdLocation.getLongitude() + pppa.size());
@@ -2260,7 +2262,7 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
 
     public static void saveImageToGallery(Context context, Bitmap bmp) {
         // 首先保存图片
-        File appDir = new File(Environment.getExternalStorageDirectory(), "jikong"+disposeTime());
+        File appDir = new File(Environment.getExternalStorageDirectory(), "jikong" + disposeTime());
         if (!appDir.exists()) {
             appDir.mkdir();
         }
@@ -2335,9 +2337,9 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
      * 计算两个Marker之间的距离
      */
     private double calculateDistance() {
-     //   pppa.add(new LatLng(39.33333,122.32135));
-     //   pppa.add(new LatLng(39.33335,122.32136));
-        double distance = GeoHasher.GetDistance(39.3333333,122.3213332,39.3333533,122.3213532);
+        //   pppa.add(new LatLng(39.33333,122.32135));
+        //   pppa.add(new LatLng(39.33335,122.32136));
+        double distance = GeoHasher.GetDistance(39.3333333, 122.3213332, 39.3333533, 122.3213532);
         return distance;
     }
 
@@ -2355,10 +2357,10 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 //点击某个扫描到的设备进入设备详细信息界面
                 BluetoothLeDevice device = (BluetoothLeDevice) adapter.getItem(position);
-                if (device == null){
+                if (device == null) {
                     return;
-                }else {
-                    devices =device;
+                } else {
+                    devices = device;
                     InitViewPager();
                 }
             }
@@ -2422,7 +2424,7 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
      */
     private void stopScan() {
         ViseBle.getInstance().stopScan(periodScanCallback);
-       // invalidateOptionsMenu();
+        // invalidateOptionsMenu();
     }
 
     /**
@@ -2435,29 +2437,28 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
     }
 
 
-
     //todo ----------------------------------------------------------------------------------------------------------
     //再次可见
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser){
+        if (isVisibleToUser) {
             //TODO 可见操作
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if(fragmentManager2 == null){
+                    if (fragmentManager2 == null) {
 
-                    }else {
-                        if(displayView.getVisibility()==View.GONE){
+                    } else {
+                        if (displayView.getVisibility() == View.GONE) {
                             displayView.setVisibility(View.VISIBLE);
                         }
                     }
                 }
-            },300);
-            if(DisFirst>=1){
-                if(displayView.getVisibility()==View.GONE){
+            }, 300);
+            if (DisFirst >= 1) {
+                if (displayView.getVisibility() == View.GONE) {
                     displayView.setVisibility(View.VISIBLE);
                 }
             }
@@ -2468,17 +2469,17 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    if(DisFirst>=1){
-                        if(displayView.getVisibility()==View.VISIBLE){
+                    if (DisFirst >= 1) {
+                        if (displayView.getVisibility() == View.VISIBLE) {
                             displayView.setVisibility(View.GONE);
                         }
                     }
                     DisFirst++;
                     FirstFlag++;
                 }
-            },300);
-            if(DisFirst>=1){
-                if(displayView.getVisibility()==View.VISIBLE){
+            }, 300);
+            if (DisFirst >= 1) {
+                if (displayView.getVisibility() == View.VISIBLE) {
                     displayView.setVisibility(View.GONE);
                 }
             }
@@ -2487,14 +2488,14 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
 
     //todo wifi局域网发送数据
     public static void sendMessage(String msg) {
-        Log.i("TaskCenter","发送成功");
-        Log.e("biaofeng",msg);
+        Log.i("TaskCenter", "发送成功");
+        Log.e("biaofeng", msg);
         //todo 将十六进制字符数组转换为字节数组
         TaskCenter.sharedCenter().send(HexUtil.decodeHex(msg.toCharArray()));
     }
 
     //todo 初始化wifi局域网-回调s函数
-    public void initWIfi(){
+    public void initWIfi() {
         TaskCenter.sharedCenter().setDisconnectedCallback(new TaskCenter.OnServerDisconnectedCallbackBlock() {
             @Override
             public void callback(IOException e) {
@@ -2506,15 +2507,15 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
         TaskCenter.sharedCenter().setConnectedCallback(new TaskCenter.OnServerConnectedCallbackBlock() {
             @Override
             public void callback() {
-               // textView_receive.setText(textView_receive.getText().toString() + "连接成功" + "\n");
-                Log.i("TaskCenter","连接成功");
+                // textView_receive.setText(textView_receive.getText().toString() + "连接成功" + "\n");
+                Log.i("TaskCenter", "连接成功");
             }
         });
 
         TaskCenter.sharedCenter().setReceivedCallback(new TaskCenter.OnReceiveCallbackBlock() {
             @Override
             public void callback(String receicedMessage) {
-                Log.e("sscallback",receicedMessage);
+                Log.e("sscallback", receicedMessage);
                 //TODO 气体浓度
                 //浓度最大值
                 //TODO 光强 2
@@ -2528,49 +2529,49 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
                 //云台通讯状态
                 //定位状态 11
 //                wifidata13.clear();
-              //  receicedMessage = "00000000000F01030C42F2FE18421B649D00000000";
+                //  receicedMessage = "00000000000F01030C42F2FE18421B649D00000000";
 
                 char ss[] = receicedMessage.toCharArray();
                 if (ss[14] == '0' && ss[15] == '3' && ss[16] == '1') {
                     wifidata13 = jiexiwifi13(receicedMessage);
-                    Log.e("aaaduandian",wifidata13.toString());
-                }else if(ss[14] == '0' && ss[15] == '3' && ss[16] == '0'){
+                    Log.e("aaaduandian", wifidata13.toString());
+                } else if (ss[14] == '0' && ss[15] == '3' && ss[16] == '0') {
                     wifidata10 = jiexiwifi10(receicedMessage);
-                    Log.e("aaaduandian",wifidata10.toString());
+                    Log.e("aaaduandian", wifidata10.toString());
                 }
 
                 Random random = new Random();
-                int s=random.nextInt(30000)+1;
-               // wifidata13.set(0,""+s);
-                Log.e("duandian","2");
+                int s = random.nextInt(30000) + 1;
+                // wifidata13.set(0,""+s);
+                Log.e("duandian", "2");
                 Log.e("dsasdad", String.valueOf(wifidata13.size()));
                 Log.e("dsasdad--10", String.valueOf(wifidata10.size()));
-                if(wifidata13.size()==12){
+                if (wifidata13.size() == 12) {
                     //通知主线程刷新
                     dataCheckHandler.sendEmptyMessage(50);
                     //todo 一级
-                    Log.e("duandian","3");
+                    Log.e("duandian", "3");
                 }
-                Log.e("duandian","4");
-                Log.e("duandian",receicedMessage);
+                Log.e("duandian", "4");
+                Log.e("duandian", receicedMessage);
                 //todo 一键标定
                 char bfchar[] = receicedMessage.toCharArray();
-                Log.e("duandian","5");
-                if(bfchar.length>=2){
-                    Log.e("duandian","6");
-                    if(bfchar.length<3&&bfchar[0]=='0'&&bfchar[1]=='0'){
+                Log.e("duandian", "5");
+                if (bfchar.length >= 2) {
+                    Log.e("duandian", "6");
+                    if (bfchar.length < 3 && bfchar[0] == '0' && bfchar[1] == '0') {
                         bfm = "成功";
-                    }else if(bfchar.length<3&&bfchar[0]=='0'&&bfchar[1]=='2'){
+                    } else if (bfchar.length < 3 && bfchar[0] == '0' && bfchar[1] == '2') {
                         bfm = "失败";
                     }
                 }
-                Log.e("duandian","7");
-                if(receicedMessage.equals("00000000000601060D66000C")){
-                    Log.i("TaskCenter2","标峰中...");
+                Log.e("duandian", "7");
+                if (receicedMessage.equals("00000000000601060D66000C")) {
+                    Log.i("TaskCenter2", "标峰中...");
                 }
 
 
-               // textView_receive.setText(textView_receive.getText().toString() +"返回数据"+ receicedMessage + "\n");
+                // textView_receive.setText(textView_receive.getText().toString() +"返回数据"+ receicedMessage + "\n");
             }
         });
     }
@@ -2579,8 +2580,8 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
     //todo 连接
     public void connect() {
         // TaskCenter.sharedCenter().connect("192.168.1.195",503);
-         TaskCenter.sharedCenter().connect(getpre("e6"),503);
-         Log.e("sconnect",getpre("e6"));
+        TaskCenter.sharedCenter().connect(getpre("e6"), 503);
+        Log.e("sconnect", getpre("e6"));
 
     }
 
@@ -2688,14 +2689,13 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
      *
      * @param list 数据集
      */
-    public void setData2(final List<Integer> list){
+    public void setData2(final List<Integer> list) {
 
         //显示边界
         lineChart.setDrawBorders(false);
         //设置数据
         List<Entry> entries = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++)
-        {
+        for (int i = 0; i < list.size(); i++) {
             entries.add(new Entry(i, (float) list.get(i)));
         }
         //一个LineDataSet就是一条线
@@ -2782,9 +2782,9 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
     private void tips(final String imaPath) {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.tips_che_shou, null);
-        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
-        final AlertDialog dialog=builder.create();
+        final AlertDialog dialog = builder.create();
         dialog.setCancelable(false);
         final TextView biaoti = view.findViewById(R.id.textView12);
         final TextView info1 = view.findViewById(R.id.info1);
@@ -2799,32 +2799,32 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
         final ImageView exit = view.findViewById(R.id.exit);
         final EditText beizhu = view.findViewById(R.id.beizhu);
         final Button submit = view.findViewById(R.id.button3);
-        if(getpre("setflag").equals("1")){
+        if (getpre("setflag").equals("1")) {
             biaoti.setText("手动取证");
-        }else {
+        } else {
             biaoti.setText("报警取证");
         }
         VisDialog = 1;
         dialogFlag = 1;
         String usetime = disposeTime();
-        info1.setText(" "+getpre("username"));
-        info2.setText(" "+"车载");
+        info1.setText(" " + getpre("username"));
+        info2.setText(" " + "车载");
 
-        info4.setText(" "+usetime);
+        info4.setText(" " + usetime);
 
-        if(nowifidata13.size()==12){
-            info5.setText(" "+nowifidata13.get(0));
-            info6.setText(" "+nowifidata13.get(4));
-            info7.setText(" "+nowifidata13.get(2));
+        if (nowifidata13.size() == 12) {
+            info5.setText(" " + nowifidata13.get(0));
+            info6.setText(" " + nowifidata13.get(4));
+            info7.setText(" " + nowifidata13.get(2));
             info8.setText(" 0");
-        }else {
+        } else {
             info5.setText("---");
             info6.setText("---");
             info7.setText("---");
             info8.setText("---");
         }
 
-        info9.setText("  起始时间   "+getpre("starttime")+" - "+usetime);
+        info9.setText("  起始时间   " + getpre("starttime") + " - " + usetime);
 
 //        Log.e("save2",String.valueOf(currentLatLng.latitude));
 //        Log.e("save2",String.valueOf(currentLatLng.longitude));
@@ -2858,7 +2858,7 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
                 //    int uid;
 
                 int nd = 0;
-                if(nowifidata13.size()==12){
+                if (nowifidata13.size() == 12) {
                     nd = Integer.parseInt(nowifidata13.get(0));
                 }
                 ShouDongQuZheng mShouDongQuZheng = new ShouDongQuZheng();
@@ -2868,43 +2868,43 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
                 mShouDongQuZheng.setDidian("暂不显示");
                 //todo 经纬度
                 Log.e("aadata1", String.valueOf("start"));
-                if(currentLatLng!=null){
+                if (currentLatLng != null) {
                     Log.e("aadata1", String.valueOf(currentLatLng.latitude));
                     Log.e("aadata2", String.valueOf(currentLatLng.longitude));
                     mShouDongQuZheng.setJingdu(String.valueOf(currentLatLng.latitude));
                     mShouDongQuZheng.setWeidu(String.valueOf(currentLatLng.longitude));
-                }else {
+                } else {
                     mShouDongQuZheng.setJingdu(String.valueOf("0.000000000000"));
                     mShouDongQuZheng.setWeidu(String.valueOf("0.000000000000"));
                 }
 
 //                mShouDongQuZheng.setPianyijingdu(String.valueOf(b[0]));
 //                mShouDongQuZheng.setPianyiweidu(String.valueOf(b[1]));
-                if(nowifidata10.size()>=3){
+                if (nowifidata10.size() >= 3) {
                     mShouDongQuZheng.setPianyiweidu(nowifidata10.get(0));
                     mShouDongQuZheng.setPianyijingdu(nowifidata10.get(1));
                     mShouDongQuZheng.setChesu(nowifidata10.get(2));
-                }else {
+                } else {
                     mShouDongQuZheng.setPianyijingdu("0");
                     mShouDongQuZheng.setPianyiweidu("0");
                     mShouDongQuZheng.setChesu("0");
                 }
-                if(nowifidata13.get(4)==null){
+                if (nowifidata13.get(4) == null) {
                     mShouDongQuZheng.setNongdu(String.valueOf("0"));
-                }else {
+                } else {
                     mShouDongQuZheng.setNongdu(String.valueOf(nd));
                 }
 
 //                mShouDongQuZheng.setWendu(wifidata13.get(4));
 //                mShouDongQuZheng.setGuangqiang(wifidata13.get(2));
-                if(nowifidata13.get(4)==null){
+                if (nowifidata13.get(4) == null) {
                     mShouDongQuZheng.setWendu("0");
-                }else {
+                } else {
                     mShouDongQuZheng.setWendu(nowifidata13.get(4));
                 }
-                if(nowifidata13.get(2)==null){
+                if (nowifidata13.get(2) == null) {
                     mShouDongQuZheng.setGuangqiang("0");
-                }else {
+                } else {
                     mShouDongQuZheng.setGuangqiang(nowifidata13.get(2));
                 }
 
@@ -2916,52 +2916,52 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
                 mShouDongQuZheng.setBeizhu(beizhu.getText().toString());
                 mShouDongQuZheng.setImagePath(imaPath);
 
-                if(Integer.valueOf(nd)>=Integer.valueOf(getpre("GAOJINGZHI1_CHEZAI"))
-                        &&Integer.valueOf(nd)<Integer.valueOf(getpre("GAOJINGZHI2_CHEZAI"))){
+                if (Integer.valueOf(nd) >= Integer.valueOf(getpre("GAOJINGZHI1_CHEZAI"))
+                        && Integer.valueOf(nd) < Integer.valueOf(getpre("GAOJINGZHI2_CHEZAI"))) {
                     mShouDongQuZheng.setGrade("1");
-                }else if(Integer.valueOf(nd)>=Integer.valueOf(getpre("GAOJINGZHI2_CHEZAI"))
-                        &&Integer.valueOf(nd)<Integer.valueOf(getpre("GAOJINGZHI3_CHEZAI"))){
+                } else if (Integer.valueOf(nd) >= Integer.valueOf(getpre("GAOJINGZHI2_CHEZAI"))
+                        && Integer.valueOf(nd) < Integer.valueOf(getpre("GAOJINGZHI3_CHEZAI"))) {
                     mShouDongQuZheng.setGrade("2");
-                }else if(Integer.valueOf(nd)>=Integer.valueOf(getpre("GAOJINGZHI3_CHEZAI"))){
+                } else if (Integer.valueOf(nd) >= Integer.valueOf(getpre("GAOJINGZHI3_CHEZAI"))) {
                     mShouDongQuZheng.setGrade("3");
-                }else {
+                } else {
                     mShouDongQuZheng.setGrade("0");
                 }
                 //自动
                 mShouDongQuZheng.setFlag(getpre("setflag"));
                 Random random = new Random();
-                mShouDongQuZheng.setUid(disposeTime3()+String.valueOf(random.nextInt(90000000)+1));
-                addCheZaiBaoJingData(myDatebaseHelper,mShouDongQuZheng);
+                mShouDongQuZheng.setUid(disposeTime3() + String.valueOf(random.nextInt(90000000) + 1));
+                addCheZaiBaoJingData(myDatebaseHelper, mShouDongQuZheng);
                 toastShow("保存成功...");
                 //上传
-                alyima1 ="create";
+                alyima1 = "create";
                 try {
                     Log.e("aliy", mShouDongQuZheng.getImagePath());
-                    aliyunShangchuan(mShouDongQuZheng.getImagePath(),mShouDongQuZheng);
-                } catch (EnumConstantNotPresentException e){
+                    aliyunShangchuan(mShouDongQuZheng.getImagePath(), mShouDongQuZheng);
+                } catch (EnumConstantNotPresentException e) {
 
                 }
-                if(displayView.getVisibility() == View.GONE){
+                if (displayView.getVisibility() == View.GONE) {
                     displayView.setVisibility(View.VISIBLE);
                 }
                 SendPost2(mShouDongQuZheng);
                 VisDialog = 0;
                 beizhu.clearFocus();
                 beizhu.setVisibility(View.GONE);
-                closejianpan2(getActivity(),beizhu);
+                closejianpan2(getActivity(), beizhu);
                 dialog.dismiss();
             }
         });
         exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(displayView.getVisibility() == View.GONE){
+                if (displayView.getVisibility() == View.GONE) {
                     displayView.setVisibility(View.VISIBLE);
                 }
                 VisDialog = 0;
                 beizhu.clearFocus();
                 beizhu.setVisibility(View.GONE);
-                closejianpan2(getActivity(),beizhu);
+                closejianpan2(getActivity(), beizhu);
                 dialog.dismiss();
             }
         });
@@ -2971,13 +2971,13 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
 
 
     @TargetApi(Build.VERSION_CODES.FROYO)
-    public String saveIma(){
-        String path="";
+    public String saveIma() {
+        String path = "";
 
         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                "手动取证"+disposeTime()+".jpg");
-       // Bitmap bitmap = screenShot(getActivity());
-       Bitmap bitmap = getViewBitmap(activity.getWindow().getDecorView());
+                "手动取证" + disposeTime() + ".jpg");
+        // Bitmap bitmap = screenShot(getActivity());
+        Bitmap bitmap = getViewBitmap(activity.getWindow().getDecorView());
         //Bitmap bitmap = screenShot(activity);
 
         try {
@@ -3025,8 +3025,6 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
     }
 
 
-
-
     /**
      * Bitmap对象是否为空。
      */
@@ -3034,9 +3032,9 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
         return src == null || src.getWidth() == 0 || src.getHeight() == 0;
     }
 
-    public void InitView(int width,int height,int x,int y) {
+    public void InitView(int width, int height, int x, int y) {
         //todo 初始化
-        windowManager2 = (WindowManager)getActivity().getSystemService(WINDOW_SERVICE);
+        windowManager2 = (WindowManager) getActivity().getSystemService(WINDOW_SERVICE);
         layoutParams2 = new WindowManager.LayoutParams();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             layoutParams2.type = WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY;
@@ -3110,17 +3108,18 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
     /**
      * using {@see ScreenShotActivity} to take screenshot on current Activity directly.
      * If you press home it will take screenshot on another app.
+     *
      * @param view
      */
     public void onClickShot(View view) {
-        startActivityForResult(ScreenShotActivity.createIntent(getActivity(), null,0), REQ_CODE_ACT);
+        startActivityForResult(ScreenShotActivity.createIntent(getActivity(), null, 0), REQ_CODE_ACT);
         toast("Press home key,open another app.");//if you want to take screenshot on another app.
     }
-    
+
     @SuppressLint("NewApi")
     private String getSavedPath() {
         return getActivity().getExternalFilesDir("screenshot").getAbsoluteFile() + "/"
-                + SystemClock.currentThreadTimeMillis() + disposeTime()+".png";
+                + SystemClock.currentThreadTimeMillis() + disposeTime() + ".png";
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -3131,12 +3130,12 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
         if (requestCode == CAPTURE_CODE) {
             if (resultCode != RESULT_OK) {
                 SC_IS_RUN = true;
-                if(displayView.getVisibility() == View.GONE){
+                if (displayView.getVisibility() == View.GONE) {
                     displayView.setVisibility(View.VISIBLE);
                 }
                 return;
             } else {
-                if(displayView.getVisibility() == View.GONE){
+                if (displayView.getVisibility() == View.GONE) {
                     displayView.setVisibility(View.VISIBLE);
                 }
                 mMediaProjection = mMediaProjectionManager.getMediaProjection(resultCode, data);
@@ -3149,7 +3148,7 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
                     myShareScreen();
                     Toast.makeText(getActivity(), "屏幕录制服务开始运行", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(getActivity(),   "屏幕录制服务已经开启，操作无效", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "屏幕录制服务已经开启，操作无效", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -3158,11 +3157,10 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
 
             case REQ_CODE_ACT: {
                 if (resultCode == RESULT_OK && data != null) {
-                   // toast("Screenshot saved at " + data.getData().toString());
+                    // toast("Screenshot saved at " + data.getData().toString());
 
-                }
-                else{
-                   // toast("You got wrong.");
+                } else {
+                    // toast("You got wrong.");
                 }
             }
             break;
@@ -3174,23 +3172,23 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
                                 @Override
                                 public void onFinish(String path) {
                                     //here is done status.
-                                   // toast("Screenshot saved at " + path);
-                                    if(displayView.getVisibility() == View.VISIBLE){
+                                    // toast("Screenshot saved at " + path);
+                                    if (displayView.getVisibility() == View.VISIBLE) {
                                         displayView.setVisibility(View.GONE);
                                     }
                                     tips(path);
-                                    Log.e("aapath",path);
+                                    Log.e("aapath", path);
                                 }
 
                                 @Override
                                 public void onError() {
-                                   // toast("You got wrong.");
+                                    // toast("You got wrong.");
                                 }
                             }
                     );
                 } else if (resultCode == RESULT_CANCELED) {
                     //user canceled.
-                    Log.e("quanxians","quxiao");
+                    Log.e("quanxians", "quxiao");
                     VisDialog = 0;
                 } else {
 
@@ -3201,9 +3199,9 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
 
     private void baojings() {
         timeList.add(String.valueOf(saveTime));
-        Log.e("wwzr",timeList.toString());
+        Log.e("wwzr", timeList.toString());
         String path = "wu";
-        if(displayView.getVisibility() == View.VISIBLE){
+        if (displayView.getVisibility() == View.VISIBLE) {
             displayView.setVisibility(View.GONE);
         }
         tips(path);
@@ -3252,9 +3250,9 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
         final ListView lixianListview = (ListView) view.findViewById(R.id.lixianListview);
 
         final ArrayList<MKOLUpdateElement> localMapList = mOffline.getAllUpdateInfo();
-        if(localMapList!=null){
+        if (localMapList != null) {
             Toast.makeText(getActivity(), "已下载城市地图数量：" + localMapList.size(), Toast.LENGTH_SHORT).show();
-            lixianListAdapter adapter = new lixianListAdapter(getActivity(),localMapList){
+            lixianListAdapter adapter = new lixianListAdapter(getActivity(), localMapList) {
                 @Override
                 public View getView(final int position, View convertView, ViewGroup parent) {
                     final View view = super.getView(position, convertView, parent);
@@ -3263,7 +3261,7 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
                         @Override
                         public void onClick(View v) {
                             mOffline.remove(localMapList.get(position).cityID);
-                            Toast.makeText(getActivity(), localMapList.get(position).cityName+"删除成功", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), localMapList.get(position).cityName + "删除成功", Toast.LENGTH_SHORT).show();
 //                            init();
                         }
                     });
@@ -3272,8 +3270,8 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
                 }
             };
             lixianListview.setAdapter(adapter);
-        }else {
-            Toast.makeText(getActivity(), "已下载城市地图数量：0" , Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getActivity(), "已下载城市地图数量：0", Toast.LENGTH_SHORT).show();
         }
         //Log.e("ssaazzz", String.valueOf(isNetworkOnline()));
         dialog.show();
@@ -3444,15 +3442,14 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
     }
 
 
-
     //todo 阿里云上传
-    public void aliyunShangchuan(String path, final ShouDongQuZheng mShouDongQuZheng){
+    public void aliyunShangchuan(String path, final ShouDongQuZheng mShouDongQuZheng) {
         ALiUploadManager.getInstance().uploadFile(path, new ALiUploadManager.ALiCallBack() {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result, String url) {
                 Log.e("上传阿里云成功:", url);
                 Log.e("上传阿里云成功:", result.toString());
-                String url2 = "https://"+ ACCESS_BUCKET_NAME + "." + ACCESS_ENDPOINT + "/" + "aaa";
+                String url2 = "https://" + ACCESS_BUCKET_NAME + "." + ACCESS_ENDPOINT + "/" + "aaa";
                 Log.e("上传阿里云成功:", url2);
                 // putImage(url);  //路径回调至服务端
                 Toast.makeText(getActivity(), "上传成功", Toast.LENGTH_SHORT).show();
@@ -3478,21 +3475,21 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
     // deviceName=321321&userName=321&type=32&longitude=321&latitude=321&
     // gpslongitude=5125&gpslatitude=21424&concentration=321&temperature=3213&
     // lightIntensity=4214&nospeed=5215&starttime=3123&endtime=321312&grade=5215&automatic=312321&uid=3213
-    public void SendPost2(ShouDongQuZheng mShouDongQuZheng){
-        final String uid = mShouDongQuZheng.getUid()+"AA";
+    public void SendPost2(ShouDongQuZheng mShouDongQuZheng) {
+        final String uid = mShouDongQuZheng.getUid() + "AA";
         final int id = mShouDongQuZheng.getId();
-        Log.e("sssendpost2","1111");
-        Map<String,String> hs=new HashMap<>();
+        Log.e("sssendpost2", "1111");
+        Map<String, String> hs = new HashMap<>();
         //http://localhost:8080/user/saveShops?latitude=33&longitude=23&placeTime=dsdsad&placeName=909
         //INSERT INTO alerts (deviceName, userName, type, longitude, latitude
         //        , gpslongitude, gpslatitude, CH4, temperature, lightIntensity
         //        , nospeed, starttime, endtime, grade, automatic, uid,screenshotImaPath,
         //        photoImaPath, remarks, resolve, implementer, exe_time)
-        hs.put("deviceName",getpre("androidIds"));
+        hs.put("deviceName", getpre("androidIds"));
         hs.put("userName", getpre("username"));
         hs.put("type", mShouDongQuZheng.getType());
         hs.put("longitude", mShouDongQuZheng.getJingdu());
-        hs.put("latitude",mShouDongQuZheng.getWeidu());
+        hs.put("latitude", mShouDongQuZheng.getWeidu());
         hs.put("gpslongitude", String.valueOf(mShouDongQuZheng.getJingdu()));
         hs.put("gpslatitude", String.valueOf(mShouDongQuZheng.getWeidu()));
         hs.put("CH4", mShouDongQuZheng.getNongdu());
@@ -3507,25 +3504,25 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
         hs.put("screenshotImaPath", alyima1);
         hs.put("photoImaPath", alyima2);
         hs.put("remarks", mShouDongQuZheng.getBeizhu());
-        hs.put("resolve","0");
-        Log.e("aass22","上传");
+        hs.put("resolve", "0");
+        Log.e("aass22", "上传");
         OkHttpUtils okHttp = OkHttpUtils.getInstance();
-        okHttp.sendDatafForClicent2(SaveAlert,hs, new OkHttpUtils.FuncJsonString() {
+        okHttp.sendDatafForClicent2(SaveAlert, hs, new OkHttpUtils.FuncJsonString() {
             @Override
             public void onResponse(String result) {
-                if(result.contains("成功")){
+                if (result.contains("成功")) {
                     toastShow("上传成功");
-                    lessUid(myDatebaseHelper,uid,id);
-                    Log.e("aass22","上传成功");
-                }else {
+                    lessUid(myDatebaseHelper, uid, id);
+                    Log.e("aass22", "上传成功");
+                } else {
 
                 }
             }
         });
     }
 
-    public void SendPost(ShouDongQuZheng ssmShouDongQuZheng){
-        Map<String,String> hs=new HashMap<>();
+    public void SendPost(ShouDongQuZheng ssmShouDongQuZheng) {
+        Map<String, String> hs = new HashMap<>();
         //http://localhost:8080/user/saveShops?latitude=33&longitude=23&placeTime=dsdsad&placeName=909
         //latitude, longitude, placeTime, placeName, deviceStatus,
         //        userName,deviceName)
@@ -3557,42 +3554,42 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
         hs.put("longitude", String.valueOf(sendlocation.getLongitude()));
         hs.put("placeName", "待定");
         //todo 未开始巡检
-        if(!isStart){
+        if (!isStart) {
             hs.put("deviceStatus", "离线");
-        }else {
+        } else {
             hs.put("deviceStatus", "在线");
         }
         hs.put("userName", getpre("username"));
-        hs.put("deviceName",getpre("androidIds"));
+        hs.put("deviceName", getpre("androidIds"));
         hs.put("alerts", "待定");
         hs.put("fault", "待定");
         hs.put("CH4", ssmShouDongQuZheng.getNongdu());
         hs.put("nospeed", ssmShouDongQuZheng.getChesu());
         hs.put("video", "待定");
-        hs.put("uid",getpre("eventId"));
+        hs.put("uid", getpre("eventId"));
         hs.put("temperature", ssmShouDongQuZheng.getWendu());
         hs.put("light", ssmShouDongQuZheng.getGuangqiang());
         hs.put("IntervalData", "待定");
         hs.put("placeTime", disposeTime());
-        Log.e("send--post2","1");
+        Log.e("send--post2", "1");
         OkHttpUtils okHttp = OkHttpUtils.getInstance();
-        okHttp.sendDatafForClicent2(SavePlaceUrl,hs, new OkHttpUtils.FuncJsonString() {
+        okHttp.sendDatafForClicent2(SavePlaceUrl, hs, new OkHttpUtils.FuncJsonString() {
             @Override
             public void onResponse(String result) {
-                if(result.contains("成功")){
+                if (result.contains("成功")) {
                     dataCheckHandler.sendEmptyMessage(1001);
-                    Log.e("send--post2","2");
-                }else {
-                    Log.e("send--post2","3");
+                    Log.e("send--post2", "2");
+                } else {
+                    Log.e("send--post2", "3");
                 }
             }
         });
-        Log.e("send--post2",ssmShouDongQuZheng.toString());
+        Log.e("send--post2", ssmShouDongQuZheng.toString());
     }
 
-    public void CheckData(){
+    public void CheckData() {
         int nd = 0;
-        if(wifidata13.size()==12){
+        if (wifidata13.size() == 12) {
             nd = Integer.parseInt(wifidata13.get(0));
         }
         ShouDongQuZheng mShouDongQuZheng = new ShouDongQuZheng();
@@ -3602,39 +3599,39 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
         mShouDongQuZheng.setDidian("暂不显示");
         //todo 经纬度
         Log.e("aadata1", String.valueOf("start"));
-        if(currentLatLng!=null){
+        if (currentLatLng != null) {
             Log.e("aadata1", String.valueOf(currentLatLng.latitude));
             Log.e("aadata2", String.valueOf(currentLatLng.longitude));
             mShouDongQuZheng.setJingdu(String.valueOf(currentLatLng.latitude));
             mShouDongQuZheng.setWeidu(String.valueOf(currentLatLng.longitude));
-        }else {
+        } else {
             mShouDongQuZheng.setJingdu(String.valueOf("0.000000000000"));
             mShouDongQuZheng.setWeidu(String.valueOf("0.000000000000"));
         }
 
-        if(wifidata10.size()>=3){
+        if (wifidata10.size() >= 3) {
             mShouDongQuZheng.setPianyiweidu(wifidata10.get(0));
             mShouDongQuZheng.setPianyijingdu(wifidata10.get(1));
             mShouDongQuZheng.setChesu(wifidata10.get(2));
-        }else {
+        } else {
             mShouDongQuZheng.setPianyijingdu("0");
             mShouDongQuZheng.setPianyiweidu("0");
             mShouDongQuZheng.setChesu("0");
         }
-        if(wifidata13.get(4)==null){
+        if (wifidata13.get(4) == null) {
             mShouDongQuZheng.setNongdu(String.valueOf("0"));
-        }else {
+        } else {
             mShouDongQuZheng.setNongdu(String.valueOf(nd));
         }
 
-        if(wifidata13.get(4)==null){
+        if (wifidata13.get(4) == null) {
             mShouDongQuZheng.setWendu("0");
-        }else {
+        } else {
             mShouDongQuZheng.setWendu(wifidata13.get(4));
         }
-        if(wifidata13.get(2)==null){
+        if (wifidata13.get(2) == null) {
             mShouDongQuZheng.setGuangqiang("0");
-        }else {
+        } else {
             mShouDongQuZheng.setGuangqiang(wifidata13.get(2));
         }
 
@@ -3646,46 +3643,46 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
         mShouDongQuZheng.setBeizhu("create-null");
         mShouDongQuZheng.setImagePath("create-null");
 
-        if(Integer.valueOf(nd)>=Integer.valueOf(getpre("GAOJINGZHI1_CHEZAI"))
-                &&Integer.valueOf(nd)<Integer.valueOf(getpre("GAOJINGZHI2_CHEZAI"))){
+        if (Integer.valueOf(nd) >= Integer.valueOf(getpre("GAOJINGZHI1_CHEZAI"))
+                && Integer.valueOf(nd) < Integer.valueOf(getpre("GAOJINGZHI2_CHEZAI"))) {
             mShouDongQuZheng.setGrade("1");
-        }else if(Integer.valueOf(nd)>=Integer.valueOf(getpre("GAOJINGZHI2_CHEZAI"))
-                &&Integer.valueOf(nd)<Integer.valueOf(getpre("GAOJINGZHI3_CHEZAI"))){
+        } else if (Integer.valueOf(nd) >= Integer.valueOf(getpre("GAOJINGZHI2_CHEZAI"))
+                && Integer.valueOf(nd) < Integer.valueOf(getpre("GAOJINGZHI3_CHEZAI"))) {
             mShouDongQuZheng.setGrade("2");
-        }else if(Integer.valueOf(nd)>=Integer.valueOf(getpre("GAOJINGZHI3_CHEZAI"))){
+        } else if (Integer.valueOf(nd) >= Integer.valueOf(getpre("GAOJINGZHI3_CHEZAI"))) {
             mShouDongQuZheng.setGrade("3");
-        }else {
+        } else {
             mShouDongQuZheng.setGrade("0");
         }
         //自动
         mShouDongQuZheng.setFlag(getpre("setflag"));
         Random random = new Random();
-        mShouDongQuZheng.setUid(disposeTime3()+String.valueOf(random.nextInt(90000000)+1));
-        Log.e("send--post111",mShouDongQuZheng.toString());
+        mShouDongQuZheng.setUid(disposeTime3() + String.valueOf(random.nextInt(90000000) + 1));
+        Log.e("send--post111", mShouDongQuZheng.toString());
         SendPost(mShouDongQuZheng);
     }
 
     private void sendPostStart() {
-        Map<String,String> hs=new HashMap<>();
+        Map<String, String> hs = new HashMap<>();
         //http://localhost:6060/user/updateEvent?starttime=1111
         // &endtime=2222&statusId=3333&deviceName=3232&eventId=5555
         Random random = new Random();
-        Log.e("aamima",createMima());
-        pre("sendpoststarttime",disposeTime());
-        hs.put("starttime",getpre("sendpoststarttime"));
+        Log.e("aamima", createMima());
+        pre("sendpoststarttime", disposeTime());
+        hs.put("starttime", getpre("sendpoststarttime"));
         hs.put("endtime", "巡检中");
         hs.put("statusId", "巡检中");
         hs.put("deviceName", getpre("androidIds"));
-        String eventId = disposeTime3()+createMima()+String.valueOf(random.nextInt(900000)+1250);
+        String eventId = disposeTime3() + createMima() + String.valueOf(random.nextInt(900000) + 1250);
         hs.put("eventId", eventId);
-        pre("eventId",eventId);
+        pre("eventId", eventId);
         OkHttpUtils okHttp = OkHttpUtils.getInstance();
-        okHttp.sendDatafForClicent2(SaveEventurl,hs, new OkHttpUtils.FuncJsonString() {
+        okHttp.sendDatafForClicent2(SaveEventurl, hs, new OkHttpUtils.FuncJsonString() {
             @Override
             public void onResponse(String result) {
-                if(result.contains("成功")){
+                if (result.contains("成功")) {
 
-                }else {
+                } else {
                     toastShow("上传信息失败！");
                 }
             }
@@ -3693,22 +3690,22 @@ public class SoneFragment1 extends BaseFragment implements OnGetPoiSearchResultL
     }
 
     private void sendPostEnd() {
-        Map<String,String> hs=new HashMap<>();
+        Map<String, String> hs = new HashMap<>();
         //http://localhost:6060/user/updateEvent?starttime=1111
         // &endtime=2222&statusId=3333&deviceName=3232&eventId=5555
-        hs.put("starttime",getpre("sendpoststarttime"));
+        hs.put("starttime", getpre("sendpoststarttime"));
         hs.put("endtime", disposeTime());
         hs.put("statusId", "巡检结束");
         hs.put("deviceName", getpre("androidIds"));
         hs.put("eventId", getpre("eventId"));
-        pre("eventId",getpre("eventId")+"end");
+        pre("eventId", getpre("eventId") + "end");
         OkHttpUtils okHttp = OkHttpUtils.getInstance();
-        okHttp.sendDatafForClicent2(SaveEventurl,hs, new OkHttpUtils.FuncJsonString() {
+        okHttp.sendDatafForClicent2(SaveEventurl, hs, new OkHttpUtils.FuncJsonString() {
             @Override
             public void onResponse(String result) {
-                if(result.contains("成功")){
+                if (result.contains("成功")) {
 
-                }else {
+                } else {
                     toastShow("上传信息失败！");
                 }
             }
