@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#e7f4fc">
+    android:background="#e7f4fc"
+    android:orientation="vertical">
 
 
     <LinearLayout
@@ -166,9 +166,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:background="@drawable/bbhuang"
                 android:layout_marginLeft="8dp"
+                android:background="@drawable/bbhuang"
+                android:gravity="center"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -182,8 +182,8 @@
                     android:id="@+id/textView11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
                     android:layout_marginLeft="3dp"
+                    android:gravity="center"
                     android:text="导出"
                     android:textColor="#000000"
                     android:textSize="14sp" />
@@ -197,27 +197,34 @@
         android:id="@+id/aaqe"
         android:layout_width="match_parent"
         android:layout_height="45dp"
+        android:layout_gravity="center"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_gravity="center"
-        android:gravity="center"
         android:background="@drawable/bbhui"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <CheckBox
             android:id="@+id/checkBox2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:theme="@style/CheckBoxTheme"
-            android:layout_weight="0.3" />
+            android:layout_weight="0.3"
+            android:theme="@style/CheckBoxTheme" />
 
-        <TextView
-            android:id="@+id/textView23"
+        <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_weight="1"
-            android:text="| 设备名称"
-            android:textStyle="bold" />
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="| 记录方式"
+                android:textStyle="bold" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textView25"
@@ -243,29 +250,22 @@
             android:text="| 时间"
             android:textStyle="bold" />
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/textView23"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="| 记录方式"
-                android:textStyle="bold" />
-        </LinearLayout>
+            android:text="| 设备名称"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <ListView
         android:id="@+id/listview1"
-        android:divider="@null"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:divider="@null">
 
     </ListView>
 
