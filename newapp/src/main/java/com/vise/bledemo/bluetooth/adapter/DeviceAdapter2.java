@@ -31,10 +31,10 @@ public class DeviceAdapter2 extends HelperAdapter<BluetoothLeDevice> {
             String deviceName = bluetoothLeDevice.getDevice().getName();
             if (deviceName != null && !deviceName.isEmpty()) {
                 PrefStore prefStore = new PrefStore(mContext);
-                if(prefStore.getPref("kailushebeiname","1").equals(deviceName)){
-                    deviceNameTv.setText(deviceName+" (上次连接)");
+                if (prefStore.getPref("kailushebeiname", "1").equals(deviceName)) {
+                    deviceNameTv.setText(deviceName + " (上次连接)");
                     ssar.setBackgroundResource(R.drawable.bbhuang);
-                }else {
+                } else {
                     deviceNameTv.setText(deviceName);
                     ssar.setBackgroundResource(R.drawable.bbhui);
                 }

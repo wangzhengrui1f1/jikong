@@ -33,6 +33,7 @@ import static com.vise.bledemo.utils.url.SQLITE_NAME;
 public abstract class BaseFragment extends Fragment {
     View view;
     public MyDatabase myDatebaseHelper;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment2, container, false);
@@ -40,13 +41,14 @@ public abstract class BaseFragment extends Fragment {
         ToastUtil.init(getActivity());
         return view;
     }
+
     @SuppressWarnings("uncheked")
     protected <T extends View> T f(int resId) {
         return (T) view.findViewById(resId);
     }
 
     @SuppressWarnings("unchecked")
-    protected <T extends View> T f(View fview,int resId) {
+    protected <T extends View> T f(View fview, int resId) {
         return (T) fview.findViewById(resId);
     }
 
@@ -63,19 +65,19 @@ public abstract class BaseFragment extends Fragment {
     }
 
 
-    public <T> void intent(Class<T> cls){
-        Intent intent = new Intent(getActivity(),cls);
+    public <T> void intent(Class<T> cls) {
+        Intent intent = new Intent(getActivity(), cls);
         startActivity(intent);
     }
 
-    public <T> void intentFinish(Class<T> cls){
-        Intent intent = new Intent(getActivity(),cls);
+    public <T> void intentFinish(Class<T> cls) {
+        Intent intent = new Intent(getActivity(), cls);
         startActivity(intent);
         getActivity().finish();
     }
 
-    public <T> void intentExit(Class<T> cls){
-        Intent intent = new Intent(getActivity(),cls);
+    public <T> void intentExit(Class<T> cls) {
+        Intent intent = new Intent(getActivity(), cls);
         startActivity(intent);
         System.exit(0);
         getActivity().finish();
@@ -97,7 +99,7 @@ public abstract class BaseFragment extends Fragment {
         return width;
     }
 
-    public void pre(Map<String,String> params){
+    public void pre(Map<String, String> params) {
         PrefStore pref = PrefStore.getInstance(getActivity());
         //键值对不为空，他的值也不为空
         if (params != null && !params.isEmpty()) {
@@ -107,18 +109,18 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    public void pre(String key,String value){
+    public void pre(String key, String value) {
         PrefStore pref = PrefStore.getInstance(getActivity());
         pref.savePref(key, value);
     }
 
-    public String getpre(String a){
+    public String getpre(String a) {
         PrefStore pref = PrefStore.getInstance(getActivity());
-        return pref.getPref(a,"1");
+        return pref.getPref(a, "1");
     }
 
     //Toast
-    public void toastShow(String msg){
+    public void toastShow(String msg) {
         BaseFragmentActivity.ToastUtil.show(msg);
     }
 
@@ -137,12 +139,12 @@ public abstract class BaseFragment extends Fragment {
         }
     }
 
-    public void close(View view){
+    public void close(View view) {
         view.setVisibility(View.GONE);
     }
 
 
-    public String getBaidujietu(final String sspath){
+    public String getBaidujietu(final String sspath) {
         // 指定区域截图
         Rect rect = new Rect(0, 0, 8000, 8000);// 左xy 右xy
         mAllBaiduMap.snapshotScope(rect, new BaiduMap.SnapshotReadyCallback() {
@@ -156,7 +158,7 @@ public abstract class BaseFragment extends Fragment {
                         out.flush();
                         out.close();
                     }
-                    Log.e("baidujietu",file.toString());
+                    Log.e("baidujietu", file.toString());
 //                    Toast.makeText(getActivity(), "屏幕截图成功，图片存在: " + file.toString(),
 //                            Toast.LENGTH_SHORT).show();
                 } catch (FileNotFoundException e) {
