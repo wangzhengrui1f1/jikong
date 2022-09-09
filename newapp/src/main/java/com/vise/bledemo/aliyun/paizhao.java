@@ -59,12 +59,12 @@ public class paizhao extends BaseActivity {
     public static final String ACCESS_ENDPOINT = "http://oss-cn-beijing.aliyuncs.com/";
     public static final String ACCESS_DOMAINNAME = "http:xxxxx";
 
-//    public static final String ACCESS_ID = "LTAI5t5nHEUsjSY5EnZTjzBD";                                  //阿里云ID
+    //    public static final String ACCESS_ID = "LTAI5t5nHEUsjSY5EnZTjzBD";                                  //阿里云ID
 //    public static final String ACCESS_KEY = "L3r0Fnd2VbVTNYcXAAIJ1N6YI2AEmI";                           //阿里云KEY
 //    public static final String ACCESS_BUCKET_NAME = "lingjiedian";
 //    public static final String ACCESS_ENDPOINT = "http://oss-cn-beijing.aliyuncs.com/";
 //    public static final String ACCESS_DOMAINNAME = "http:xxxxx";
-    List<String> lsaa =new ArrayList<>();
+    List<String> lsaa = new ArrayList<>();
     private OSSClient ossClient = null;
     private static ALiUploadManager instance = null;
     private OSSClient oss;
@@ -87,33 +87,33 @@ public class paizhao extends BaseActivity {
     private final int OPEN_RESULT = 1;//打开照相机
     private final int CHOOSE_PICTURE = 0; //选择相册图片
     File file55;
-    Bitmap bitmap222,b3;
+    Bitmap bitmap222, b3;
     private String img = "";
     TextView textView;
     String pp;
-    int index=0;
-    EditText e1,e2,e3;
-    String filePaht="";
+    int index = 0;
+    EditText e1, e2, e3;
+    String filePaht = "";
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE };
+            Manifest.permission.WRITE_EXTERNAL_STORAGE};
 
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     final OkHttpClient client = new OkHttpClient();
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
-        public void handleMessage(Message msg){
+        public void handleMessage(Message msg) {
 
-            if(msg.what==1){
-                String ReturnMessage =  (String)msg.obj;
-                Log.i("获取的返回信息",ReturnMessage);
-                if(ReturnMessage.equals("成功")){
+            if (msg.what == 1) {
+                String ReturnMessage = (String) msg.obj;
+                Log.i("获取的返回信息", ReturnMessage);
+                if (ReturnMessage.equals("成功")) {
 //                    Toast.makeText(fabu_upload.this, "添加成功！", Toast.LENGTH_SHORT).show();
 //                    Intent intent=new Intent(fabu_upload.this,uploadShow.class);
 //                    startActivity(intent);
 //                    finish();
-                }else{
+                } else {
                     Toast.makeText(paizhao.this, "添加失败,图片过大！", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -122,20 +122,21 @@ public class paizhao extends BaseActivity {
 
 
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ima);
         textView = findViewById(R.id.textView24);
         PrefStore prefStore = new PrefStore(paizhao.this);
-        prefStore.savePref("awzr","aaaa");
+        prefStore.savePref("awzr", "aaaa");
         initAlyun(paizhao.this);
-        String url2 = "https://"+ ACCESS_BUCKET_NAME + "." + ACCESS_ENDPOINT + "/" + "aaa";
+        String url2 = "https://" + ACCESS_BUCKET_NAME + "." + ACCESS_ENDPOINT + "/" + "aaa";
         Log.e("上传阿里云成功:", url2);
-        Log.e("adsad",url2);
+        Log.e("adsad", url2);
         //实例化组件
         initView();
-       // final String pdf_address = PdfUtils.ADDRESS + File.separator + "问题归纳.docx";
+        // final String pdf_address = PdfUtils.ADDRESS + File.separator + "问题归纳.docx";
         TextView wanc = findViewById(R.id.textView24);
         wanc.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,11 +148,11 @@ public class paizhao extends BaseActivity {
                         public void onSuccess(PutObjectRequest request, PutObjectResult result, String url) {
                             Log.e("上传阿里云成功:", url);
                             Log.e("上传阿里云成功:", result.toString());
-                            String url2 = "https://"+ ACCESS_BUCKET_NAME + "." + ACCESS_ENDPOINT + "/" + "aaa";
+                            String url2 = "https://" + ACCESS_BUCKET_NAME + "." + ACCESS_ENDPOINT + "/" + "aaa";
                             Log.e("上传阿里云成功:", url2);
-                            TextView textView =findViewById(R.id.textView24);
+                            TextView textView = findViewById(R.id.textView24);
                             textView.setText(result.toString());
-                            Toast.makeText(paizhao.this, ""+url, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(paizhao.this, "" + url, Toast.LENGTH_SHORT).show();
                             // putImage(url);  //路径回调至服务端
                         }
 
@@ -175,9 +176,9 @@ public class paizhao extends BaseActivity {
         });
 
 
-
     }
-        //组件初始化
+
+    //组件初始化
     private void initView() {
         //ImageView
         i1 = (ImageView) findViewById(R.id.caipu_i1);
@@ -195,66 +196,66 @@ public class paizhao extends BaseActivity {
         });
     }
 
-        /**
-         *选择图片后上传并显示在imgView
-         */
-        @Override
-        protected void onActivityResult ( int requestCode, int resultCode, Intent data){
-            switch (requestCode) {
-                //拍照获得图片
-                case OPEN_RESULT:
-                    if (resultCode == RESULT_OK) {
+    /**
+     * 选择图片后上传并显示在imgView
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            //拍照获得图片
+            case OPEN_RESULT:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        Bundle bundle = data.getExtras();
+                        bitmap222 = (Bitmap) bundle.get("data");
+                        i1.setImageBitmap(bitmap222);
+
+                        //将拍照获得的bitmap转换成图片文件并保存到本地
+                        File file = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + "aa" + ".jpg");
+                        FileOutputStream fileOutStream = new FileOutputStream(file);
                         try {
-                            Bundle bundle = data.getExtras();
-                            bitmap222 = (Bitmap) bundle.get("data");
-                            i1.setImageBitmap(bitmap222);
-
-                            //将拍照获得的bitmap转换成图片文件并保存到本地
-                            File file = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() +"aa"+ ".jpg");
-                            FileOutputStream fileOutStream = new FileOutputStream(file);
-                            try {
-                                bitmap222.compress(Bitmap.CompressFormat.JPEG, 100, fileOutStream);
-                                fileOutStream.flush();
-                                fileOutStream.close();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        } catch (Exception e) {
+                            bitmap222.compress(Bitmap.CompressFormat.JPEG, 100, fileOutStream);
+                            fileOutStream.flush();
+                            fileOutStream.close();
+                        } catch (IOException e) {
                             e.printStackTrace();
-                            Log.d("tag", e.getMessage());
-                            Toast.makeText(this, "程序崩溃", Toast.LENGTH_SHORT).show();
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d("tag", e.getMessage());
+                        Toast.makeText(this, "程序崩溃", Toast.LENGTH_SHORT).show();
                     }
-                    break;
-                //相册选择图片
-                case CHOOSE_PICTURE:
-                    if (resultCode == RESULT_OK) {
+                }
+                break;
+            //相册选择图片
+            case CHOOSE_PICTURE:
+                if (resultCode == RESULT_OK) {
 
-                        try {
-                            Uri uri = data.getData();
-                            b3 = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
-                            bitmaptoString();
-                          //  Toast.makeText(this,sa , Toast.LENGTH_SHORT).show();
-                            String path = com.example.zhihuixiaoyuan.utils.RealPathFromUriUtils.getRealPathFromUri(this, uri);
-                            filePaht =path;
-                            lsaa.add(path);
-                           // Toast.makeText(this, path, Toast.LENGTH_SHORT).show();
-                            file55 = new File(path);
+                    try {
+                        Uri uri = data.getData();
+                        b3 = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+                        bitmaptoString();
+                        //  Toast.makeText(this,sa , Toast.LENGTH_SHORT).show();
+                        String path = com.example.zhihuixiaoyuan.utils.RealPathFromUriUtils.getRealPathFromUri(this, uri);
+                        filePaht = path;
+                        lsaa.add(path);
+                        // Toast.makeText(this, path, Toast.LENGTH_SHORT).show();
+                        file55 = new File(path);
 
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            Log.d("tag", e.getMessage());
-                           // Toast.makeText(this, "程序崩溃", Toast.LENGTH_SHORT).show();
-                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d("tag", e.getMessage());
+                        // Toast.makeText(this, "程序崩溃", Toast.LENGTH_SHORT).show();
                     }
-                    break;
-            }
+                }
+                break;
         }
+    }
 
     @TargetApi(Build.VERSION_CODES.FROYO)
     public String bitmaptoString() {
-       // i1 = (ImageView) findViewById(R.id.caipu_i1);
-       // Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.id.caipu_i1);
+        // i1 = (ImageView) findViewById(R.id.caipu_i1);
+        // Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.id.caipu_i1);
         //将Bitmap转换成字符串
         ByteArrayOutputStream bStream = new ByteArrayOutputStream();
         b3.compress(Bitmap.CompressFormat.PNG, 100, bStream);
@@ -267,20 +268,20 @@ public class paizhao extends BaseActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.FROYO)
-    public Bitmap stringtoBitmap(String string){
+    public Bitmap stringtoBitmap(String string) {
         //将字符串转换成Bitmap类型
-        Bitmap bitmap=null;
+        Bitmap bitmap = null;
         try {
-            byte[]bitmapArray;
-            bitmapArray= Base64.decode(string, Base64.DEFAULT);
-            bitmap= BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
+            byte[] bitmapArray;
+            bitmapArray = Base64.decode(string, Base64.DEFAULT);
+            bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
         } catch (Exception e) {
             e.printStackTrace();
         }
         ImageView s1 = (ImageView) findViewById(R.id.imageView);
         s1.setImageBitmap(bitmap);
-        saveImageToGallery(paizhao.this,bitmap);
-       // toastShow("成功上传"+index+"张照片！");
+        saveImageToGallery(paizhao.this, bitmap);
+        // toastShow("成功上传"+index+"张照片！");
         return bitmap;
     }
 
@@ -324,7 +325,7 @@ public class paizhao extends BaseActivity {
     public OSSAsyncTask uploadFile(String filePath, final ALiUploadManager.ALiCallBack callBack) {
         // 构造上传请求
         final String key = getObjectPortraitKey(filePath);
-        Log.e("key:" , key);
+        Log.e("key:", key);
         PutObjectRequest put = new PutObjectRequest(ACCESS_BUCKET_NAME, key, filePath);
         // 异步上传时可以设置进度回调
         put.setProgressCallback(new OSSProgressCallback<PutObjectRequest>() {
@@ -332,7 +333,7 @@ public class paizhao extends BaseActivity {
             public void onProgress(PutObjectRequest request, long currentSize, long totalSize) {
                 if (callBack != null) {
                     callBack.process(currentSize, totalSize);
-                    Log.e("yibua","异步");
+                    Log.e("yibua", "异步");
                 }
             }
         });
@@ -356,10 +357,10 @@ public class paizhao extends BaseActivity {
                 }
                 if (serviceException != null) {
                     // 服务异常
-                    Log.e("ErrorCode" , serviceException.getErrorCode());
+                    Log.e("ErrorCode", serviceException.getErrorCode());
                     Log.e("RequestId", serviceException.getRequestId());
                     Log.e("HostId", serviceException.getHostId());
-                    Log.e("RawMessage" , serviceException.getRawMessage());
+                    Log.e("RawMessage", serviceException.getRawMessage());
                 }
                 if (callBack != null) {
                     callBack.onError(request, clientExcepion, serviceException);

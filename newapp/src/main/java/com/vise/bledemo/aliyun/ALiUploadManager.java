@@ -15,8 +15,6 @@ import com.alibaba.sdk.android.oss.common.auth.OSSPlainTextAKSKCredentialProvide
 import com.alibaba.sdk.android.oss.internal.OSSAsyncTask;
 import com.alibaba.sdk.android.oss.model.PutObjectRequest;
 import com.alibaba.sdk.android.oss.model.PutObjectResult;
-import com.vise.bledemo.R;
-
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -78,7 +76,7 @@ public class ALiUploadManager {
     public OSSAsyncTask uploadFile(String filePath, final ALiCallBack callBack) {
         // 构造上传请求
         final String key = getObjectPortraitKey(filePath);
-        Log.e("aaakey:" , key);
+        Log.e("aaakey:", key);
         Log.e("aliy", "uploadFile");
         PutObjectRequest put = new PutObjectRequest(ACCESS_BUCKET_NAME, key, filePath);
         // 异步上传时可以设置进度回调
@@ -114,36 +112,36 @@ public class ALiUploadManager {
                     }
                     if (serviceException != null) {
                         // 服务异常
-                        Log.e("ErrorCode" , serviceException.getErrorCode());
+                        Log.e("ErrorCode", serviceException.getErrorCode());
                         Log.e("RequestId", serviceException.getRequestId());
                         Log.e("HostId", serviceException.getHostId());
-                        Log.e("RawMessage" , serviceException.getRawMessage());
+                        Log.e("RawMessage", serviceException.getRawMessage());
                     }
                     if (callBack != null) {
                         callBack.onError(request, clientExcepion, serviceException);
                     }
                 }
             });
-        }catch (Exception e){
-            Log.e("aliy--Exception","aaa");
+        } catch (Exception e) {
+            Log.e("aliy--Exception", "aaa");
         }
-        Log.e("aliy--Exception","bbb");
+        Log.e("aliy--Exception", "bbb");
         return task;
     }
 
     //格式: portrait/201805/sfdsgfsdvsdfdsfs.jpg
     private static String getObjectPortraitKey(String path) {
         Random random = new Random();
-        String fileMd5 = "LJD"+ random.nextInt(90000)+"t"+ random.nextInt(90000)+"s"+disposeTime3();
+        String fileMd5 = "LJD" + random.nextInt(90000) + "t" + random.nextInt(90000) + "s" + disposeTime3();
         String dateString = getDateString();
         String uppath = String.format("jikong/%s/%s.jpg", dateString, fileMd5);
-        Log.e("asshangchuan",uppath);
+        Log.e("asshangchuan", uppath);
         if (alyima1.equals("create")) {
             alyima1 = uppath;
         } else {
             alyima2 = uppath;
         }
-        Log.e("assttttttttt",alyima1+"---"+alyima2);
+        Log.e("assttttttttt", alyima1 + "---" + alyima2);
         Log.e("aliy", "getObjectPortraitKey");
         return uppath;
     }

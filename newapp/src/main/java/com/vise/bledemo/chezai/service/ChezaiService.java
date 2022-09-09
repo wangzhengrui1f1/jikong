@@ -33,6 +33,7 @@ public class ChezaiService extends Service {
     private Handler changeImageHandler;
     private FragmentManager fragmentManager = null;
     private FragmentTransaction fragmentTransaction = null;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -78,7 +79,7 @@ public class ChezaiService extends Service {
 
             windowManager.addView(displayView, layoutParams);
 
-           // changeImagHandler.sendEmptyMessageDelayed(0, 2000);
+            // changeImagHandler.sendEmptyMessageDelayed(0, 2000);
         }
     }
 

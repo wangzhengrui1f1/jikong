@@ -7,33 +7,33 @@
     <application
         android:name=".baiduMap.baiduMap.view.MyApplication"
         android:allowBackup="true"
-        toxmlns:tools="http://schemas.android.com/tools"
-        tools:replace="android:label"
         android:icon="@drawable/tx"
         android:label="@string/app_name"
-        android:supportsRtl="true"
         android:networkSecurityConfig="@xml/network_security_config"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:label"
+        toxmlns:tools="http://schemas.android.com/tools">
         <activity android:name=".otherView.view2.Test1Activity"></activity>
         <activity android:name=".bluetooth.activity.BlueToothMainActivity" />
         <activity android:name=".bluetooth.activity.DeviceScanActivity" />
         <activity android:name=".bluetooth.activity.DeviceDetailActivity" />
         <activity android:name=".bluetooth.activity.DeviceControlActivity" />
-        <activity android:name=".baiduMap.baiduMap.view.MainActivity" >
+        <activity android:name=".baiduMap.baiduMap.view.MainActivity">
 
         </activity>
 
-        <activity android:name=".baiduMap.baiduMap.view.MainActivity2" >
+        <activity android:name=".baiduMap.baiduMap.view.MainActivity2">
 
         </activity>
-        <activity android:name=".baiduMap.baiduMap.view.DownMapShowActivity" >
+        <activity android:name=".baiduMap.baiduMap.view.DownMapShowActivity">
 
         </activity>
-        <activity android:name=".baiduMap.baiduMap.view.lixianList" >
+        <activity android:name=".baiduMap.baiduMap.view.lixianList">
 
         </activity>
-        <activity android:name=".chezai.view.JavaActivity" >
+        <activity android:name=".chezai.view.JavaActivity">
 
         </activity>
         <activity android:name="com.vise.bledemo.chezai.bean.MonitorActivity">
@@ -52,7 +52,7 @@
 
         <activity
             android:name=".shouchi.activity.Home"
-            android:screenOrientation="portrait" >
+            android:screenOrientation="portrait">
 
         </activity>
         <activity android:name=".bluetooth.activity.DeviceControlActivity2" />
@@ -60,7 +60,7 @@
             android:name=".kailu.view.kailuHome"
             android:screenOrientation="portrait" />
         <activity android:name=".chezai.view.chezaiHome" />
-        <activity android:name=".chezai.view.TestActivity" >
+        <activity android:name=".chezai.view.TestActivity">
 
         </activity>
         <activity android:name=".otherView.view2.Test2Activity"></activity>
@@ -68,11 +68,11 @@
 
         </activity>
         <activity android:name=".pdf.MainPdfActivity">
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
+            <!--            <intent-filter>-->
+            <!--                <action android:name="android.intent.action.MAIN" />-->
 
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--            </intent-filter>-->
+            <!--                <category android:name="android.intent.category.LAUNCHER" />-->
+            <!--            </intent-filter>-->
         </activity>
         <activity android:name=".pdf.PdfActivity">
 
@@ -85,6 +85,15 @@
         <activity android:name=".tcp.MainActivity">
 
         </activity>
+
+        <activity android:name=".chezai.service.start">
+
+        </activity>
+
+        <activity android:name="com.vise.bledemo.utils.screen.luxiang.MainActivity">
+
+        </activity>
+
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="lY2HW0taILOaSVgMyAG2IrUSQzM3txj7" />
@@ -94,12 +103,7 @@
             android:enabled="true"
             android:process=":remote" />
         <service android:name=".chezai.service.ChezaiService"></service>
-        <activity android:name=".chezai.service.start">
 
-        </activity>
-        <activity android:name="com.vise.bledemo.utils.screen.luxiang.MainActivity">
-
-        </activity>
         <service
             android:name="com.vise.bledemo.utils.screen.luxiang.ScreenCaptureService"
             android:enabled="true"
@@ -117,12 +121,17 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 这个权限用于访问GPS定位 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
         tools:ignore="ProtectedPermissions" />
-    <uses-permission android:name="android.permission.READ_FRAME_BUFFER"
+    <uses-permission
+        android:name="android.permission.READ_FRAME_BUFFER"
         tools:ignore="ProtectedPermissions" />
-    <uses-sdk android:minSdkVersion="3" />
+
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
+
+    <uses-sdk android:minSdkVersion="3" />
 </manifest>
