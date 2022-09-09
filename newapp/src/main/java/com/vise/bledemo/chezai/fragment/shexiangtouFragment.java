@@ -76,7 +76,7 @@ public class shexiangtouFragment extends BaseFragment {
     private boolean m_bNeedDecode = true;
     private boolean m_bSaveRealData = false;
     private boolean m_bStopPlayback = false;
-    private ImageView da,xiao,yuan,jin;
+    private ImageView da, xiao, yuan, jin;
 
     List<SxtBean> aadataList = new ArrayList<>();
     int aaindex = 0;
@@ -85,7 +85,7 @@ public class shexiangtouFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_shipin, container, false);
-       // init();
+        // init();
         return view;
     }
 
@@ -95,7 +95,7 @@ public class shexiangtouFragment extends BaseFragment {
 
         }
 
-        m_osurfaceView = (SurfaceView)view.findViewById(R.id.Sur_Player);
+        m_osurfaceView = (SurfaceView) view.findViewById(R.id.Sur_Player);
         da = view.findViewById(R.id.imageView8);
         xiao = view.findViewById(R.id.imageView9);
 
@@ -143,9 +143,7 @@ public class shexiangtouFragment extends BaseFragment {
         });
 
 
-
-
-       // Zhuce();
+        // Zhuce();
         Zhuce();
 
         Bofang();
@@ -167,13 +165,13 @@ public class shexiangtouFragment extends BaseFragment {
         m_osurfaceView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
-              //  backPlay(startTime,stopTime);
+                //  backPlay(startTime,stopTime);
                 HCNetSDK.getInstance()
                         .NET_DVR_GetFileByTime(m_iLogID, m_oNetDvrDeviceInfoV30.byStartChan,
                                 startTime, stopTime, new String("/sdcard/a1aaaaaRecordFile.H264"));
-               // Test_GetFileByTime(m_iLogID);
+                // Test_GetFileByTime(m_iLogID);
                 //Test_GetFileByName(m_iLogID);
-                Log.e("sxtbofang","aa"+m_oNetDvrDeviceInfoV30.byStartChan);
+                Log.e("sxtbofang", "aa" + m_oNetDvrDeviceInfoV30.byStartChan);
                 //Test_GetFileByTime(m_iLogID);
                 return false;
             }
@@ -188,12 +186,9 @@ public class shexiangtouFragment extends BaseFragment {
         String fileName = "awzrawzrawzr";
 
 
-
-
     }
 
-    public static void Test_GetFileByTime(int iUserID)
-    {
+    public static void Test_GetFileByTime(int iUserID) {
         NET_DVR_TIME timeStart = new NET_DVR_TIME();
         NET_DVR_TIME timeStop = new NET_DVR_TIME();
 
@@ -209,26 +204,23 @@ public class shexiangtouFragment extends BaseFragment {
         timeStop.dwHour = 2;
         timeStop.dwMinute = 22;
         timeStop.dwSecond = 50;
-        int nDownloadHandle = HCNetSDK.getInstance().NET_DVR_GetFileByTime(iUserID,m_oNetDvrDeviceInfoV30.byStartChan,
+        int nDownloadHandle = HCNetSDK.getInstance().NET_DVR_GetFileByTime(iUserID, m_oNetDvrDeviceInfoV30.byStartChan,
                 timeStart, timeStop, new String("/sdcard/aaaaaaRecordFile.H264"));
-        Log.e("NET_DVR_GetFileByTimea1","Nzz:"
+        Log.e("NET_DVR_GetFileByTimea1", "Nzz:"
                 + m_oNetDvrDeviceInfoV30.byStartChan);
-        if (-1 == nDownloadHandle)
-        {
+        if (-1 == nDownloadHandle) {
             System.out.println("NET_DVR_GetFileByTime failed! error:" + HCNetSDK.getInstance().NET_DVR_GetLastError());
-            Log.e("NET_DVR_GetFileByTimea","NET_DVR_GetFileByTime failed! error:"
+            Log.e("NET_DVR_GetFileByTimea", "NET_DVR_GetFileByTime failed! error:"
                     + HCNetSDK.getInstance().NET_DVR_GetLastError());
             return;
         }
         HCNetSDK.getInstance().NET_DVR_PlayBackControl_V40(nDownloadHandle, PlaybackControlCommand.NET_DVR_PLAYSTART,
                 null, 0, null);
         int nProgress = -1;
-        while(true)
-        {
+        while (true) {
             nProgress = HCNetSDK.getInstance().NET_DVR_GetDownloadPos(nDownloadHandle);
             System.out.println("NET_DVR_GetDownloadPos:" + nProgress);
-            if(nProgress < 0 || nProgress >= 100)
-            {
+            if (nProgress < 0 || nProgress >= 100) {
                 break;
             }
             try {
@@ -241,22 +233,18 @@ public class shexiangtouFragment extends BaseFragment {
         HCNetSDK.getInstance().NET_DVR_StopGetFile(nDownloadHandle);
     }
 
-    public static void Test_GetFileByName(int iUserID)
-    {
+    public static void Test_GetFileByName(int iUserID) {
         int nDownloadHandle = HCNetSDK.getInstance().NET_DVR_GetFileByName(iUserID, new String("ch0001_01000000080001900"), new String("/sdcard/RecordFileaaname"));
-        if (-1 == nDownloadHandle)
-        {
+        if (-1 == nDownloadHandle) {
             System.out.println("NET_DVR_GetFileByName failed! error:" + HCNetSDK.getInstance().NET_DVR_GetLastError());
             return;
         }
         HCNetSDK.getInstance().NET_DVR_PlayBackControl_V40(nDownloadHandle, PlaybackControlCommand.NET_DVR_PLAYSTART, null, 0, null);
         int nProgress = -1;
-        while(true)
-        {
+        while (true) {
             nProgress = HCNetSDK.getInstance().NET_DVR_GetDownloadPos(nDownloadHandle);
             System.out.println("NET_DVR_GetDownloadPos:" + nProgress);
-            if(nProgress < 0 || nProgress >= 100)
-            {
+            if (nProgress < 0 || nProgress >= 100) {
                 break;
             }
             try {
@@ -293,7 +281,7 @@ public class shexiangtouFragment extends BaseFragment {
                         startSinglePreview();
                     } else {
                         stopSinglePreview();
-                      //  m_oPreviewBtn.setText("播放");
+                        //  m_oPreviewBtn.setText("播放");
                     }
                 }
             } else {
@@ -336,7 +324,7 @@ public class shexiangtouFragment extends BaseFragment {
                     return;
                 }
 
-             //   m_oLoginBtn.setText("注销账号");
+                //   m_oLoginBtn.setText("注销账号");
                 Log.i(TAG,
                         "Login sucess ****************************1***************************");
             } else {
@@ -345,7 +333,7 @@ public class shexiangtouFragment extends BaseFragment {
                     Log.e(TAG, " NET_DVR_Logout is failed!");
                     return;
                 }
-             //   m_oLoginBtn.setText("西南摄像机");
+                //   m_oLoginBtn.setText("西南摄像机");
                 m_iLogID = -1;
             }
         } catch (Exception err) {
@@ -426,7 +414,7 @@ public class shexiangtouFragment extends BaseFragment {
 
         Log.i(TAG,
                 "NetSdk Play sucess ***********************3***************************");
-      //  m_oPreviewBtn.setText("停止");
+        //  m_oPreviewBtn.setText("停止");
     }
 
 
@@ -475,11 +463,11 @@ public class shexiangtouFragment extends BaseFragment {
     }
 
     /**
+     * @return login ID
      * @fn loginNormalDevice
      * @author zhuzhenlei
      * @brief login on device
-     *            [out]
-     * @return login ID
+     * [out]
      */
     private int loginNormalDevice() {
         // get instance
@@ -512,7 +500,6 @@ public class shexiangtouFragment extends BaseFragment {
 
         return iLogID;
     }
-
 
 
     private int loginDevice() {
@@ -559,16 +546,16 @@ public class shexiangtouFragment extends BaseFragment {
                         iDataSize, Player.STREAM_REALTIME);
 
                 try {
-                    saveFile("aaaaaaaaaa",pDataBuffer);
+                    saveFile("aaaaaaaaaa", pDataBuffer);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
 
-                Log.e("aadata",byteToStr(pDataBuffer));
+                Log.e("aadata", byteToStr(pDataBuffer));
                 Log.e("aadata2", String.valueOf(pDataBuffer.length));
                 Log.e("aadatai3DataSize", String.valueOf(iDataSize));
                 Log.e("aadatai3iDataType", String.valueOf(iDataType));
-                Log.e("aadata3",String.valueOf(aaindex)+"----"+String.valueOf(aadataList.size()));
+                Log.e("aadata3", String.valueOf(aaindex) + "----" + String.valueOf(aadataList.size()));
             }
         };
         return cbf;
@@ -595,8 +582,10 @@ public class shexiangtouFragment extends BaseFragment {
 
         return false;
     }
+
     /**
      * 将byte数组转换为字符串
+     *
      * @param b byte数组
      * @return 字符串
      */
@@ -618,9 +607,9 @@ public class shexiangtouFragment extends BaseFragment {
 
     private void bytesToImageFile(byte[] bytes) {
         try {
-            String SDCARD_PATH  = Environment.getExternalStorageDirectory().getPath();
+            String SDCARD_PATH = Environment.getExternalStorageDirectory().getPath();
             Random random = new Random();
-            File file = new File(SDCARD_PATH+"/ScreenCapture/" + random.nextInt(10000)+1+"/facenew1.png");
+            File file = new File(SDCARD_PATH + "/ScreenCapture/" + random.nextInt(10000) + 1 + "/facenew1.png");
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(bytes, 0, bytes.length);
             fos.flush();
@@ -631,7 +620,7 @@ public class shexiangtouFragment extends BaseFragment {
     }
 
 
-    public void toaa(){
+    public void toaa() {
         Toast.makeText(getActivity(), "111", Toast.LENGTH_SHORT).show();
     }
 
@@ -713,8 +702,7 @@ public class shexiangtouFragment extends BaseFragment {
     /**
      * 开始变焦 NET_DVR_PTZControl_Other参数：(播放标记, 通道， 指令码, 开始标记0或停止标记1)
      *
-     * @param x
-     *            -1近端 1远端
+     * @param x -1近端 1远端
      */
     public void startFocus2(int x) {
         if (m_iPlayID < 0) {
@@ -733,7 +721,7 @@ public class shexiangtouFragment extends BaseFragment {
         if (m_iPlayID < 0) {
             return;
         }
-        Log.e("sxtbofang","aa1");
+        Log.e("sxtbofang", "aa1");
         if (x < 0) {
             HCNetSDK.getInstance().NET_DVR_PTZControl_Other(m_iLogID, 1,
                     PTZCommand.ZOOM_OUT, 0);
@@ -766,19 +754,20 @@ public class shexiangtouFragment extends BaseFragment {
 
     /**
      * 将字节流转换成文件
+     *
      * @param filename
      * @param data
      * @throws Exception
      */
-    public static void saveFile(String filename,byte [] data)throws Exception{
-        if(data != null){
-            String filepath =SAVE_PATH;
-            File file  = new File(filepath);
-            if(file.exists()){
+    public static void saveFile(String filename, byte[] data) throws Exception {
+        if (data != null) {
+            String filepath = SAVE_PATH;
+            File file = new File(filepath);
+            if (file.exists()) {
                 file.delete();
             }
             FileOutputStream fos = new FileOutputStream(file);
-            fos.write(data,0,data.length);
+            fos.write(data, 0, data.length);
             fos.flush();
             fos.close();
         }

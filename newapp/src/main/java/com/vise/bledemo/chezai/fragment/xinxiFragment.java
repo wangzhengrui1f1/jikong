@@ -41,16 +41,17 @@ import static com.vise.bledemo.utils.url.lvguang;
 public class xinxiFragment extends BaseFragment {
     View view;
     private ImageView back;
-    private EditText e1,e2,e3,e4,e5,e6,e7,e8,text_weihao;
-    private TextView xinghao,shebeixinxi,aat1,aat2,aat3;
-    private Button save,b1,b2,b3,biaoding,huifu;
-    private EditText b4,b5,b6;
+    private EditText e1, e2, e3, e4, e5, e6, e7, e8, text_weihao;
+    private TextView xinghao, shebeixinxi, aat1, aat2, aat3;
+    private Button save, b1, b2, b3, biaoding, huifu;
+    private EditText b4, b5, b6;
     Switch switch1;
     int saveDw;
     //todo 对比视频信息是否进行了修改
-    String spIP,spYanma,spWangGuan,spZhanghao,spMima;
+    String spIP, spYanma, spWangGuan, spZhanghao, spMima;
     // 16进制数字：大小写不影响
-    private final static char[] HEXDIGITS = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+    private final static char[] HEXDIGITS = {'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -73,9 +74,9 @@ public class xinxiFragment extends BaseFragment {
     }
 
     private void duibi() {
-        if(spIP.equals(getpre("e1"))&&spYanma.equals(getpre("e2"))&&spWangGuan.equals(getpre("e3"))&&spZhanghao.equals(getpre("e4"))
-                &&spMima.equals(getpre("e5"))){
-        }else {
+        if (spIP.equals(getpre("e1")) && spYanma.equals(getpre("e2")) && spWangGuan.equals(getpre("e3")) && spZhanghao.equals(getpre("e4"))
+                && spMima.equals(getpre("e5"))) {
+        } else {
             FragmentManager fragmentManager = getFragmentManager();
             final shexiangtouFragment id = (shexiangtouFragment) fragmentManager.findFragmentByTag("shipin");
             id.Zhuce();
@@ -91,12 +92,12 @@ public class xinxiFragment extends BaseFragment {
     //TODO GAOJINGZHI3_CHEZAI 告警其他-车载  pre("GAOJINGZHI3_CHEZAI",s.toString());
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void initleft() {
-        b1 = f(view,R.id.b1);
-        b2 = f(view,R.id.b2);
-        b3 = f(view,R.id.b3);
-        b4 = f(view,R.id.b4);
-        b5 = f(view,R.id.b5);
-        b6 = f(view,R.id.b6);
+        b1 = f(view, R.id.b1);
+        b2 = f(view, R.id.b2);
+        b3 = f(view, R.id.b3);
+        b4 = f(view, R.id.b4);
+        b5 = f(view, R.id.b5);
+        b6 = f(view, R.id.b6);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -156,7 +157,7 @@ public class xinxiFragment extends BaseFragment {
             }
         });
 
-        if(getpre("TESTTYPE_CHEZAI").equals("PPM.M")){
+        if (getpre("TESTTYPE_CHEZAI").equals("PPM.M")) {
             saveDw = 0;
             b1.setBackgroundResource(R.drawable.bb01);
             b2.setBackgroundResource(R.drawable.bbhui);
@@ -171,7 +172,7 @@ public class xinxiFragment extends BaseFragment {
             aat1.setText("ppm.m");
             aat2.setText("ppm.m");
             aat3.setText("ppm.m");
-        }else if(getpre("TESTTYPE_CHEZAI").equals("VOL.M")){
+        } else if (getpre("TESTTYPE_CHEZAI").equals("VOL.M")) {
             saveDw = 1;
             b2.setBackgroundResource(R.drawable.bb01);
             b1.setBackgroundResource(R.drawable.bbhui);
@@ -180,13 +181,13 @@ public class xinxiFragment extends BaseFragment {
             b1.setTextColor(getResources().getColor(R.color.black));
             b3.setTextColor(getResources().getColor(R.color.black));
             //获取告警值
-            b4.setText(String.valueOf(Integer.valueOf(getpre("GAOJINGZHI1_CHEZAI"))/500));
-            b5.setText(String.valueOf(Integer.valueOf(getpre("GAOJINGZHI2_CHEZAI"))/500));
-            b6.setText(String.valueOf(Integer.valueOf(getpre("GAOJINGZHI3_CHEZAI"))/500));
+            b4.setText(String.valueOf(Integer.valueOf(getpre("GAOJINGZHI1_CHEZAI")) / 500));
+            b5.setText(String.valueOf(Integer.valueOf(getpre("GAOJINGZHI2_CHEZAI")) / 500));
+            b6.setText(String.valueOf(Integer.valueOf(getpre("GAOJINGZHI3_CHEZAI")) / 500));
             aat1.setText("vol.m");
             aat2.setText("vol.m");
             aat3.setText("vol.m");
-        }else if(getpre("TESTTYPE_CHEZAI").equals("LEL.M")){
+        } else if (getpre("TESTTYPE_CHEZAI").equals("LEL.M")) {
             saveDw = 2;
             b3.setTextColor(getResources().getColor(R.color.huangse2));
             b2.setTextColor(getResources().getColor(R.color.black));
@@ -194,19 +195,19 @@ public class xinxiFragment extends BaseFragment {
             b3.setBackgroundResource(R.drawable.bb01);
             b2.setBackgroundResource(R.drawable.bbhui);
             b1.setBackgroundResource(R.drawable.bbhui);
-            b4.setText(String.valueOf(Float.valueOf(getpre("GAOJINGZHI1_CHEZAI"))/10000));
-            b5.setText(String.valueOf(Float.valueOf(getpre("GAOJINGZHI2_CHEZAI"))/10000));
-            b6.setText(String.valueOf(Integer.valueOf(getpre("GAOJINGZHI3_CHEZAI"))/10000));
+            b4.setText(String.valueOf(Float.valueOf(getpre("GAOJINGZHI1_CHEZAI")) / 10000));
+            b5.setText(String.valueOf(Float.valueOf(getpre("GAOJINGZHI2_CHEZAI")) / 10000));
+            b6.setText(String.valueOf(Integer.valueOf(getpre("GAOJINGZHI3_CHEZAI")) / 10000));
             aat1.setText("lel.m");
             aat2.setText("lel.m");
             aat3.setText("lel.m");
-        //首次
-        }else {
+            //首次
+        } else {
             saveDw = 0;
-            pre("TESTTYPE_CHEZAI","PPM.M");
-            pre("GAOJINGZHI1_CHEZAI","15000");
-            pre("GAOJINGZHI2_CHEZAI","25000");
-            pre("GAOJINGZHI3_CHEZAI","30000");
+            pre("TESTTYPE_CHEZAI", "PPM.M");
+            pre("GAOJINGZHI1_CHEZAI", "15000");
+            pre("GAOJINGZHI2_CHEZAI", "25000");
+            pre("GAOJINGZHI3_CHEZAI", "30000");
             b1.setBackgroundResource(R.drawable.bb01);
             b2.setBackgroundResource(R.drawable.bbhui);
             b3.setBackgroundResource(R.drawable.bbhui);
@@ -215,13 +216,13 @@ public class xinxiFragment extends BaseFragment {
             b5.setText(getpre("GAOJINGZHI2_CHEZAI"));
             b6.setText(getpre("GAOJINGZHI3_CHEZAI"));
         }
-        if(!getpre("GAOJINGZHI3_CHEZAI").equals("1")){
-           // text_qita.setText(getpre("GAOJINGZHI3_CHEZAI"));
+        if (!getpre("GAOJINGZHI3_CHEZAI").equals("1")) {
+            // text_qita.setText(getpre("GAOJINGZHI3_CHEZAI"));
         }
 
-        if(!getpre("SHEBEIWEIHAO").equals("1")){
+        if (!getpre("SHEBEIWEIHAO").equals("1")) {
             text_weihao.setText(getpre("SHEBEIWEIHAO"));
-           // xinghao.setText("设备型号:"+getpre("SHEBEIWEIHAO"));
+            // xinghao.setText("设备型号:"+getpre("SHEBEIWEIHAO"));
         }
 
 //        switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -251,23 +252,23 @@ public class xinxiFragment extends BaseFragment {
                 getActivity().finish();
             }
         });
-        e1 = f(view,R.id.e1);
-        e2 = f(view,R.id.e2);
-        e3 = f(view,R.id.e3);
-        e4 = f(view,R.id.e4);
-        e5 = f(view,R.id.e5);
-        e6 = f(view,R.id.e6);
-        e7 = f(view,R.id.e7);
-        e8 = f(view,R.id.e8);
-        huifu = f(view,R.id.button6);
-        aat1 = f(view,R.id.aat1);
-        aat2 = f(view,R.id.aat2);
-        aat3 = f(view,R.id.aat3);
-        text_weihao = f(view,R.id.text_weihao);
-        xinghao = f(view,R.id.xinghao);
-        save = f(view,R.id.save);
-        shebeixinxi = f(view,R.id.shebeixinxi);
-        if(!getpre("e1").equals("1")){
+        e1 = f(view, R.id.e1);
+        e2 = f(view, R.id.e2);
+        e3 = f(view, R.id.e3);
+        e4 = f(view, R.id.e4);
+        e5 = f(view, R.id.e5);
+        e6 = f(view, R.id.e6);
+        e7 = f(view, R.id.e7);
+        e8 = f(view, R.id.e8);
+        huifu = f(view, R.id.button6);
+        aat1 = f(view, R.id.aat1);
+        aat2 = f(view, R.id.aat2);
+        aat3 = f(view, R.id.aat3);
+        text_weihao = f(view, R.id.text_weihao);
+        xinghao = f(view, R.id.xinghao);
+        save = f(view, R.id.save);
+        shebeixinxi = f(view, R.id.shebeixinxi);
+        if (!getpre("e1").equals("1")) {
             e1.setText(getpre("e1"));
             e2.setText(getpre("e2"));
             e3.setText(getpre("e3"));
@@ -288,54 +289,53 @@ public class xinxiFragment extends BaseFragment {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                pre("e1",e1.getText().toString());
-                pre("e2",e2.getText().toString());
-                pre("e3",e3.getText().toString());
-                pre("e4",e4.getText().toString());
-                pre("e5",e5.getText().toString());
-                pre("e6",e6.getText().toString());
-                pre("e7",e7.getText().toString());
-                pre("e8",e8.getText().toString());
-                Double data1 = Double.valueOf(String.format("%.0f",Double.valueOf(b4.getText().toString())));
-                Double data2 = Double.valueOf(String.format("%.0f",Double.valueOf(b5.getText().toString())));
-                Double data3 = Double.valueOf(String.format("%.0f",Double.valueOf(b6.getText().toString())));
-                if(data1>=0 && data2>=0 && data3>=0 && data1<data2 && data2<data3){
-                    if(getpre("TESTTYPE_CHEZAI").equals("PPM.M")){
+                pre("e1", e1.getText().toString());
+                pre("e2", e2.getText().toString());
+                pre("e3", e3.getText().toString());
+                pre("e4", e4.getText().toString());
+                pre("e5", e5.getText().toString());
+                pre("e6", e6.getText().toString());
+                pre("e7", e7.getText().toString());
+                pre("e8", e8.getText().toString());
+                Double data1 = Double.valueOf(String.format("%.0f", Double.valueOf(b4.getText().toString())));
+                Double data2 = Double.valueOf(String.format("%.0f", Double.valueOf(b5.getText().toString())));
+                Double data3 = Double.valueOf(String.format("%.0f", Double.valueOf(b6.getText().toString())));
+                if (data1 >= 0 && data2 >= 0 && data3 >= 0 && data1 < data2 && data2 < data3) {
+                    if (getpre("TESTTYPE_CHEZAI").equals("PPM.M")) {
                         //报警值
-                        pre("GAOJINGZHI1_CHEZAI",b4.getText().toString());
-                        pre("GAOJINGZHI2_CHEZAI",b5.getText().toString());
-                        pre("GAOJINGZHI3_CHEZAI",b6.getText().toString());
-                    }else if(getpre("TESTTYPE_CHEZAI").equals("VOL.M")){
+                        pre("GAOJINGZHI1_CHEZAI", b4.getText().toString());
+                        pre("GAOJINGZHI2_CHEZAI", b5.getText().toString());
+                        pre("GAOJINGZHI3_CHEZAI", b6.getText().toString());
+                    } else if (getpre("TESTTYPE_CHEZAI").equals("VOL.M")) {
                         data1 *= 500;
                         data2 *= 500;
                         data3 *= 500;
                         //报警值
-                        pre("GAOJINGZHI1_CHEZAI",String.valueOf(data1.intValue()));
-                        pre("GAOJINGZHI2_CHEZAI",String.valueOf(data2.intValue()));
-                        pre("GAOJINGZHI3_CHEZAI",String.valueOf(data3.intValue()));
-                    }else if(getpre("TESTTYPE_CHEZAI").equals("LEL.M")){
+                        pre("GAOJINGZHI1_CHEZAI", String.valueOf(data1.intValue()));
+                        pre("GAOJINGZHI2_CHEZAI", String.valueOf(data2.intValue()));
+                        pre("GAOJINGZHI3_CHEZAI", String.valueOf(data3.intValue()));
+                    } else if (getpre("TESTTYPE_CHEZAI").equals("LEL.M")) {
                         data1 *= 10000;
                         data2 *= 10000;
                         data3 *= 10000;
                         //报警值
-                        pre("GAOJINGZHI1_CHEZAI",String.valueOf(data1.intValue()));
-                        pre("GAOJINGZHI2_CHEZAI",String.valueOf(data2.intValue()));
-                        pre("GAOJINGZHI3_CHEZAI",String.valueOf(data3.intValue()));
+                        pre("GAOJINGZHI1_CHEZAI", String.valueOf(data1.intValue()));
+                        pre("GAOJINGZHI2_CHEZAI", String.valueOf(data2.intValue()));
+                        pre("GAOJINGZHI3_CHEZAI", String.valueOf(data3.intValue()));
                     }
                     TaskCenter.sharedCenter().connect(getpre("e6"), Integer.parseInt(getpre("e8")));
                     duibi();
                     tips();
-                }else {
+                } else {
                     toastShow("输入的报警值信息错误.");
                 }
-                if(saveDw == 0){
-                    pre("TESTTYPE_CHEZAI","PPM.M");
-                }else if (saveDw ==1){
-                    pre("TESTTYPE_CHEZAI","VOL.M");
-                }else if (saveDw ==2){
-                    pre("TESTTYPE_CHEZAI","LEL.M");
+                if (saveDw == 0) {
+                    pre("TESTTYPE_CHEZAI", "PPM.M");
+                } else if (saveDw == 1) {
+                    pre("TESTTYPE_CHEZAI", "VOL.M");
+                } else if (saveDw == 2) {
+                    pre("TESTTYPE_CHEZAI", "LEL.M");
                 }
-
 
 
             }
@@ -355,9 +355,9 @@ public class xinxiFragment extends BaseFragment {
 
             @Override
             public void afterTextChanged(Editable s) {
-                pre("SHEBEIWEIHAO",s.toString());
+                pre("SHEBEIWEIHAO", s.toString());
                 toastShow("设备型号更新完成.");
-               // xinghao.setText("设备型号:"+getpre("SHEBEIWEIHAO"));
+                // xinghao.setText("设备型号:"+getpre("SHEBEIWEIHAO"));
             }
         };
         text_weihao.addTextChangedListener(watcher2);
@@ -417,18 +417,18 @@ public class xinxiFragment extends BaseFragment {
             @SuppressLint("ResourceAsColor")
             @Override
             public void run() {
-                if(bfm.equals("成功")){
+                if (bfm.equals("成功")) {
                     text_bd.setText("标定成功");
                     text_bd.setTextColor(R.color.huangse);
-                }else if(bfm.equals("失败")){
+                } else if (bfm.equals("失败")) {
                     text_bd.setText("标定失败");
-                }else if(bfm.equals("超时")){
+                } else if (bfm.equals("超时")) {
                     text_bd.setText("标峰超时");
-                }else if(bfm.equals("关闭")){
+                } else if (bfm.equals("关闭")) {
 
                 }
             }
-        },20000);
+        }, 20000);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -446,10 +446,10 @@ public class xinxiFragment extends BaseFragment {
     private void tipsInfo() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.item_shebeixinxi, null);
-        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
-        final AlertDialog dialog=builder.create();
-       // dialog.setCancelable(true);
+        final AlertDialog dialog = builder.create();
+        // dialog.setCancelable(true);
 
         dialog.show();
 
@@ -459,27 +459,27 @@ public class xinxiFragment extends BaseFragment {
     private void tips_huifu() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.item_huifu, null);
-        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
-        final AlertDialog dialog=builder.create();
+        final AlertDialog dialog = builder.create();
         dialog.setCancelable(false);
-        final Button ok =view.findViewById(R.id.button5);
-        final Button quxiao =view.findViewById(R.id.button9);
+        final Button ok = view.findViewById(R.id.button5);
+        final Button quxiao = view.findViewById(R.id.button9);
 
         ok.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View view) {
 
-            e1.setText("192.168.1.64");
-            e2.setText("255.255.255.0");
-            e3.setText("8000");
-            e4.setText("admin");
-            e5.setText("abcd1234");
-            e6.setText("192.168.1.195");
-            e7.setText("255.255.255.0");
-            e8.setText("503");
-            text_weihao.setText("xlj0001");
+                e1.setText("192.168.1.64");
+                e2.setText("255.255.255.0");
+                e3.setText("8000");
+                e4.setText("admin");
+                e5.setText("abcd1234");
+                e6.setText("192.168.1.195");
+                e7.setText("255.255.255.0");
+                e8.setText("503");
+                text_weihao.setText("xlj0001");
 
                 b1.setBackgroundResource(R.drawable.bb01);
                 b1.setTextColor(getResources().getColor(R.color.huangse2));
@@ -503,8 +503,6 @@ public class xinxiFragment extends BaseFragment {
         });
         dialog.show();
     }
-
-
 
 
 }

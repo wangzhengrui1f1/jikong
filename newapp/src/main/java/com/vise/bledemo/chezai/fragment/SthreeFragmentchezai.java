@@ -75,16 +75,16 @@ public class SthreeFragmentchezai extends BaseFragment {
     ChejingBaoAdapter adapter;
     ListView listView;
     private ImageView back;
-    private EditText starttime,endtime,shebeiid,caozuoyuan;
+    private EditText starttime, endtime, shebeiid, caozuoyuan;
     private LinearLayout daochu;
-    String time1="-1",time2="-1";
+    String time1 = "-1", time2 = "-1";
     private Button del;
     private CheckBox delcheckBox;
     int index = 0;
-    Activity activitys =getActivity();
+    Activity activitys = getActivity();
     View ScrccView = null;
     public Thread dataCheckThread;
-    public Handler dataCheckHandler=new Handler() {
+    public Handler dataCheckHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             //刷新重绘view
@@ -116,15 +116,14 @@ public class SthreeFragmentchezai extends BaseFragment {
                              Bundle savedInstanceState) {
 
         view = inflater.inflate(R.layout.fragment33, container, false);
-        activitys =getActivity();
+        activitys = getActivity();
         myDatebaseHelper = new MyDatabase(getActivity(), SQLITE_NAME, null, 1);
         init();
         start();
-        Log.e("aazz","0");
+        Log.e("aazz", "0");
         initProgress();
         return view;
     }
-
 
 
     /**
@@ -140,12 +139,12 @@ public class SthreeFragmentchezai extends BaseFragment {
     }
 
     private void start() {
-        if(dataCheckThread==null){
-            dataCheckThread=new Thread(){
+        if (dataCheckThread == null) {
+            dataCheckThread = new Thread() {
                 @Override
                 public void run() {
                     super.run();
-                    while (true){
+                    while (true) {
                         try {
                             //休眠500ms
                             sleep(1000);
@@ -153,15 +152,15 @@ public class SthreeFragmentchezai extends BaseFragment {
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        if(startFalg == 0){
+                        if (startFalg == 0) {
                             continue;
                         }
 
-                        if(index >= pdfList.size()){
+                        if (index >= pdfList.size()) {
                             startFalg = 0;
                             finishFlag = 1;
-                        }else {
-                            if(finishFlag == 0){
+                        } else {
+                            if (finishFlag == 0) {
                                 finishFlag = 1;
                                 dataCheckHandler.sendEmptyMessage(31);
                             }
@@ -169,9 +168,7 @@ public class SthreeFragmentchezai extends BaseFragment {
                         }
 
 
-
-
-                        Log.e("xianchen","start");
+                        Log.e("xianchen", "start");
 
                     }
                 }
@@ -179,6 +176,7 @@ public class SthreeFragmentchezai extends BaseFragment {
             dataCheckThread.start();
         }
     }
+
     private void init() {
         delcheckBox = (CheckBox) view.findViewById(R.id.checkBox2);
         back = (ImageView) view.findViewById(R.id.back);
@@ -201,23 +199,23 @@ public class SthreeFragmentchezai extends BaseFragment {
         starttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               gettimes(starttime);
+                gettimes(starttime);
             }
         });
-        daochu = f(view,R.id.daochu);
+        daochu = f(view, R.id.daochu);
         daochu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-             //   intent(MainPdfActivity.class);
-                if(pdfList.size()==0){
+                //   intent(MainPdfActivity.class);
+                if (pdfList.size() == 0) {
                     toastShow("无导出数据");
-                }else {
+                } else {
                     daochuList.clear();
                     //todo 开始
                     index = 0;
                     startFalg = 1;
                     Log.e("sizeaa", String.valueOf(pdfList.size()));
-                   // dataCheckHandler.sendEmptyMessage(31);
+                    // dataCheckHandler.sendEmptyMessage(31);
                 }
 
             }
@@ -255,9 +253,9 @@ public class SthreeFragmentchezai extends BaseFragment {
             @Override
             public void afterTextChanged(Editable s) {
                 ls.clear();
-                ls = getCheZaiBaoJing(myDatebaseHelper,time1,time2,shebeiid.getText().toString(),
+                ls = getCheZaiBaoJing(myDatebaseHelper, time1, time2, shebeiid.getText().toString(),
                         caozuoyuan.getText().toString());
-                Log.e("ttatta-操作人员",caozuoyuan.getText().toString());
+                Log.e("ttatta-操作人员", caozuoyuan.getText().toString());
                 InitListview(0);
             }
         });
@@ -276,9 +274,9 @@ public class SthreeFragmentchezai extends BaseFragment {
             @Override
             public void afterTextChanged(Editable s) {
                 ls.clear();
-                ls = getCheZaiBaoJing(myDatebaseHelper,time1,time2,shebeiid.getText().toString(),
+                ls = getCheZaiBaoJing(myDatebaseHelper, time1, time2, shebeiid.getText().toString(),
                         caozuoyuan.getText().toString());
-                Log.e("ttatta-操作人员",caozuoyuan.getText().toString());
+                Log.e("ttatta-操作人员", caozuoyuan.getText().toString());
                 InitListview(0);
             }
         });
@@ -286,15 +284,15 @@ public class SthreeFragmentchezai extends BaseFragment {
         delcheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
+                if (b) {
                     delList.clear();
                     ls.clear();
-                    ls = getCheZaiBaoJing(myDatebaseHelper,"-1","-1","-1","-1");
+                    ls = getCheZaiBaoJing(myDatebaseHelper, "-1", "-1", "-1", "-1");
                     InitListview(1);
-                }else {
+                } else {
                     delList.clear();
                     ls.clear();
-                    ls = getCheZaiBaoJing(myDatebaseHelper,"-1","-1","-1","-1");
+                    ls = getCheZaiBaoJing(myDatebaseHelper, "-1", "-1", "-1", "-1");
                     InitListview(0);
                 }
             }
@@ -302,36 +300,36 @@ public class SthreeFragmentchezai extends BaseFragment {
 
     }
 
-    public void gettimes(final EditText editText){
-        Calendar calendar=Calendar.getInstance();
-        new DatePickerDialog( getActivity(), new DatePickerDialog.OnDateSetListener() {
+    public void gettimes(final EditText editText) {
+        Calendar calendar = Calendar.getInstance();
+        new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                String m,r;
-                m = String.valueOf(month+1);
+                String m, r;
+                m = String.valueOf(month + 1);
                 r = String.valueOf(dayOfMonth);
-                if(Integer.valueOf(m)<10){
-                    m = "0"+m;
+                if (Integer.valueOf(m) < 10) {
+                    m = "0" + m;
                 }
-                if(Integer.valueOf(r)<10){
-                    r = "0"+r;
+                if (Integer.valueOf(r) < 10) {
+                    r = "0" + r;
                 }
-                if(starttime == editText){
-                    time1 = ""+year + (m) + r;
+                if (starttime == editText) {
+                    time1 = "" + year + (m) + r;
                     String text = "你选择了：" + year + "年" + (m) + "月" + r + "日";
                     toastShow(text);
                 }
 
-                if(endtime == editText){
-                    time2 = ""+year + (m) + r;
+                if (endtime == editText) {
+                    time2 = "" + year + (m) + r;
                     String text = "你选择了：" + year + "年" + (m) + "月" + r + "日";
                     toastShow(text);
                 }
 
                 editText.setText(year + "年" + (m) + "月" + r + "日");
-                if(!endtime.getText().toString().equals("")&&!starttime.getText().toString().equals("")){
+                if (!endtime.getText().toString().equals("") && !starttime.getText().toString().equals("")) {
                     ls.clear();
-                    ls = getCheZaiBaoJing(myDatebaseHelper,time1,time2,shebeiid.getText().toString(),
+                    ls = getCheZaiBaoJing(myDatebaseHelper, time1, time2, shebeiid.getText().toString(),
                             caozuoyuan.getText().toString());
                     InitListview(0);
                     Log.e("wwzzertime1", String.valueOf(time1));
@@ -339,28 +337,28 @@ public class SthreeFragmentchezai extends BaseFragment {
                 }
             }
         }
-                ,calendar.get(Calendar.YEAR)
-                ,calendar.get(Calendar.MONTH)
-                ,calendar.get(Calendar.DAY_OF_MONTH)).show();
+                , calendar.get(Calendar.YEAR)
+                , calendar.get(Calendar.MONTH)
+                , calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser){
+        if (isVisibleToUser) {
             //TODO 可见操作
             ls.clear();
-            ls = getCheZaiBaoJing(myDatebaseHelper,"-1","-1","-1","-1");
+            ls = getCheZaiBaoJing(myDatebaseHelper, "-1", "-1", "-1", "-1");
             InitListview(0);
             //上传
             List<ShouDongQuZheng> shangchuan = new ArrayList<>();
-            shangchuan = getCheZaiBaoJing(myDatebaseHelper,"-1","-1","-1","-1");
-            if(shangchuan.size()>0){
-                for( int i = 0; i < shangchuan.size(); i++ ){
-                    if(shangchuan.get(i).getUid().contains("AA")){
+            shangchuan = getCheZaiBaoJing(myDatebaseHelper, "-1", "-1", "-1", "-1");
+            if (shangchuan.size() > 0) {
+                for (int i = 0; i < shangchuan.size(); i++) {
+                    if (shangchuan.get(i).getUid().contains("AA")) {
 
-                    }else {
+                    } else {
                         //上传
                         SendPost2(shangchuan.get(i));
                     }
@@ -373,7 +371,7 @@ public class SthreeFragmentchezai extends BaseFragment {
     }
 
     private void InitListview(int del) {
-        adapter = new ChejingBaoAdapter(getActivity(),ls,del){
+        adapter = new ChejingBaoAdapter(getActivity(), ls, del) {
             @Override
             public View getView(final int position, View convertView, ViewGroup parent) {
                 final View view = super.getView(position, convertView, parent);
@@ -396,35 +394,35 @@ public class SthreeFragmentchezai extends BaseFragment {
     private void tips(ShouDongQuZheng shouDongQuZheng) {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.item_shouchi3, null);
-        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
-        final AlertDialog dialog=builder.create();
+        final AlertDialog dialog = builder.create();
         dialog.setCancelable(false);
         final ImageView exit = view.findViewById(R.id.exit);
         final ImageView imaswzr = view.findViewById(R.id.imaswzr);
-        final TextView info10 =view.findViewById(R.id.info10);
-        final TextView info11 =view.findViewById(R.id.info11);
-        final TextView info12 =view.findViewById(R.id.info12);
-        final TextView info13 =view.findViewById(R.id.info13);
-        final TextView info14 =view.findViewById(R.id.info14);
-        final TextView info15 =view.findViewById(R.id.info15);
-        final TextView info16 =view.findViewById(R.id.info16);
-        final TextView info17 =view.findViewById(R.id.info17);
-        final TextView info18 =view.findViewById(R.id.info18);
-        final TextView info19 =view.findViewById(R.id.info19);
+        final TextView info10 = view.findViewById(R.id.info10);
+        final TextView info11 = view.findViewById(R.id.info11);
+        final TextView info12 = view.findViewById(R.id.info12);
+        final TextView info13 = view.findViewById(R.id.info13);
+        final TextView info14 = view.findViewById(R.id.info14);
+        final TextView info15 = view.findViewById(R.id.info15);
+        final TextView info16 = view.findViewById(R.id.info16);
+        final TextView info17 = view.findViewById(R.id.info17);
+        final TextView info18 = view.findViewById(R.id.info18);
+        final TextView info19 = view.findViewById(R.id.info19);
         final LinearLayout rootview = view.findViewById(R.id.rootview);
-        info10.setText(" "+shouDongQuZheng.getUsername());
-        info11.setText(" "+shouDongQuZheng.getType());
-        info12.setText(" "+shouDongQuZheng.getDidian());
-        info13.setText(" "+shouDongQuZheng.getEndtime());
-        info14.setText(" "+shouDongQuZheng.getNongdu());
-        info15.setText(" "+shouDongQuZheng.getWendu());
-        info16.setText(" "+shouDongQuZheng.getGuangqiang());
-        info17.setText(" "+shouDongQuZheng.getChesu());
-        info18.setText(" "+shouDongQuZheng.getStarttime()+" 至 "+shouDongQuZheng.getEndtime());
-        info19.setText(" "+shouDongQuZheng.getBeizhu());
+        info10.setText(" " + shouDongQuZheng.getUsername());
+        info11.setText(" " + shouDongQuZheng.getType());
+        info12.setText(" " + shouDongQuZheng.getDidian());
+        info13.setText(" " + shouDongQuZheng.getEndtime());
+        info14.setText(" " + shouDongQuZheng.getNongdu());
+        info15.setText(" " + shouDongQuZheng.getWendu());
+        info16.setText(" " + shouDongQuZheng.getGuangqiang());
+        info17.setText(" " + shouDongQuZheng.getChesu());
+        info18.setText(" " + shouDongQuZheng.getStarttime() + " 至 " + shouDongQuZheng.getEndtime());
+        info19.setText(" " + shouDongQuZheng.getBeizhu());
 
-        if(shouDongQuZheng.getImagePath()!=null){
+        if (shouDongQuZheng.getImagePath() != null) {
             imaurl = shouDongQuZheng.getImagePath();
             Glide.with(getActivity()).load(shouDongQuZheng.getImagePath()).into(imaswzr);
         }
@@ -442,49 +440,49 @@ public class SthreeFragmentchezai extends BaseFragment {
     private void tips2(ShouDongQuZheng shouDongQuZheng) {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.item_shouchi3, null);
-        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
-        final AlertDialog dialog=builder.create();
+        final AlertDialog dialog = builder.create();
         dialog.setCancelable(false);
         final ImageView exit = view.findViewById(R.id.exit);
         imaswzr = view.findViewById(R.id.imaswzr);
-        final TextView info10 =view.findViewById(R.id.info10);
-        final TextView info11 =view.findViewById(R.id.info11);
-        final TextView info12 =view.findViewById(R.id.info12);
-        final TextView info13 =view.findViewById(R.id.info13);
-        final TextView info14 =view.findViewById(R.id.info14);
-        final TextView info15 =view.findViewById(R.id.info15);
-        final TextView info16 =view.findViewById(R.id.info16);
-        final TextView info17 =view.findViewById(R.id.info17);
-        final TextView info18 =view.findViewById(R.id.info18);
-        final TextView info19 =view.findViewById(R.id.info19);
+        final TextView info10 = view.findViewById(R.id.info10);
+        final TextView info11 = view.findViewById(R.id.info11);
+        final TextView info12 = view.findViewById(R.id.info12);
+        final TextView info13 = view.findViewById(R.id.info13);
+        final TextView info14 = view.findViewById(R.id.info14);
+        final TextView info15 = view.findViewById(R.id.info15);
+        final TextView info16 = view.findViewById(R.id.info16);
+        final TextView info17 = view.findViewById(R.id.info17);
+        final TextView info18 = view.findViewById(R.id.info18);
+        final TextView info19 = view.findViewById(R.id.info19);
         final LinearLayout rootview = view.findViewById(R.id.rootview);
-        Log.e("aazz","3");
-        info10.setText(" "+shouDongQuZheng.getUsername());
-        info11.setText(" "+shouDongQuZheng.getType());
-        info12.setText(" "+shouDongQuZheng.getDidian());
-        info13.setText(" "+shouDongQuZheng.getEndtime());
-        info14.setText(" "+shouDongQuZheng.getNongdu());
-        info15.setText(" "+shouDongQuZheng.getWendu());
-        info16.setText(" "+shouDongQuZheng.getGuangqiang());
+        Log.e("aazz", "3");
+        info10.setText(" " + shouDongQuZheng.getUsername());
+        info11.setText(" " + shouDongQuZheng.getType());
+        info12.setText(" " + shouDongQuZheng.getDidian());
+        info13.setText(" " + shouDongQuZheng.getEndtime());
+        info14.setText(" " + shouDongQuZheng.getNongdu());
+        info15.setText(" " + shouDongQuZheng.getWendu());
+        info16.setText(" " + shouDongQuZheng.getGuangqiang());
         try {
             if (shouDongQuZheng.getChesu() == null) {
-                info17.setText(" "+"0");
+                info17.setText(" " + "0");
             } else {
-                info17.setText(" "+shouDongQuZheng.getChesu());
+                info17.setText(" " + shouDongQuZheng.getChesu());
             }
         } catch (Exception e) {
 
         }
-        info18.setText(" "+shouDongQuZheng.getStarttime()+" 至 "+shouDongQuZheng.getEndtime());
-        info19.setText(" "+shouDongQuZheng.getBeizhu());
+        info18.setText(" " + shouDongQuZheng.getStarttime() + " 至 " + shouDongQuZheng.getEndtime());
+        info19.setText(" " + shouDongQuZheng.getBeizhu());
         ScrccView = rootview;
-        Log.e("aazz","4");
-        if(shouDongQuZheng.getImagePath()!=null){
+        Log.e("aazz", "4");
+        if (shouDongQuZheng.getImagePath() != null) {
             imaurl = shouDongQuZheng.getImagePath();
             Glide.with(getActivity()).load(shouDongQuZheng.getImagePath()).into(imaswzr);
         }
-        Log.e("aazz","5");
+        Log.e("aazz", "5");
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -494,32 +492,32 @@ public class SthreeFragmentchezai extends BaseFragment {
                 saveIma(rootview);
                 //dataCheckHandler.sendEmptyMessage(31);
             }
-        },1600);
+        }, 1600);
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(index == pdfList.size()){
-                    if(pdfList.size()==0){
+                if (index == pdfList.size()) {
+                    if (pdfList.size() == 0) {
                         Toast.makeText(getActivity(), "没有导出的信息.", Toast.LENGTH_SHORT).show();
-                    }else {
+                    } else {
                         turnToPdf();
                     }
                 }
                 finishFlag = 0;
                 dialog.dismiss();
             }
-        },1900);
+        }, 1900);
 
         dialog.show();
 
     }
 
     @TargetApi(Build.VERSION_CODES.FROYO)
-    public String saveIma(View view){
-        String path="";
+    public String saveIma(View view) {
+        String path = "";
 
         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                "手动取证"+disposeTime()+".jpg");
+                "手动取证" + disposeTime() + ".jpg");
         // Bitmap bitmap = screenShot(getActivity());
 
 //        if(ScrccView!=null){
@@ -614,9 +612,9 @@ public class SthreeFragmentchezai extends BaseFragment {
         return bmp;
     }
 
-    public  Bitmap shotActivity(View view) {
-       // View view = ScrccView;
-      //  View view = viewsa;
+    public Bitmap shotActivity(View view) {
+        // View view = ScrccView;
+        //  View view = viewsa;
         view.setDrawingCacheEnabled(true);
         view.buildDrawingCache();
         Bitmap bp = Bitmap.createBitmap(view.getDrawingCache(), 0, 0, view.getMeasuredWidth(),
@@ -630,19 +628,19 @@ public class SthreeFragmentchezai extends BaseFragment {
     private void tips_del() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.item_del, null);
-        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
-        final AlertDialog dialog=builder.create();
+        final AlertDialog dialog = builder.create();
         dialog.setCancelable(false);
-        final Button del =view.findViewById(R.id.button5);
-        final Button quxiao =view.findViewById(R.id.button9);
+        final Button del = view.findViewById(R.id.button5);
+        final Button quxiao = view.findViewById(R.id.button9);
 
         del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                dels(myDatebaseHelper,delList);
+                dels(myDatebaseHelper, delList);
                 ls.clear();
-                ls = getCheZaiBaoJing(myDatebaseHelper,"-1","-1","-1","-1");
+                ls = getCheZaiBaoJing(myDatebaseHelper, "-1", "-1", "-1", "-1");
                 InitListview(0);
                 dialog.dismiss();
                 tips_del2();
@@ -662,11 +660,11 @@ public class SthreeFragmentchezai extends BaseFragment {
     private void tips_del2() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.item_del2, null);
-        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
-        final AlertDialog dialog=builder.create();
+        final AlertDialog dialog = builder.create();
         dialog.setCancelable(false);
-        final Button queding =view.findViewById(R.id.button5);
+        final Button queding = view.findViewById(R.id.button5);
 
         queding.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -680,6 +678,7 @@ public class SthreeFragmentchezai extends BaseFragment {
 
 
     //导出的代码
+
     /**
      * 识别结果转为PDF文件
      */
@@ -701,7 +700,7 @@ public class SthreeFragmentchezai extends BaseFragment {
             @Override
             public void run() {
                 try {
-                    createPdf(pdf_address,daochuList);
+                    createPdf(pdf_address, daochuList);
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (DocumentException e) {
@@ -715,9 +714,9 @@ public class SthreeFragmentchezai extends BaseFragment {
     /**
      * 根据图片生成PDF
      *
-     * @param pdfPath 生成的PDF文件的路径
+     * @param pdfPath       生成的PDF文件的路径
      * @param imagePathList 待生成PDF文件的图片集合
-     * @throws IOException 可能出现的IO操作异常
+     * @throws IOException       可能出现的IO操作异常
      * @throws DocumentException PDF生成异常
      */
     private void createPdf(String pdfPath, List<String> imagePathList) throws IOException, DocumentException {
@@ -768,17 +767,17 @@ public class SthreeFragmentchezai extends BaseFragment {
     // deviceName=321321&userName=321&type=32&longitude=321&latitude=321&
     // gpslongitude=5125&gpslatitude=21424&concentration=321&temperature=3213&
     // lightIntensity=4214&nospeed=5215&starttime=3123&endtime=321312&grade=5215&automatic=312321&uid=3213
-    public void SendPost2(ShouDongQuZheng mShouDongQuZheng){
-        final String uid = mShouDongQuZheng.getUid()+"AA";
+    public void SendPost2(ShouDongQuZheng mShouDongQuZheng) {
+        final String uid = mShouDongQuZheng.getUid() + "AA";
         final int id = mShouDongQuZheng.getId();
-        Log.e("sssendpost2","1111");
-        Map<String,String> hs=new HashMap<>();
+        Log.e("sssendpost2", "1111");
+        Map<String, String> hs = new HashMap<>();
         //http://localhost:8080/user/saveShops?latitude=33&longitude=23&placeTime=dsdsad&placeName=909
-        hs.put("deviceName",getpre("androidIds"));
+        hs.put("deviceName", getpre("androidIds"));
         hs.put("userName", getpre("username"));
         hs.put("type", mShouDongQuZheng.getType());
         hs.put("longitude", mShouDongQuZheng.getJingdu());
-        hs.put("latitude",mShouDongQuZheng.getWeidu());
+        hs.put("latitude", mShouDongQuZheng.getWeidu());
         hs.put("gpslongitude", String.valueOf(mShouDongQuZheng.getJingdu()));
         hs.put("gpslatitude", String.valueOf(mShouDongQuZheng.getWeidu()));
         hs.put("concentration", mShouDongQuZheng.getNongdu());
@@ -791,20 +790,18 @@ public class SthreeFragmentchezai extends BaseFragment {
         hs.put("automatic", mShouDongQuZheng.getFlag());
         hs.put("uid", mShouDongQuZheng.getUid());
         OkHttpUtils okHttp = OkHttpUtils.getInstance();
-        okHttp.sendDatafForClicent2(SaveAlert,hs, new OkHttpUtils.FuncJsonString() {
+        okHttp.sendDatafForClicent2(SaveAlert, hs, new OkHttpUtils.FuncJsonString() {
             @Override
             public void onResponse(String result) {
                 toastShow(result);
-                if(result.contains("成功")){
-                    lessUid(myDatebaseHelper,uid,id);
-                }else {
+                if (result.contains("成功")) {
+                    lessUid(myDatebaseHelper, uid, id);
+                } else {
 
                 }
             }
         });
     }
-
-
 
 
 }
