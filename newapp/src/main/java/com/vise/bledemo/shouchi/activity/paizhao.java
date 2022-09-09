@@ -44,27 +44,27 @@ public class paizhao extends BaseActivity {
     private final int OPEN_RESULT = 1;//打开照相机
     private final int CHOOSE_PICTURE = 0; //选择相册图片
     File file55;
-    Bitmap bitmap222,b3;
+    Bitmap bitmap222, b3;
     private String img = "";
     TextView textView;
     String pp;
-    int index=0;
-    EditText e1,e2,e3;
+    int index = 0;
+    EditText e1, e2, e3;
     public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
     final OkHttpClient client = new OkHttpClient();
-    private Handler mHandler = new Handler(){
+    private Handler mHandler = new Handler() {
         @Override
-        public void handleMessage(Message msg){
+        public void handleMessage(Message msg) {
 
-            if(msg.what==1){
-                String ReturnMessage =  (String)msg.obj;
-                Log.i("获取的返回信息",ReturnMessage);
-                if(ReturnMessage.equals("成功")){
+            if (msg.what == 1) {
+                String ReturnMessage = (String) msg.obj;
+                Log.i("获取的返回信息", ReturnMessage);
+                if (ReturnMessage.equals("成功")) {
 //                    Toast.makeText(fabu_upload.this, "添加成功！", Toast.LENGTH_SHORT).show();
 //                    Intent intent=new Intent(fabu_upload.this,uploadShow.class);
 //                    startActivity(intent);
 //                    finish();
-                }else{
+                } else {
                     Toast.makeText(paizhao.this, "添加失败,图片过大！", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -73,18 +73,19 @@ public class paizhao extends BaseActivity {
 
 
     };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ima);
-        textView=findViewById(R.id.textView24);
-        e1=findViewById(R.id.e1);
-        e2=findViewById(R.id.e2);
-        e3=findViewById(R.id.e3);
+        textView = findViewById(R.id.textView24);
+        e1 = findViewById(R.id.e1);
+        e2 = findViewById(R.id.e2);
+        e3 = findViewById(R.id.e3);
         //实例化组件
         initView();
         //permissiongen();
-        Button wanc= findViewById(R.id.button3);
+        Button wanc = findViewById(R.id.button3);
         wanc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -99,6 +100,7 @@ public class paizhao extends BaseActivity {
         // 启动activity并获取返回数据
         startActivityForResult(intent, REQUEST_TAKE_PHOTO_CODE2);
     }
+
     //组件初始化
     private void initView() {
         //ImageView
@@ -118,64 +120,64 @@ public class paizhao extends BaseActivity {
         });
     }
 
-        /**
-         *选择图片后上传并显示在imgView
-         */
-        @Override
-        protected void onActivityResult ( int requestCode, int resultCode, Intent data){
-            switch (requestCode) {
-                //拍照获得图片
-                case OPEN_RESULT:
-                    if (resultCode == RESULT_OK) {
+    /**
+     * 选择图片后上传并显示在imgView
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            //拍照获得图片
+            case OPEN_RESULT:
+                if (resultCode == RESULT_OK) {
+                    try {
+                        Bundle bundle = data.getExtras();
+                        bitmap222 = (Bitmap) bundle.get("data");
+                        i1.setImageBitmap(bitmap222);
+
+                        //将拍照获得的bitmap转换成图片文件并保存到本地
+                        File file = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() + "aa" + ".jpg");
+                        FileOutputStream fileOutStream = new FileOutputStream(file);
                         try {
-                            Bundle bundle = data.getExtras();
-                            bitmap222 = (Bitmap) bundle.get("data");
-                            i1.setImageBitmap(bitmap222);
-
-                            //将拍照获得的bitmap转换成图片文件并保存到本地
-                            File file = new File(Environment.getExternalStorageDirectory(), System.currentTimeMillis() +"aa"+ ".jpg");
-                            FileOutputStream fileOutStream = new FileOutputStream(file);
-                            try {
-                                bitmap222.compress(Bitmap.CompressFormat.JPEG, 100, fileOutStream);
-                                fileOutStream.flush();
-                                fileOutStream.close();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                        } catch (Exception e) {
+                            bitmap222.compress(Bitmap.CompressFormat.JPEG, 100, fileOutStream);
+                            fileOutStream.flush();
+                            fileOutStream.close();
+                        } catch (IOException e) {
                             e.printStackTrace();
-                            Log.d("tag", e.getMessage());
-                            Toast.makeText(this, "程序崩溃", Toast.LENGTH_SHORT).show();
                         }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d("tag", e.getMessage());
+                        Toast.makeText(this, "程序崩溃", Toast.LENGTH_SHORT).show();
                     }
-                    break;
-                //相册选择图片
-                case CHOOSE_PICTURE:
-                    if (resultCode == RESULT_OK) {
+                }
+                break;
+            //相册选择图片
+            case CHOOSE_PICTURE:
+                if (resultCode == RESULT_OK) {
 
-                        try {
-                            Uri uri = data.getData();
-                            b3 = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
-                            bitmaptoString();
-                          //  Toast.makeText(this,sa , Toast.LENGTH_SHORT).show();
-                            String path = com.example.zhihuixiaoyuan.utils.RealPathFromUriUtils.getRealPathFromUri(this, uri);
-                           // Toast.makeText(this, path, Toast.LENGTH_SHORT).show();
-                            file55 = new File(path);
+                    try {
+                        Uri uri = data.getData();
+                        b3 = BitmapFactory.decodeStream(getContentResolver().openInputStream(uri));
+                        bitmaptoString();
+                        //  Toast.makeText(this,sa , Toast.LENGTH_SHORT).show();
+                        String path = com.example.zhihuixiaoyuan.utils.RealPathFromUriUtils.getRealPathFromUri(this, uri);
+                        // Toast.makeText(this, path, Toast.LENGTH_SHORT).show();
+                        file55 = new File(path);
 
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            Log.d("tag", e.getMessage());
-                           // Toast.makeText(this, "程序崩溃", Toast.LENGTH_SHORT).show();
-                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        Log.d("tag", e.getMessage());
+                        // Toast.makeText(this, "程序崩溃", Toast.LENGTH_SHORT).show();
                     }
-                    break;
-            }
+                }
+                break;
         }
+    }
 
     @TargetApi(Build.VERSION_CODES.FROYO)
     public String bitmaptoString() {
-       // i1 = (ImageView) findViewById(R.id.caipu_i1);
-       // Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.id.caipu_i1);
+        // i1 = (ImageView) findViewById(R.id.caipu_i1);
+        // Bitmap bitmap = BitmapFactory.decodeResource(getResources(),R.id.caipu_i1);
         //将Bitmap转换成字符串
         ByteArrayOutputStream bStream = new ByteArrayOutputStream();
         b3.compress(Bitmap.CompressFormat.PNG, 100, bStream);
@@ -188,26 +190,26 @@ public class paizhao extends BaseActivity {
     }
 
     @TargetApi(Build.VERSION_CODES.FROYO)
-    public Bitmap stringtoBitmap(String string){
+    public Bitmap stringtoBitmap(String string) {
         //将字符串转换成Bitmap类型
-        Bitmap bitmap=null;
+        Bitmap bitmap = null;
         try {
-            byte[]bitmapArray;
-            bitmapArray= Base64.decode(string, Base64.DEFAULT);
-            bitmap= BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
+            byte[] bitmapArray;
+            bitmapArray = Base64.decode(string, Base64.DEFAULT);
+            bitmap = BitmapFactory.decodeByteArray(bitmapArray, 0, bitmapArray.length);
         } catch (Exception e) {
             e.printStackTrace();
         }
         ImageView s1 = (ImageView) findViewById(R.id.imageView);
         s1.setImageBitmap(bitmap);
-        saveImageToGallery(paizhao.this,bitmap);
-        toastShow("成功上传"+index+"张照片！");
+        saveImageToGallery(paizhao.this, bitmap);
+        toastShow("成功上传" + index + "张照片！");
         return bitmap;
     }
 
     public static void saveImageToGallery(Context context, Bitmap bmp) {
         // 首先保存图片
-        File appDir = new File(Environment.getExternalStorageDirectory(), "jikong"+disposeTime());
+        File appDir = new File(Environment.getExternalStorageDirectory(), "jikong" + disposeTime());
         if (!appDir.exists()) {
             appDir.mkdir();
         }

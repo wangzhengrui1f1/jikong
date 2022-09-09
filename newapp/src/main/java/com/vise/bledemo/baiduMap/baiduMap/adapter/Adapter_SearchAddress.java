@@ -25,12 +25,13 @@ public class Adapter_SearchAddress extends BaseAdapter {
     private Context ocontext;
     private LayoutInflater oInflater;
     Map<Integer, Boolean> choose;
+
     public Adapter_SearchAddress(List<PoiInfo> oList, Context context, LatLng currentLatLng) {
         this.oList = oList;
         this.ocontext = context;
         this.currentLatLng = currentLatLng;
         this.oInflater = LayoutInflater.from(ocontext);
-        choose=new HashMap<Integer, Boolean>();
+        choose = new HashMap<Integer, Boolean>();
     }
 
     @Override
@@ -47,10 +48,13 @@ public class Adapter_SearchAddress extends BaseAdapter {
     public long getItemId(int position) {
         return position;
     }
+
     private int selectedPosition = 0;
+
     public void setSelectedPosition(int position) {
         selectedPosition = position;
     }
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         final ViewHolder viewHolder;
@@ -73,7 +77,7 @@ public class Adapter_SearchAddress extends BaseAdapter {
         final PoiInfo poiInfo = oList.get(position);
         LatLng latLng = poiInfo.getLocation();
         //todo 用当前所在位置算出距离
-        double distance= DistanceUtil.getDistance(currentLatLng, latLng);
+        double distance = DistanceUtil.getDistance(currentLatLng, latLng);
 //        viewHolder.t1.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -83,10 +87,10 @@ public class Adapter_SearchAddress extends BaseAdapter {
         viewHolder.tv_name.setText(poiInfo.name);
         viewHolder.tv_address.setText(poiInfo.address);
         if (selectedPosition == position) {
-           // viewHolder.iv_point.setImageResource(R.drawable.point_orange);
+            // viewHolder.iv_point.setImageResource(R.drawable.point_orange);
             viewHolder.tv_name.setTextColor(ocontext.getResources().getColor(R.color.orange));
         } else {
-           // viewHolder.iv_point.setImageResource(R.drawable.point_gray);
+            // viewHolder.iv_point.setImageResource(R.drawable.point_gray);
             viewHolder.tv_name.setTextColor(ocontext.getResources().getColor(R.color.black));
         }
         viewHolder.tv_distance.setText(formatDistance(distance));
@@ -105,15 +109,15 @@ public class Adapter_SearchAddress extends BaseAdapter {
     }
 
 
-    private String formatDistance(double distance){
+    private String formatDistance(double distance) {
         String str;
-        if(distance>=1000){
+        if (distance >= 1000) {
             DecimalFormat df = new DecimalFormat("#.00");
-            double b = distance/1000;
-            str=df.format(b)+"千米";
-        }else{
+            double b = distance / 1000;
+            str = df.format(b) + "千米";
+        } else {
             DecimalFormat df = new DecimalFormat("######0");
-            str = df.format(distance)+"米";
+            str = df.format(distance) + "米";
         }
         return str;
     }

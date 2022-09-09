@@ -39,19 +39,19 @@ public class sqliteMethod {
         values.put("guangqiang", jingbao.getWeidu());
         values.put("firsttime", jingbao.getFirsttime());
         values.put("sid", jingbao.getSid());
-        db.insert("baoJingData",null, values);
+        db.insert("baoJingData", null, values);
         db.close();
     }
 
     //todo 删除报警信息
     public void del(MyDatabase myDatebaseHelper, int id) {
         SQLiteDatabase db = myDatebaseHelper.getWritableDatabase();
-        db.delete("baoJingData","id=?",new String[]{String.valueOf(id)});
+        db.delete("baoJingData", "id=?", new String[]{String.valueOf(id)});
         db.close();
     }
 
     //todo  修改
-    private void less(MyDatabase myDatebaseHelper, Jingbao jingbao,int id) {
+    private void less(MyDatabase myDatebaseHelper, Jingbao jingbao, int id) {
         SQLiteDatabase db = myDatebaseHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("title", jingbao.getTitle());
@@ -67,7 +67,7 @@ public class sqliteMethod {
         values.put("guangqiang", jingbao.getWeidu());
         values.put("firsttime", jingbao.getFirsttime());
         values.put("sid", jingbao.getSid());
-        db.update("baoJingData",values, "id=?",new String[]{String.valueOf(id)});
+        db.update("baoJingData", values, "id=?", new String[]{String.valueOf(id)});
         db.close();
     }
 
@@ -109,7 +109,7 @@ public class sqliteMethod {
 
     //todo 查询数据
     public static List<GetJingbao> GetJingbaoData(MyDatabase myDatebaseHelper,
-                                                  String starttime,String endtime,String sid,String name) {
+                                                  String starttime, String endtime, String sid, String name) {
         int start = Integer.valueOf(starttime);
         int end = Integer.valueOf(endtime);
         List<GetJingbao> ls = new ArrayList<>();
@@ -133,8 +133,8 @@ public class sqliteMethod {
             jingbao.setGuangqiang(cursor.getString(cursor.getColumnIndex("guangqiang")));
             jingbao.setFirsttime(cursor.getString(cursor.getColumnIndex("firsttime")));
             jingbao.setSid(cursor.getString(cursor.getColumnIndex("sid")));
-            if((Integer.valueOf(jingbao.getFirsttime())>=start&&Integer.valueOf(jingbao.getFirsttime())<=end)
-                    &&jingbao.getSid().equals(sid)&&jingbao.getName().equals(name)){
+            if ((Integer.valueOf(jingbao.getFirsttime()) >= start && Integer.valueOf(jingbao.getFirsttime()) <= end)
+                    && jingbao.getSid().equals(sid) && jingbao.getName().equals(name)) {
                 ls.add(jingbao);
             }
 
@@ -154,7 +154,7 @@ public class sqliteMethod {
         values.put("locate", jingbao.getLocate());
         values.put("jingdu", jingbao.getJingdu());
         values.put("weidu", jingbao.getWeidu());
-        db.insert("baoJingData",null, values);
+        db.insert("baoJingData", null, values);
         db.close();
     }
 
@@ -165,7 +165,7 @@ public class sqliteMethod {
         values.put("username", user.getUsername());
         values.put("password", user.getPassword());
         values.put("name", user.getName());
-        db.insert("UserData",null, values);
+        db.insert("UserData", null, values);
         db.close();
     }
 
@@ -229,13 +229,13 @@ public class sqliteMethod {
         values.put("grade", jingbao.getGrade());
         values.put("flag", jingbao.getFlag());
         values.put("uid", jingbao.getUid());
-        db.insert("CheZaiBaoJing",null, values);
+        db.insert("CheZaiBaoJing", null, values);
         db.close();
     }
 
     //todo 查询车载记录数据 starttime =-1 全部
     public static List<ShouDongQuZheng> getCheZaiBaoJing(MyDatabase myDatebaseHelper,
-                                                  String starttime,String endtime,String shebeiname,String username) {
+                                                         String starttime, String endtime, String shebeiname, String username) {
         int start = Integer.valueOf(starttime);
         int end = Integer.valueOf(endtime);
         int flag = 1;//0不添加 1添加
@@ -245,7 +245,7 @@ public class sqliteMethod {
 //                null, null, null, null);
 //        String Query = "select * from CheZaiBaoJing where username like '%9%' order by id desc LIMIT (0 * 3), 3";
         String Query = "select * from CheZaiBaoJing order by id desc";
-        Cursor cursor = db.rawQuery(Query,null);
+        Cursor cursor = db.rawQuery(Query, null);
         while (cursor.moveToNext()) {
             //todo 添加车载报警信息
             //int id;
@@ -296,29 +296,29 @@ public class sqliteMethod {
 
 
             //todo
-            if(!shebeiname.equals("-1")&&!shebeiname.equals("")){
-                if(jingbao.getShebeiname().contains(shebeiname)){
-                    Log.e("ttatta-是",jingbao.getShebeiname());
-                }else {
+            if (!shebeiname.equals("-1") && !shebeiname.equals("")) {
+                if (jingbao.getShebeiname().contains(shebeiname)) {
+                    Log.e("ttatta-是", jingbao.getShebeiname());
+                } else {
                     flag = 0;
 //                    Log.e("ttatta-查询操作人员1",jingbao.getUsername());
 //                    Log.e("ttatta-查询操作人员2",username);
                 }
             }
-            if(!username.equals("-1")&&!username.equals("")){
-                if(jingbao.getUsername().contains(username)){
-                    Log.e("ttatta-是",jingbao.getUsername());
-                }else {
+            if (!username.equals("-1") && !username.equals("")) {
+                if (jingbao.getUsername().contains(username)) {
+                    Log.e("ttatta-是", jingbao.getUsername());
+                } else {
                     flag = 0;
 //                    Log.e("ttatta-查询操作人员1",jingbao.getUsername());
 //                    Log.e("ttatta-查询操作人员2",username);
                 }
             }
 
-            if(!endtime.equals("-1")&&!endtime.equals("")){
+            if (!endtime.equals("-1") && !endtime.equals("")) {
                 if ((Integer.valueOf(jingbao.getEndtime2()) >= start && Integer.valueOf(jingbao.getEndtime2()) <= end)) {
 
-                }else {
+                } else {
                     flag = 0;
                 }
             }
@@ -330,10 +330,10 @@ public class sqliteMethod {
 //                }
 //            }
             Log.e("ttatta-flag", String.valueOf(flag));
-            if(flag == 1){
+            if (flag == 1) {
                 ls.add(jingbao);
             }
-            flag =1;
+            flag = 1;
         }
         return ls;
     }
@@ -341,8 +341,8 @@ public class sqliteMethod {
     //todo 删除报警信息
     public static void dels(MyDatabase myDatebaseHelper, List<Integer> ls) {
         SQLiteDatabase db = myDatebaseHelper.getWritableDatabase();
-        for(int i = 0 ;i<ls.size();i++){
-            db.delete("CheZaiBaoJing","id=?",new String[]{String.valueOf(ls.get(i))});
+        for (int i = 0; i < ls.size(); i++) {
+            db.delete("CheZaiBaoJing", "id=?", new String[]{String.valueOf(ls.get(i))});
         }
         db.close();
     }
@@ -353,7 +353,7 @@ public class sqliteMethod {
         SQLiteDatabase db = myDatebaseHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("uid", uid);
-        db.update("CheZaiBaoJing",values, "id=?",new String[]{String.valueOf(id)});
+        db.update("CheZaiBaoJing", values, "id=?", new String[]{String.valueOf(id)});
         db.close();
     }
 
