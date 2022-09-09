@@ -196,7 +196,7 @@ public class blueToothDataFragment extends BaseFragment {
     private List<BluetoothGattService> mGattServices = new ArrayList<>();
     //设备特征值集合
     private List<List<BluetoothGattCharacteristic>> mGattCharacteristics = new ArrayList<>();
-    private TextView nd,gq,wd,textlianjie,text_biaoding;
+    private TextView nd, gq, wd, textlianjie, text_biaoding;
 
     private static final String TAG = "SHOUCHI_BLUE";
     //浓度
@@ -207,8 +207,8 @@ public class blueToothDataFragment extends BaseFragment {
     ArrayList<PieEntry> pieEntryList = new ArrayList();//数据列表
     ArrayList<Integer> colors = new ArrayList();//颜色列表
     private LineChart lineChart;
-    float datas[] = {14f,15f,16f,17f,16f,16f};
-    float datas2[] = {17f,16f,15f,14f,17f,14f};
+    float datas[] = {14f, 15f, 16f, 17f, 16f, 16f};
+    float datas2[] = {17f, 16f, 15f, 14f, 17f, 14f};
     //在MPAndroidChart一般都是通过List<Entry>对象来装数据的
     final List<Entry> entries = new ArrayList<Entry>();
     final List<Entry> entries2 = new ArrayList<Entry>();
@@ -225,102 +225,102 @@ public class blueToothDataFragment extends BaseFragment {
     //todo 定时发送定位
     private int sendPlaceFalg = 0;
 
-    String saveweizhi="暂无数据";
-    String snongdu="0",swendu="0",sguangqiang="0";
+    String saveweizhi = "暂无数据";
+    String snongdu = "0", swendu = "0", sguangqiang = "0";
     //todo 数据更新获取解析多线程
     public Thread dataCheckThread;
     //todo 数据更新获取解析多线程
-    public Handler dataCheckHandler=new Handler(){
+    public Handler dataCheckHandler = new Handler() {
         @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         @SuppressLint("HandlerLeak")
         @Override
         public void handleMessage(Message msg) {
-            if(msg.what==10){
+            if (msg.what == 10) {
                 info3.setText(saveweizhi);
             }
-            if(msg.what==32){
+            if (msg.what == 32) {
                 tips();
                 ShoudongFlag = 0;
             }
-            if(msg.what==33){
-                if(startBiaodingKailu==1){
+            if (msg.what == 33) {
+                if (startBiaodingKailu == 1) {
                     tips_biaoding();
                 }
             }
-            if(msg.what==34){
-                if(stopUpdate==1){
+            if (msg.what == 34) {
+                if (stopUpdate == 1) {
                     stopUpdate = 0;
                     text_biaoding.setText("标定失败");
                 }
 
             }
-            if(msg.what==35){
-                if(stopUpdate==1){
+            if (msg.what == 35) {
+                if (stopUpdate == 1) {
                     stopUpdate = 0;
                     text_biaoding.setText("标定成功");
                 }
 
             }
-            if(msg.what==1001){
+            if (msg.what == 1001) {
                 if (isStart) {
                     tname.setBackground(getActivity().getDrawable(R.drawable.shuangchuan2));
                 }
             }
-            if(msg.what==1002){
+            if (msg.what == 1002) {
                 if (isStart) {
                     tname.setBackground(getActivity().getDrawable(R.drawable.shangchuan));
                 }
             }
-            if(msg.what==1003){
+            if (msg.what == 1003) {
                 tname.setBackground(null);
             }
-            if(msg.what==100){
+            if (msg.what == 100) {
                 //浓度命令
-                if(returnAgreement.getCaozuo().equals("5")){
+                if (returnAgreement.getCaozuo().equals("5")) {
                     //浓度信息正确
-                    if(returnAgreement.getMsg().equals("1") && returnAgreement.getData1()!=null){
-                        Log.e("ajiexi","设置浓度");
+                    if (returnAgreement.getMsg().equals("1") && returnAgreement.getData1() != null) {
+                        Log.e("ajiexi", "设置浓度");
                         if (getpre("TESTTYPE_SHOUCHI").equals("PPM.M")) {
-                            nd.setText(returnAgreement.getData1()+" "+getpre("TESTTYPE_SHOUCHI"));
+                            nd.setText(returnAgreement.getData1() + " " + getpre("TESTTYPE_SHOUCHI"));
                         } else if (getpre("TESTTYPE_SHOUCHI").equals("LEL.M")) {
-                            nd.setText(String.valueOf(Integer.valueOf(returnAgreement.getData1())/500)+" "+getpre("TESTTYPE_SHOUCHI"));
-                        }else {
-                            nd.setText(String.valueOf(Integer.valueOf(returnAgreement.getData1())/10000)+" "+getpre("TESTTYPE_SHOUCHI"));
+                            nd.setText(String.valueOf(Integer.valueOf(returnAgreement.getData1()) / 500) + " " + getpre("TESTTYPE_SHOUCHI"));
+                        } else {
+                            nd.setText(String.valueOf(Integer.valueOf(returnAgreement.getData1()) / 10000) + " " + getpre("TESTTYPE_SHOUCHI"));
                         }
 
                         ssmShouDongQuZheng.setNongdu(returnAgreement.getData1());
                     }
                     //光强
-                }else if(returnAgreement.getCaozuo().equals("6")){
+                } else if (returnAgreement.getCaozuo().equals("6")) {
                     gq.setText(returnAgreement.getData1());
                     pro_guangqiang.setProgress(Integer.parseInt(returnAgreement.getData1()));
                     ssmShouDongQuZheng.setGuangqiang(returnAgreement.getData1());
 
                     //温度
-                }else if(returnAgreement.getCaozuo().equals("7")){
+                } else if (returnAgreement.getCaozuo().equals("7")) {
                     wd.setText(returnAgreement.getData1());
                     ssmShouDongQuZheng.setWendu(returnAgreement.getData1());
 
-                }else if(returnAgreement.getCaozuo().equals("-1111")){
+                } else if (returnAgreement.getCaozuo().equals("-1111")) {
 
                     //todo 一键标定
-                }else if(returnAgreement.getCaozuo().equals("9")){
+                } else if (returnAgreement.getCaozuo().equals("9")) {
                     yijianbiaoding = returnAgreement.getData1();
                     if (biaodingDialog == 1) {
                         //完成
-                        if (yijianbiaoding.contains("0")){
-                            if (startBiaodingKailu == 1){
+                        if (yijianbiaoding.contains("0")) {
+                            if (startBiaodingKailu == 1) {
                                 dataCheckHandler.sendEmptyMessage(35);
                                 startBiaodingKailu = 0;
                             }
                             //标定中
-                        }else if(yijianbiaoding.contains("1")){
-                            if(stopUpdate==1){
+                        } else if (yijianbiaoding.contains("1")) {
+                            if (stopUpdate == 1) {
                                 text_biaoding.setText("标定中");
                             }
                             //失败
-                        }else if(yijianbiaoding.contains("2")){
-                            if (startBiaodingKailu == 1){
+                        } else if (yijianbiaoding.contains("2")) {
+                            if (startBiaodingKailu == 1) {
                                 dataCheckHandler.sendEmptyMessage(34);
                                 startBiaodingKailu = 0;
                             }
@@ -328,30 +328,30 @@ public class blueToothDataFragment extends BaseFragment {
                     }
 
 
-                    Log.e("biaodings",yijianbiaoding);
+                    Log.e("biaodings", yijianbiaoding);
                 }
 
 
-                Log.e("ssDialogTime1" ,String.valueOf(DialogTime));
-                Log.e("ssDialogTime2aa" ,String.valueOf(snongdu));
-                Log.e("ssDialogTime3" ,String.valueOf(IsDialogVisible));
-                Log.e("ssDialogTime4" ,String.valueOf(ssmShouDongQuZheng2.getNongdu()));
-                Log.e("tiaojian"," DialogTime "+DialogTime+" isStart "+isStart +" IsDialogVisible "+IsDialogVisible);
+                Log.e("ssDialogTime1", String.valueOf(DialogTime));
+                Log.e("ssDialogTime2aa", String.valueOf(snongdu));
+                Log.e("ssDialogTime3", String.valueOf(IsDialogVisible));
+                Log.e("ssDialogTime4", String.valueOf(ssmShouDongQuZheng2.getNongdu()));
+                Log.e("tiaojian", " DialogTime " + DialogTime + " isStart " + isStart + " IsDialogVisible " + IsDialogVisible);
                 //GAOJINGZHI1_SHOUCHI
                 if (DialogTime == 0 && isStart) {
-                    Log.e("ssDialogTimeaaaaa" ,String.valueOf(ssmShouDongQuZheng2.getNongdu()));
+                    Log.e("ssDialogTimeaaaaa", String.valueOf(ssmShouDongQuZheng2.getNongdu()));
                     ssmShouDongQuZheng2 = ssmShouDongQuZheng;
-                    if ((Integer.valueOf(ssmShouDongQuZheng.getNongdu()) >= Integer.valueOf(getpre("GAOJINGZHI1_SHOUCHI")))&&
+                    if ((Integer.valueOf(ssmShouDongQuZheng.getNongdu()) >= Integer.valueOf(getpre("GAOJINGZHI1_SHOUCHI"))) &&
                             (Integer.valueOf(ssmShouDongQuZheng.getNongdu()) < Integer.valueOf(getpre("GAOJINGZHI2_SHOUCHI")))) {
                         if (IsDialogVisible == 0) {
-                           // onClickReqPermission();
+                            // onClickReqPermission();
                             snongdu = ssmShouDongQuZheng.getNongdu();
-                            Log.e("snongdu","更新1");
+                            Log.e("snongdu", "更新1");
                             swendu = ssmShouDongQuZheng.getWendu();
                             sguangqiang = ssmShouDongQuZheng.getGuangqiang();
-                          //  IsDialogVisible = 1;
+                            //  IsDialogVisible = 1;
                             DialogTime = 35000;
-                            Log.e("daying111","报警1");
+                            Log.e("daying111", "报警1");
                             pre("setflag", "2");
                             //         dataList.add(ssmShouDongQuZheng);
                             tips();
@@ -359,31 +359,31 @@ public class blueToothDataFragment extends BaseFragment {
                     } else if ((Integer.valueOf(ssmShouDongQuZheng.getNongdu()) >= Integer.valueOf(getpre("GAOJINGZHI2_SHOUCHI"))) &&
                             (Integer.valueOf(ssmShouDongQuZheng.getNongdu()) < Integer.valueOf(getpre("GAOJINGZHI3_SHOUCHI")))) {
                         if (IsDialogVisible == 0) {
-                         //   onClickReqPermission();
+                            //   onClickReqPermission();
                             snongdu = ssmShouDongQuZheng.getNongdu();
-                            Log.e("snongdu","更新2");
+                            Log.e("snongdu", "更新2");
                             swendu = ssmShouDongQuZheng.getWendu();
                             sguangqiang = ssmShouDongQuZheng.getGuangqiang();
-                          //  IsDialogVisible = 1;
+                            //  IsDialogVisible = 1;
                             DialogTime = 35000;
                             // ssmShouDongQuZheng2 = ssmShouDongQuZheng;
-                            Log.e("daying111","报警2");
+                            Log.e("daying111", "报警2");
                             pre("setflag", "2");
                             // dataList.add(ssmShouDongQuZheng);
                             tips();
                         }
                     } else if (Integer.valueOf(ssmShouDongQuZheng.getNongdu()) >= Integer.valueOf(getpre("GAOJINGZHI3_SHOUCHI"))) {
                         if (IsDialogVisible == 0) {
-                          //  onClickReqPermission();
+                            //  onClickReqPermission();
                             snongdu = ssmShouDongQuZheng.getNongdu();
-                            Log.e("snongdu","更新3");
+                            Log.e("snongdu", "更新3");
                             swendu = ssmShouDongQuZheng.getWendu();
                             sguangqiang = ssmShouDongQuZheng.getGuangqiang();
-                         //   IsDialogVisible = 1;
+                            //   IsDialogVisible = 1;
                             DialogTime = 35000;
 //                            ssmShouDongQuZheng2 = ssmShouDongQuZheng;
 //                            ssmShouDongQuZheng3 = ssmShouDongQuZheng;
-                            Log.e("daying111","报警3");
+                            Log.e("daying111", "报警3");
                             pre("setflag", "2");
                             tips();
                         }
@@ -394,53 +394,53 @@ public class blueToothDataFragment extends BaseFragment {
                 if (mylista.size() >= 25 && isStart) {
                     if (mylista.get(23) < Integer.valueOf(getpre("GAOJINGZHI1_SHOUCHI")) &&
                             mylista.get(24) > Integer.valueOf(getpre("GAOJINGZHI1_SHOUCHI")) && IsDialogVisible == 0) {
-                      //  onClickReqPermission();
+                        //  onClickReqPermission();
                         snongdu = String.valueOf(mylista.get(24));
-                        Log.e("snongdu","更新4");
+                        Log.e("snongdu", "更新4");
                         swendu = ssmShouDongQuZheng.getWendu();
                         sguangqiang = ssmShouDongQuZheng.getGuangqiang();
                         DialogTime = 35000;
                         ssmShouDongQuZheng2 = ssmShouDongQuZheng;
                         pre("setflag", "2");
                         tips();
-                      //  IsDialogVisible = 1;
-                        Log.e("ssDialogTime777","11111");
+                        //  IsDialogVisible = 1;
+                        Log.e("ssDialogTime777", "11111");
                     }
                 }
 
                 setData2(mylista);
-                if(mylista.size()>25){
+                if (mylista.size() > 25) {
                     mylista.remove(0);
                 }
-                Log.e("aaaaass",""+mylista.size());
+                Log.e("aaaaass", "" + mylista.size());
 
-                if (islanyaTime < 0){
+                if (islanyaTime < 0) {
                     lanyaClose2 = "连接中";
                 }
             }
 
-            if(msg.what == 101){
+            if (msg.what == 101) {
                 toastShow("未开启巡检无法手动取证");
             }
         }
 
     };
 
-    int index=0;
+    int index = 0;
     View view;
-    int IsDialogVisible=0;
+    int IsDialogVisible = 0;
     int isfirst = 100;
-    String yijianbiaoding="chaoshi";
+    String yijianbiaoding = "chaoshi";
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED){
+        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             //Toast.makeText(MainActivity.this,"您申请了动态权限",Toast.LENGTH_SHORT).show();
-        }else{
+        } else {
             //否则去请求相机权限
-            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.CAMERA},100);
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA}, 100);
         }
         view = inflater.inflate(R.layout.activity_device_control2, container, false);
         initZhexian();
@@ -457,21 +457,21 @@ public class blueToothDataFragment extends BaseFragment {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-               // tips();
+                // tips();
             }
-        },10000);
+        }, 10000);
 
         return view;
     }
 
     //todo 阿里云上传
-    public void aliyunShangchuan(String path, final ShouDongQuZheng mShouDongQuZheng){
+    public void aliyunShangchuan(String path, final ShouDongQuZheng mShouDongQuZheng) {
         ALiUploadManager.getInstance().uploadFile(path, new ALiUploadManager.ALiCallBack() {
             @Override
             public void onSuccess(PutObjectRequest request, PutObjectResult result, String url) {
                 Log.e("上传阿里云成功:", url);
                 Log.e("上传阿里云成功:", result.toString());
-                String url2 = "https://"+ ACCESS_BUCKET_NAME + "." + ACCESS_ENDPOINT + "/" + "aaa";
+                String url2 = "https://" + ACCESS_BUCKET_NAME + "." + ACCESS_ENDPOINT + "/" + "aaa";
                 Log.e("上传阿里云成功:", url2);
                 // putImage(url);  //路径回调至服务端
                 Toast.makeText(getActivity(), "上传成功", Toast.LENGTH_SHORT).show();
@@ -494,16 +494,16 @@ public class blueToothDataFragment extends BaseFragment {
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public void startLuxiang(){
+    public void startLuxiang() {
         if (SC_IS_RUN) {
             ReadRunState();
             if (SC_IS_RUN) {
                 mBinder.StopScreenCapture();
                 SC_IS_RUN = false;
                 SaveRunState(SERVICE_IS_START, SERVICE_HAS_BIND, SC_IS_RUN);
-             //   Toast.makeText(getActivity(), "屏幕录制服务停止运行", Toast.LENGTH_SHORT).show();
+                //   Toast.makeText(getActivity(), "屏幕录制服务停止运行", Toast.LENGTH_SHORT).show();
             } else {
-               // Toast.makeText(getActivity(), "屏幕录制服务并没有开启，操作无效", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getActivity(), "屏幕录制服务并没有开启，操作无效", Toast.LENGTH_SHORT).show();
             }
         } else {
             if (!SC_IS_RUN) {
@@ -516,9 +516,9 @@ public class blueToothDataFragment extends BaseFragment {
                     AskForPermission();
                 }
                 myShareScreen();
-               // Toast.makeText(getActivity(), "屏幕录制服务开始运行", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getActivity(), "屏幕录制服务开始运行", Toast.LENGTH_SHORT).show();
             } else {
-               // Toast.makeText(getActivity(),"屏幕录制服务已经开启，操作无效", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getActivity(),"屏幕录制服务已经开启，操作无效", Toast.LENGTH_SHORT).show();
             }
 
         }
@@ -526,7 +526,7 @@ public class blueToothDataFragment extends BaseFragment {
 
     public void ssint() {
         initData();
-        Log.e("aaaacccc","1111111");
+        Log.e("aaaacccc", "1111111");
         init();
         myDatebaseHelper = new MyDatabase(getActivity(), SQLITE_NAME, null, 1);
 
@@ -537,8 +537,8 @@ public class blueToothDataFragment extends BaseFragment {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     public void createInit() {
         isStart = false;
-        Log.e("aaxianchen","--------------------重启");
-        if (devices!=null){
+        Log.e("aaxianchen", "--------------------重启");
+        if (devices != null) {
             // Toast.makeText(getActivity(), "111111111111111111", Toast.LENGTH_SHORT).show();
             BusManager.getBus().unregister(this);
             BusManager.getBus().register(this);
@@ -562,17 +562,17 @@ public class blueToothDataFragment extends BaseFragment {
                         getActivity().invalidateOptionsMenu();
                     }
                 }
-            },50);
+            }, 50);
         }
         bluesenddata.clear();
-        bluesenddata.add(new send(0,readConcentrationAgreement));
-        bluesenddata.add(new send(0,readConcentrationAgreement2));
-        bluesenddata.add(new send(0,readConcentrationAgreement));
-        bluesenddata.add(new send(0,readConcentrationAgreement3));
+        bluesenddata.add(new send(0, readConcentrationAgreement));
+        bluesenddata.add(new send(0, readConcentrationAgreement2));
+        bluesenddata.add(new send(0, readConcentrationAgreement));
+        bluesenddata.add(new send(0, readConcentrationAgreement3));
     }
 
     private void initZhexian() {
-        lineChart = f(view,R.id.lineChart);
+        lineChart = f(view, R.id.lineChart);
         mylista.clear();
         for (int i = 0; i < 23; i++) {
             mylista.add(0);
@@ -581,13 +581,12 @@ public class blueToothDataFragment extends BaseFragment {
         setData2(mylista);
     }
 
-    public void setData2(final List<Integer> list){
+    public void setData2(final List<Integer> list) {
         //显示边界
         lineChart.setDrawBorders(false);
         //设置数据
         List<Entry> entries = new ArrayList<>();
-        for (int i = 0; i < list.size(); i++)
-        {
+        for (int i = 0; i < list.size(); i++) {
             entries.add(new Entry(i, (float) list.get(i)));
         }
         //一个LineDataSet就是一条线
@@ -670,12 +669,12 @@ public class blueToothDataFragment extends BaseFragment {
 
 
     private void updateDataByBuleTooth() {
-        if(dataCheckThread==null){
-            dataCheckThread=new Thread(){
+        if (dataCheckThread == null) {
+            dataCheckThread = new Thread() {
                 @Override
                 public void run() {
                     super.run();
-                    while (true){
+                    while (true) {
                         try {
                             sleep(120);
                         } catch (InterruptedException e) {
@@ -685,25 +684,25 @@ public class blueToothDataFragment extends BaseFragment {
                         //添加 执行的数据
                         addList();
 
-                        if(biaodingDialog == 0 && startBiaodingKailu == 1){
+                        if (biaodingDialog == 0 && startBiaodingKailu == 1) {
                             dataCheckHandler.sendEmptyMessage(33);
                         }
 
-                        Log.e("sendPlaceFalg","执行中"+sendPlaceFalg+"---"+Shouchisendlocation.getLatitude());
-                        if(sendPlaceFalg > 50 && Shouchisendlocation!=null){
+                        Log.e("sendPlaceFalg", "执行中" + sendPlaceFalg + "---" + Shouchisendlocation.getLatitude());
+                        if (sendPlaceFalg > 50 && Shouchisendlocation != null) {
                             sendPlaceFalg = 0;
                             SendPost();
-                        }else {
+                        } else {
                             sendPlaceFalg++;
                         }
 
                         //todo 停止巡检
-                        if(!isStart){
-                            Log.e("aaxianchen","执行中");
+                        if (!isStart) {
+                            Log.e("aaxianchen", "执行中");
                             //判断是否是暂停
                             //TODO 暂停
-                            Log.e("aaxianchen","绘图");
-                            if(ShoudongFlag == 1){
+                            Log.e("aaxianchen", "绘图");
+                            if (ShoudongFlag == 1) {
                                 ShoudongFlag = 0;
                                 dataCheckHandler.sendEmptyMessage(101);
                             }
@@ -711,24 +710,24 @@ public class blueToothDataFragment extends BaseFragment {
                             continue;
                         }
 
-                        if(DialogTime > 0){
+                        if (DialogTime > 0) {
                             DialogTime = DialogTime - 120;
-                        }else {
+                        } else {
                             DialogTime = 0;
                         }
-                        Log.e("aaDialogTime",""+DialogTime);
-                        Log.e("shoudongquzhengsa",""+ShoudongFlag+"---"+IsDialogVisible);
-                        if(ShoudongFlag == 1 && IsDialogVisible == 0){
+                        Log.e("aaDialogTime", "" + DialogTime);
+                        Log.e("shoudongquzhengsa", "" + ShoudongFlag + "---" + IsDialogVisible);
+                        if (ShoudongFlag == 1 && IsDialogVisible == 0) {
                             ssmShouDongQuZheng2 = ssmShouDongQuZheng;
                             snongdu = ssmShouDongQuZheng.getNongdu();
                             swendu = ssmShouDongQuZheng.getWendu();
                             sguangqiang = ssmShouDongQuZheng.getGuangqiang();
-                            Log.e("snongdu","更新5");
+                            Log.e("snongdu", "更新5");
                             pre("setflag", "1");
-                          //  onClickReqPermission();
+                            //  onClickReqPermission();
                             dataCheckHandler.sendEmptyMessage(32);
 
-                            Log.e("ssDialogTime5" ,String.valueOf(ssmShouDongQuZheng2.getNongdu()));
+                            Log.e("ssDialogTime5", String.valueOf(ssmShouDongQuZheng2.getNongdu()));
                         }
 
                         islanyaTime -= 120;
@@ -742,12 +741,12 @@ public class blueToothDataFragment extends BaseFragment {
     }
 
     private void addList() {
-        if(index > bluesenddata.size() - 1){
-            index=0;
-        }else {
-            if(bluesenddata.get(index).getFlag()==0){
+        if (index > bluesenddata.size() - 1) {
+            index = 0;
+        } else {
+            if (bluesenddata.get(index).getFlag() == 0) {
                 SendData(bluesenddata.get(index).getData());
-            }else if(bluesenddata.get(index).getFlag()==1){
+            } else if (bluesenddata.get(index).getFlag() == 1) {
                 yijianbiaoding = "chaoshi";
                 SendData(bluesenddata.get(index).getData());
                 bluesenddata.remove(index);
@@ -768,7 +767,7 @@ public class blueToothDataFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "重新连接...", Toast.LENGTH_SHORT).show();
-               // init();
+                // init();
                 if (BluetoothDeviceManager.getInstance().isConnected(mDevice)) {
                     DeviceMirror deviceMirror = ViseBle.getInstance().getDeviceMirror(mDevice);
                     if (deviceMirror != null) {
@@ -788,7 +787,7 @@ public class blueToothDataFragment extends BaseFragment {
                             getActivity().invalidateOptionsMenu();
                         }
                     }
-                },50);
+                }, 50);
             }
         });
         //mDevice = getActivity().getIntent().getParcelableExtra(DeviceDetailActivity.EXTRA_DEVICE);
@@ -814,10 +813,10 @@ public class blueToothDataFragment extends BaseFragment {
             } else {
                 if (event.isDisconnected()) {
                     textlianjie.setText("• 断开");
-                   // ToastUtil.showToast(getActivity(), "Disconnect!");
+                    // ToastUtil.showToast(getActivity(), "Disconnect!");
                 } else {
                     textlianjie.setText("• 连接失败");
-                 //   ToastUtil.showToast(getActivity(), "Connect Failure!");
+                    //   ToastUtil.showToast(getActivity(), "Connect Failure!");
                 }
                 getActivity().invalidateOptionsMenu();
                 clearUI();
@@ -826,7 +825,7 @@ public class blueToothDataFragment extends BaseFragment {
     }
 
     private void zidongadd() {
-        Handler handler =new Handler();
+        Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
             @Override
@@ -849,7 +848,7 @@ public class blueToothDataFragment extends BaseFragment {
                     BluetoothDeviceManager.getInstance().registerNotify(mDevice, true);
                 }
             }
-        },50);
+        }, 50);
         handler.postDelayed(new Runnable() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
             @Override
@@ -872,7 +871,7 @@ public class blueToothDataFragment extends BaseFragment {
                     BluetoothDeviceManager.getInstance().registerNotify(mDevice, true);
                 }
             }
-        },50);
+        }, 50);
     }
 
     @Subscribe
@@ -901,7 +900,7 @@ public class blueToothDataFragment extends BaseFragment {
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onDestroy() {
-      //  startLuxiang();
+        //  startLuxiang();
         BusManager.getBus().unregister(this);
         myUnbindService();
         myStopService();
@@ -969,7 +968,8 @@ public class blueToothDataFragment extends BaseFragment {
 
     private void clearUI() {
         mOutputInfo = new StringBuilder();
-        simpleExpandableListAdapter = null;;
+        simpleExpandableListAdapter = null;
+        ;
     }
 
 
@@ -990,7 +990,7 @@ public class blueToothDataFragment extends BaseFragment {
         return true;
     }
 
-    public void SendData(String msg){
+    public void SendData(String msg) {
         BluetoothDeviceManager.getInstance().write(mDevice, HexUtil.decodeHex(msg.toCharArray()));
     }
 
@@ -1002,8 +1002,8 @@ public class blueToothDataFragment extends BaseFragment {
             Log.e("ssssssaaaa", String.valueOf(mOutputInfo));
             mOutputInfo.delete(0, mOutputInfo.length());
             mOutputInfo.append(HexUtil.encodeHexStr(event.getData())).append("--");
-            String a[]=mOutputInfo.toString().split("--");
-            returnAgreement = jiexi2(a[a.length-1]);
+            String a[] = mOutputInfo.toString().split("--");
+            returnAgreement = jiexi2(a[a.length - 1]);
             islanyaTime = 10000;
             dataCheckHandler.sendEmptyMessage(100);
         }
@@ -1014,9 +1014,9 @@ public class blueToothDataFragment extends BaseFragment {
         IsDialogVisible = 1;
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.tips_che_shou3, null);
-        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
-        final AlertDialog dialog=builder.create();
+        final AlertDialog dialog = builder.create();
         dialog.setCancelable(false);
         final TextView biaoti = view.findViewById(R.id.textView12);
         final TextView info1 = view.findViewById(R.id.info1);
@@ -1031,8 +1031,8 @@ public class blueToothDataFragment extends BaseFragment {
         final EditText beizhu = view.findViewById(R.id.beizhu);
         final Button submit = view.findViewById(R.id.button3);
 
-        if(poiInfoListForGeoCoder2 != null &&poiInfoListForGeoCoder2.size()>0){
-            info3.setText(poiInfoListForGeoCoder2.get(0).getName()+"   "+poiInfoListForGeoCoder2.get(0).getAddress());
+        if (poiInfoListForGeoCoder2 != null && poiInfoListForGeoCoder2.size() > 0) {
+            info3.setText(poiInfoListForGeoCoder2.get(0).getName() + "   " + poiInfoListForGeoCoder2.get(0).getAddress());
         } else {
             info3.setText("暂无数据");
         }
@@ -1046,16 +1046,16 @@ public class blueToothDataFragment extends BaseFragment {
 
         paizhaoimageView = view.findViewById(R.id.imageView12);
         LinearLayout ssaa = view.findViewById(R.id.ssaa);
-        if(getpre("setflag").equals("1")){
+        if (getpre("setflag").equals("1")) {
             biaoti.setText("手动取证");
-        }else {
+        } else {
             biaoti.setText("报警取证");
         }
         //拍照图片归 0
         ssmShouDongQuZheng2.setImagePath2("111");
         String usetime = disposeTime();
-        info1.setText(" "+getpre("username"));
-        info2.setText(" "+"手持");
+        info1.setText(" " + getpre("username"));
+        info2.setText(" " + "手持");
         paizhaoimageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1063,13 +1063,13 @@ public class blueToothDataFragment extends BaseFragment {
                 btnclick();
             }
         });
-        info4.setText(" "+usetime);
+        info4.setText(" " + usetime);
         info5.setText(snongdu);
         info6.setText(swendu);
         info7.setText(sguangqiang);
-        info9.setText("  起始时间   "+getpre("starttime")+" - "+usetime);
-        Log.e("aaaaaaaaa",devices.getName());
-        Log.e("aaaaaaaaa",getpre("username"));
+        info9.setText("  起始时间   " + getpre("starttime") + " - " + usetime);
+        Log.e("aaaaaaaaa", devices.getName());
+        Log.e("aaaaaaaaa", getpre("username"));
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -1099,7 +1099,7 @@ public class blueToothDataFragment extends BaseFragment {
                 mShouDongQuZheng.setShebeiname(devices.getName());
                 mShouDongQuZheng.setUsername(getpre("username"));
                 mShouDongQuZheng.setType("手持");
-                if(poiInfoListForGeoCoder2 != null &&poiInfoListForGeoCoder2.size()>0){
+                if (poiInfoListForGeoCoder2 != null && poiInfoListForGeoCoder2.size() > 0) {
                     mShouDongQuZheng.setDidian(info3.getText().toString());
                 } else {
                     mShouDongQuZheng.setDidian("暂无");
@@ -1115,65 +1115,65 @@ public class blueToothDataFragment extends BaseFragment {
                 mShouDongQuZheng.setStarttime(disposeTime());
                 mShouDongQuZheng.setEndtime(disposeTime());
                 mShouDongQuZheng.setEndtime2(disposeTime2());
-                if(beizhu.getText().toString().equals("")){
+                if (beizhu.getText().toString().equals("")) {
                     mShouDongQuZheng.setBeizhu("无");
-                }else {
+                } else {
                     mShouDongQuZheng.setBeizhu(beizhu.getText().toString());
                 }
 
-              //  mShouDongQuZheng.setImagePath(imaPath);
+                //  mShouDongQuZheng.setImagePath(imaPath);
                 //todo 图片
-                alyima1 ="create";
-                alyima2 ="create";
+                alyima1 = "create";
+                alyima2 = "create";
                 mShouDongQuZheng.setImagePath(getBaidujietu(getSavedPath3()));
                 mShouDongQuZheng.setImagePath2(ssmShouDongQuZheng2.getImagePath2());
-                aliyunShangchuan(mShouDongQuZheng.getImagePath(),mShouDongQuZheng);
+                aliyunShangchuan(mShouDongQuZheng.getImagePath(), mShouDongQuZheng);
                 Handler handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if (ssmShouDongQuZheng2.getImagePath2().equals("111")){
-                            alyima2 ="create-null";
+                        if (ssmShouDongQuZheng2.getImagePath2().equals("111")) {
+                            alyima2 = "create-null";
                         } else {
-                            aliyunShangchuan(ssmShouDongQuZheng2.getImagePath2(),mShouDongQuZheng);
+                            aliyunShangchuan(ssmShouDongQuZheng2.getImagePath2(), mShouDongQuZheng);
                         }
                     }
-                },100);
+                }, 100);
 
 
-                Log.e("aashangchuan1",mShouDongQuZheng.getImagePath());
-                Log.e("aashangchuan2",mShouDongQuZheng.getImagePath2());
-               // aliyunShangchuan("/storage/emulated/0/DCIM/Screenshots/Screenshot_20220806_160104.jpg");
-                Log.e("aashangchuan3",alyima1+"--"+alyima2);
-              //  toastShow(mShouDongQuZheng.getImagePath2());
+                Log.e("aashangchuan1", mShouDongQuZheng.getImagePath());
+                Log.e("aashangchuan2", mShouDongQuZheng.getImagePath2());
+                // aliyunShangchuan("/storage/emulated/0/DCIM/Screenshots/Screenshot_20220806_160104.jpg");
+                Log.e("aashangchuan3", alyima1 + "--" + alyima2);
+                //  toastShow(mShouDongQuZheng.getImagePath2());
 
-                if(Integer.valueOf(ssmShouDongQuZheng2.getNongdu())>=Integer.valueOf(getpre("GAOJINGZHI1_SHOUCHI"))
-                    &&Integer.valueOf(ssmShouDongQuZheng2.getNongdu())<Integer.valueOf(getpre("GAOJINGZHI2_SHOUCHI"))){
+                if (Integer.valueOf(ssmShouDongQuZheng2.getNongdu()) >= Integer.valueOf(getpre("GAOJINGZHI1_SHOUCHI"))
+                        && Integer.valueOf(ssmShouDongQuZheng2.getNongdu()) < Integer.valueOf(getpre("GAOJINGZHI2_SHOUCHI"))) {
                     mShouDongQuZheng.setGrade("1");
-                }else if(Integer.valueOf(ssmShouDongQuZheng2.getNongdu())>=Integer.valueOf(getpre("GAOJINGZHI2_SHOUCHI"))
-                        &&Integer.valueOf(ssmShouDongQuZheng2.getNongdu())<Integer.valueOf(getpre("GAOJINGZHI3_SHOUCHI"))){
+                } else if (Integer.valueOf(ssmShouDongQuZheng2.getNongdu()) >= Integer.valueOf(getpre("GAOJINGZHI2_SHOUCHI"))
+                        && Integer.valueOf(ssmShouDongQuZheng2.getNongdu()) < Integer.valueOf(getpre("GAOJINGZHI3_SHOUCHI"))) {
                     mShouDongQuZheng.setGrade("2");
-                }else if(Integer.valueOf(ssmShouDongQuZheng2.getNongdu())>=Integer.valueOf(getpre("GAOJINGZHI3_SHOUCHI"))){
+                } else if (Integer.valueOf(ssmShouDongQuZheng2.getNongdu()) >= Integer.valueOf(getpre("GAOJINGZHI3_SHOUCHI"))) {
                     mShouDongQuZheng.setGrade("3");
-                }else {
+                } else {
                     mShouDongQuZheng.setGrade("0");
                 }
 
                 mShouDongQuZheng.setFlag(getpre("setflag"));
                 mShouDongQuZheng.setUid("1");
-                addCheZaiBaoJingData(myDatebaseHelper,mShouDongQuZheng);
+                addCheZaiBaoJingData(myDatebaseHelper, mShouDongQuZheng);
                 toastShow("保存成功...");
 
                 IsDialogVisible = 0;
                 beizhu.clearFocus();
                 beizhu.setVisibility(View.GONE);
-                closejianpan2(getActivity(),beizhu);
+                closejianpan2(getActivity(), beizhu);
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         SendPost2(mShouDongQuZheng);
                     }
-                },150);
+                }, 150);
 
                 dialog.dismiss();
             }
@@ -1187,7 +1187,7 @@ public class blueToothDataFragment extends BaseFragment {
                 IsDialogVisible = 0;
                 beizhu.clearFocus();
                 beizhu.setVisibility(View.GONE);
-                closejianpan2(getActivity(),beizhu);
+                closejianpan2(getActivity(), beizhu);
                 dialog.dismiss();
             }
         });
@@ -1196,18 +1196,19 @@ public class blueToothDataFragment extends BaseFragment {
     }
 
     public void onClickReqPermission() {
-        Log.e("ajietu","2");
+        Log.e("ajietu", "2");
         if (Build.VERSION.SDK_INT >= 21) {
             startActivityForResult(createScreenCaptureIntent(), REQ_CODE_PER);
-            Log.e("daying111","启动截图权限");
+            Log.e("daying111", "启动截图权限");
         }
-        Log.e("ajietu","4");
+        Log.e("ajietu", "4");
     }
+
     @SuppressLint("WrongConstant")
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private Intent createScreenCaptureIntent() {
         //Here using media_projection instead of Context.MEDIA_PROJECTION_SERVICE to  make it successfully build on low api.
-        Log.e("ajietu","3");
+        Log.e("ajietu", "3");
         return ((MediaProjectionManager) getActivity().getSystemService("media_projection")).createScreenCaptureIntent();
     }
 
@@ -1224,14 +1225,13 @@ public class blueToothDataFragment extends BaseFragment {
     /**
      * using {@see ScreenShotActivity} to take screenshot on current Activity directly.
      * If you press home it will take screenshot on another app.
+     *
      * @param view
      */
     public void onClickShot(View view) {
-        startActivityForResult(ScreenShotActivity.createIntent(getActivity(), null,0), REQ_CODE_ACT);
+        startActivityForResult(ScreenShotActivity.createIntent(getActivity(), null, 0), REQ_CODE_ACT);
         // toast("Press home key,open another app.");//if you want to take screenshot on another app.
     }
-
-
 
 
     @SuppressLint("NewApi")
@@ -1239,28 +1239,31 @@ public class blueToothDataFragment extends BaseFragment {
         //REQUEST_TAKE_PHOTO_CODE2
         //filePath = PdfUtils.ADDRESS + File.separator + "集控PDF_"
         //                    + disposeTime() + ".png";
-        return Environment.getExternalStorageDirectory().getPath()+"/ScreenCaptureShouchi/jk" +
-                SystemClock.currentThreadTimeMillis() + disposeTime()+".png";
+        return Environment.getExternalStorageDirectory().getPath() + "/ScreenCaptureShouchi/jk" +
+                SystemClock.currentThreadTimeMillis() + disposeTime() + ".png";
 //        return getActivity().getExternalFilesDir("screenshot").getAbsoluteFile() + "/"
 //                + SystemClock.currentThreadTimeMillis() + disposeTime()+".png";
     }
+
     @SuppressLint("NewApi")
     private String getSavedPath3() {
         //REQUEST_TAKE_PHOTO_CODE2
         //filePath = PdfUtils.ADDRESS + File.separator + "集控PDF_"
         //                    + disposeTime() + ".png";
-        return Environment.getExternalStorageDirectory().getPath()+"/ScreenCaptureShouchi/";
+        return Environment.getExternalStorageDirectory().getPath() + "/ScreenCaptureShouchi/";
 //        return getActivity().getExternalFilesDir("screenshot").getAbsoluteFile() + "/"
 //                + SystemClock.currentThreadTimeMillis() + disposeTime()+".png";
     }
+
     @SuppressLint("NewApi")
     private String getSavedPath2() {
         //REQUEST_TAKE_PHOTO_CODE2
         //filePath = PdfUtils.ADDRESS + File.separator + "集控PDF_"
         //                    + disposeTime() + ".png";
         return getActivity().getExternalFilesDir("screenshot").getAbsoluteFile() + "/"
-                + SystemClock.currentThreadTimeMillis() + disposeTime()+".jpg";
+                + SystemClock.currentThreadTimeMillis() + disposeTime() + ".jpg";
     }
+
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -1282,19 +1285,19 @@ public class blueToothDataFragment extends BaseFragment {
                         .getAbsolutePath());
                 // 显示图片
                 paizhaoimageView.setImageBitmap(bm);
-                toastShow("1111"+getSavedPath());
+                toastShow("1111" + getSavedPath());
                 ssmShouDongQuZheng2.setImagePath2(getSavedPath());
             } else {
                 Toast.makeText(getActivity(), "图片文件不存在", Toast.LENGTH_SHORT).show();
             }
-        }else if(requestCode == REQUEST_TAKE_PHOTO_CODE2
-                && resultCode == Activity.RESULT_OK){
+        } else if (requestCode == REQUEST_TAKE_PHOTO_CODE2
+                && resultCode == Activity.RESULT_OK) {
             //这里获取到的是缩放后的图片，不是原始图片
             Bundle b = data.getExtras();
-            if(b != null){
+            if (b != null) {
                 final Bitmap bm = (Bitmap) b.get("data");
-                toastShow("222"+getSavedPath());
-                if(bm != null){
+                toastShow("222" + getSavedPath());
+                if (bm != null) {
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override
@@ -1302,9 +1305,9 @@ public class blueToothDataFragment extends BaseFragment {
                             isStart = true;
                             saveIma(bm);
                         }
-                    },100);
+                    }, 100);
                 }
-            }else{
+            } else {
                 Toast.makeText(getActivity(), "没有获取数据", Toast.LENGTH_SHORT).show();
             }
         }
@@ -1314,8 +1317,7 @@ public class blueToothDataFragment extends BaseFragment {
                 if (resultCode == RESULT_OK && data != null) {
                     // toast("Screenshot saved at " + data.getData().toString());
 
-                }
-                else{
+                } else {
                     // toast("You got wrong.");
                 }
             }
@@ -1329,9 +1331,9 @@ public class blueToothDataFragment extends BaseFragment {
                                 public void onFinish(String path) {
                                     //here is done status.
                                     // toast("Screenshot saved at " + path);
-                                   // toastShow(path);
-                                    Log.e("daying111","截图获得地址");
-                                   // tips(path);
+                                    // toastShow(path);
+                                    Log.e("daying111", "截图获得地址");
+                                    // tips(path);
 
                                 }
 
@@ -1343,7 +1345,7 @@ public class blueToothDataFragment extends BaseFragment {
                     );
                 } else if (resultCode == RESULT_CANCELED) {
                     //user canceled.
-                    Log.e("quanxians","quxiao");
+                    Log.e("quanxians", "quxiao");
                     IsDialogVisible = 0;
                 } else {
 
@@ -1352,7 +1354,7 @@ public class blueToothDataFragment extends BaseFragment {
         }
     }
 
-    public void initData(){
+    public void initData() {
         ssmShouDongQuZheng.setShebeiname(devices.getName());
         ssmShouDongQuZheng.setUsername(getpre("username"));
         ssmShouDongQuZheng.setType("手持");
@@ -1374,12 +1376,12 @@ public class blueToothDataFragment extends BaseFragment {
         ssmShouDongQuZheng.setGrade("0");
         ssmShouDongQuZheng.setFlag("0");
         ssmShouDongQuZheng.setUid("1");
-        if(isfirst == 100){
+        if (isfirst == 100) {
             ssmShouDongQuZheng2 = ssmShouDongQuZheng;
             isfirst++;
         }
         isfirst++;
-        Log.e("isfirst",String.valueOf(isfirst));
+        Log.e("isfirst", String.valueOf(isfirst));
 
     }
 
@@ -1441,8 +1443,8 @@ public class blueToothDataFragment extends BaseFragment {
 
         Log.e("aaazzz", "2");
         try {
-            Log.e("aaazzz", "3"+file.exists());
-            if (!file.exists()){
+            Log.e("aaazzz", "3" + file.exists());
+            if (!file.exists()) {
                 file.createNewFile();
             }
             Log.e("aaazzz", "3");
@@ -1535,7 +1537,7 @@ public class blueToothDataFragment extends BaseFragment {
     //标定 是否
     private void tips_biaoding() {
         if (biaodingDialog == 1) {
-           return;
+            return;
         }
         biaodingDialog = 1;
         LayoutInflater inflater = LayoutInflater.from(getActivity());
@@ -1553,14 +1555,14 @@ public class blueToothDataFragment extends BaseFragment {
             @Override
             public void run() {
                 //失败弹窗
-                if(startBiaodingKailu == 1) {
+                if (startBiaodingKailu == 1) {
                     stopUpdate = 1;
                     dataCheckHandler.sendEmptyMessage(34);
                     startBiaodingKailu = 0;
                 }
             }
         };
-        intenhandler.postDelayed(mRunable,305000);
+        intenhandler.postDelayed(mRunable, 305000);
         yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -1585,10 +1587,10 @@ public class blueToothDataFragment extends BaseFragment {
 
 
     private void initGeoCoderListView(final ListView listView) {
-        if(poiInfoListForGeoCoder2.size()>0){
-            saveweizhi=poiInfoListForGeoCoder2.get(0).getName()+"  "+poiInfoListForGeoCoder2.get(0).getAddress();
-        }else {
-            saveweizhi="暂无数据";
+        if (poiInfoListForGeoCoder2.size() > 0) {
+            saveweizhi = poiInfoListForGeoCoder2.get(0).getName() + "  " + poiInfoListForGeoCoder2.get(0).getAddress();
+        } else {
+            saveweizhi = "暂无数据";
         }
         adapter_searchAddress = new Adapter_SearchAddress2(poiInfoListForGeoCoder2, getActivity(), currentLatLng2) {
             @Override
@@ -1599,7 +1601,7 @@ public class blueToothDataFragment extends BaseFragment {
                     @SuppressLint("NewApi")
                     @Override
                     public void onClick(View v) {
-                        saveweizhi=poiInfoListForGeoCoder2.get(position).getName()+"  "+poiInfoListForGeoCoder2.get(position).getAddress();
+                        saveweizhi = poiInfoListForGeoCoder2.get(position).getName() + "  " + poiInfoListForGeoCoder2.get(position).getAddress();
                         setSelectedPosition(position);
                         notifyDataSetInvalidated();
                         listView.smoothScrollToPosition(position);
@@ -1613,13 +1615,14 @@ public class blueToothDataFragment extends BaseFragment {
         adapter_searchAddress.notifyDataSetInvalidated();
 
     }
+
     //todo
     private void tips_weizhixuanze() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.tips223, null);
-        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
-        final AlertDialog dialog=builder.create();
+        final AlertDialog dialog = builder.create();
 
         final ListView getdizhiListview = (ListView) view.findViewById(R.id.alistview1);
         Button ok = view.findViewById(R.id.button3);
@@ -1684,7 +1687,6 @@ public class blueToothDataFragment extends BaseFragment {
         SC_IS_RUN = true;
         SaveRunState(SERVICE_IS_START, SERVICE_HAS_BIND, SC_IS_RUN);
     }
-
 
 
     private void myBindService() {
@@ -1768,21 +1770,21 @@ public class blueToothDataFragment extends BaseFragment {
     // deviceName=321321&userName=321&type=32&longitude=321&latitude=321&
     // gpslongitude=5125&gpslatitude=21424&concentration=321&temperature=3213&
     // lightIntensity=4214&nospeed=5215&starttime=3123&endtime=321312&grade=5215&automatic=312321&uid=3213
-    public void SendPost2(ShouDongQuZheng mShouDongQuZheng){
-        final String uid = mShouDongQuZheng.getUid()+"AA";
+    public void SendPost2(ShouDongQuZheng mShouDongQuZheng) {
+        final String uid = mShouDongQuZheng.getUid() + "AA";
         final int id = mShouDongQuZheng.getId();
-        Log.e("sssendpost2","1111");
-        Map<String,String> hs=new HashMap<>();
+        Log.e("sssendpost2", "1111");
+        Map<String, String> hs = new HashMap<>();
         //http://localhost:8080/user/saveShops?latitude=33&longitude=23&placeTime=dsdsad&placeName=909
         //INSERT INTO alerts (deviceName, userName, type, longitude, latitude
         //        , gpslongitude, gpslatitude, CH4, temperature, lightIntensity
         //        , nospeed, starttime, endtime, grade, automatic, uid,screenshotImaPath,
         //        photoImaPath, remarks, resolve, implementer, exe_time)
-        hs.put("deviceName",getpre("androidIds"));
+        hs.put("deviceName", getpre("androidIds"));
         hs.put("userName", getpre("username"));
         hs.put("type", mShouDongQuZheng.getType());
         hs.put("longitude", mShouDongQuZheng.getJingdu());
-        hs.put("latitude",mShouDongQuZheng.getWeidu());
+        hs.put("latitude", mShouDongQuZheng.getWeidu());
         hs.put("gpslongitude", String.valueOf(mShouDongQuZheng.getJingdu()));
         hs.put("gpslatitude", String.valueOf(mShouDongQuZheng.getWeidu()));
         hs.put("CH4", mShouDongQuZheng.getNongdu());
@@ -1797,25 +1799,25 @@ public class blueToothDataFragment extends BaseFragment {
         hs.put("screenshotImaPath", alyima1);
         hs.put("photoImaPath", alyima2);
         hs.put("remarks", mShouDongQuZheng.getBeizhu());
-        hs.put("resolve","0");
-        Log.e("aass22","上传");
+        hs.put("resolve", "0");
+        Log.e("aass22", "上传");
         OkHttpUtils okHttp = OkHttpUtils.getInstance();
-        okHttp.sendDatafForClicent2(SaveAlert,hs, new OkHttpUtils.FuncJsonString() {
+        okHttp.sendDatafForClicent2(SaveAlert, hs, new OkHttpUtils.FuncJsonString() {
             @Override
             public void onResponse(String result) {
-                if(result.contains("成功")){
+                if (result.contains("成功")) {
                     toastShow("上传成功");
-                    lessUid(myDatebaseHelper,uid,id);
-                    Log.e("aass22","上传成功");
-                }else {
+                    lessUid(myDatebaseHelper, uid, id);
+                    Log.e("aass22", "上传成功");
+                } else {
 
                 }
             }
         });
     }
 
-    public void SendPost(){
-        Map<String,String> hs=new HashMap<>();
+    public void SendPost() {
+        Map<String, String> hs = new HashMap<>();
         //http://localhost:8080/user/saveShops?latitude=33&longitude=23&placeTime=dsdsad&placeName=909
         //latitude, longitude, placeTime, placeName, deviceStatus,
         //        userName,deviceName)
@@ -1827,37 +1829,37 @@ public class blueToothDataFragment extends BaseFragment {
         hs.put("longitude", String.valueOf(Shouchisendlocation.getLongitude()));
         Log.e("sspost getLatitude ", String.valueOf(Shouchisendlocation.getLatitude()));
         Log.e("sspost getLongitude ", String.valueOf(Shouchisendlocation.getLongitude()));
-        Log.e("send-placeTime",disposeTime());
+        Log.e("send-placeTime", disposeTime());
         hs.put("placeName", "待定");
         //todo 未开始巡检
-        if(!isStart){
+        if (!isStart) {
             hs.put("deviceStatus", "离线");
-        }else {
+        } else {
             hs.put("deviceStatus", "在线");
         }
         hs.put("userName", getpre("username"));
-        hs.put("deviceName",getpre("androidIds"));
+        hs.put("deviceName", getpre("androidIds"));
         hs.put("alerts", "待定");
         hs.put("fault", "待定");
         hs.put("CH4", ssmShouDongQuZheng.getNongdu());
         hs.put("nospeed", "无");
         hs.put("video", "待定");
-        hs.put("uid",getpre("eventId"));
+        hs.put("uid", getpre("eventId"));
         hs.put("temperature", ssmShouDongQuZheng.getWendu());
         hs.put("light", ssmShouDongQuZheng.getGuangqiang());
         hs.put("IntervalData", "待定");
         hs.put("placeTime", disposeTime());
-        Log.e("send--post2","1");
+        Log.e("send--post2", "1");
         dataCheckHandler.sendEmptyMessage(1002);
         OkHttpUtils okHttp = OkHttpUtils.getInstance();
-        okHttp.sendDatafForClicent2(SavePlaceUrl,hs, new OkHttpUtils.FuncJsonString() {
+        okHttp.sendDatafForClicent2(SavePlaceUrl, hs, new OkHttpUtils.FuncJsonString() {
             @Override
             public void onResponse(String result) {
-                if(result.contains("成功")){
-                    Log.e("send--post2","2");
+                if (result.contains("成功")) {
+                    Log.e("send--post2", "2");
                     dataCheckHandler.sendEmptyMessage(1001);
-                }else {
-                    Log.e("send--post2","3");
+                } else {
+                    Log.e("send--post2", "3");
                 }
             }
         });

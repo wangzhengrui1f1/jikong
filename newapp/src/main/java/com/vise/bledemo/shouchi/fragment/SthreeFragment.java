@@ -35,9 +35,9 @@ public class SthreeFragment extends BaseFragment {
     jingBaoAdapter adapter;
     ListView listView;
     private ImageView back;
-    private EditText starttime,endtime,sids,names;
+    private EditText starttime, endtime, sids, names;
     private LinearLayout daochu;
-    String start,end,sid,name;
+    String start, end, sid, name;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,7 +45,7 @@ public class SthreeFragment extends BaseFragment {
         if (this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             //竖屏
             view = inflater.inflate(R.layout.fragment3, container, false);
-        }else {
+        } else {
             view = inflater.inflate(R.layout.fragment33, container, false);
         }
         myDatebaseHelper = new MyDatabase(getActivity(), SQLITE_NAME, null, 1);
@@ -56,6 +56,7 @@ public class SthreeFragment extends BaseFragment {
 
         return view;
     }
+
     private void init() {
         listView = (ListView) view.findViewById(R.id.listview1);
         back = (ImageView) view.findViewById(R.id.back);
@@ -74,7 +75,7 @@ public class SthreeFragment extends BaseFragment {
         starttime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               gettimes();
+                gettimes();
             }
         });
 
@@ -87,22 +88,22 @@ public class SthreeFragment extends BaseFragment {
         });
 
 
-        daochu = f(view,R.id.daochu);
+        daochu = f(view, R.id.daochu);
         daochu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //todo 导出pdf
-               // intent(MainPdfActivity.class);
+                // intent(MainPdfActivity.class);
                 //TODO 查询操作
-                if(names.getText().toString().equals("")||sids.getText().toString().equals("")||
-                    starttime.getText().toString().equals("")||endtime.getText().toString().equals("")){
+                if (names.getText().toString().equals("") || sids.getText().toString().equals("") ||
+                        starttime.getText().toString().equals("") || endtime.getText().toString().equals("")) {
                     toastShow("查询信息不完整");
-                }else {
+                } else {
                     lst.clear();
-                    lst = GetJingbaoData(myDatebaseHelper,start,end,sids.getText().toString(),
+                    lst = GetJingbaoData(myDatebaseHelper, start, end, sids.getText().toString(),
                             names.getText().toString());
 
-                    adapter = new jingBaoAdapter(getActivity(),lst);
+                    adapter = new jingBaoAdapter(getActivity(), lst);
                     listView.setAdapter(adapter);
                 }
 
@@ -112,52 +113,52 @@ public class SthreeFragment extends BaseFragment {
 
     }
 
-    public void gettimes(){
-        Calendar calendar=Calendar.getInstance();
-        new DatePickerDialog( getActivity(), new DatePickerDialog.OnDateSetListener() {
+    public void gettimes() {
+        Calendar calendar = Calendar.getInstance();
+        new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String months = String.valueOf(month);
                 String dayOfMonths = String.valueOf(dayOfMonth);
-                if((month + 1)<10){
-                    months="0"+String.valueOf(month+1);
+                if ((month + 1) < 10) {
+                    months = "0" + String.valueOf(month + 1);
                 }
-                if(dayOfMonth<10){
-                    dayOfMonths="0"+String.valueOf(dayOfMonth);
+                if (dayOfMonth < 10) {
+                    dayOfMonths = "0" + String.valueOf(dayOfMonth);
                 }
-                starttime.setText(year+"/"+months+"/"+dayOfMonths);
-                start= String.valueOf(year + months + dayOfMonths);
+                starttime.setText(year + "/" + months + "/" + dayOfMonths);
+                start = String.valueOf(year + months + dayOfMonths);
                 String text = "你选择了：" + year + "年" + (month + 1) + "月" + dayOfMonth + "日";
                 toastShow(start);
             }
         }
-                ,calendar.get(Calendar.YEAR)
-                ,calendar.get(Calendar.MONTH)
-                ,calendar.get(Calendar.DAY_OF_MONTH)).show();
+                , calendar.get(Calendar.YEAR)
+                , calendar.get(Calendar.MONTH)
+                , calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
-    public void getendtimes(){
-        Calendar calendar=Calendar.getInstance();
-        new DatePickerDialog( getActivity(), new DatePickerDialog.OnDateSetListener() {
+    public void getendtimes() {
+        Calendar calendar = Calendar.getInstance();
+        new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 String months = String.valueOf(month);
                 String dayOfMonths = String.valueOf(dayOfMonth);
-                if((month + 1)<10){
-                    months="0"+String.valueOf(month+1);
+                if ((month + 1) < 10) {
+                    months = "0" + String.valueOf(month + 1);
                 }
-                if(dayOfMonth<10){
-                    dayOfMonths="0"+String.valueOf(dayOfMonth);
+                if (dayOfMonth < 10) {
+                    dayOfMonths = "0" + String.valueOf(dayOfMonth);
                 }
-                endtime.setText(year+"/"+months+"/"+dayOfMonths);
-                end= String.valueOf(year + months + dayOfMonths);
+                endtime.setText(year + "/" + months + "/" + dayOfMonths);
+                end = String.valueOf(year + months + dayOfMonths);
                 String text = "你选择了：" + year + "年" + (month + 1) + "月" + dayOfMonth + "日";
                 toastShow(end);
             }
         }
-                ,calendar.get(Calendar.YEAR)
-                ,calendar.get(Calendar.MONTH)
-                ,calendar.get(Calendar.DAY_OF_MONTH)).show();
+                , calendar.get(Calendar.YEAR)
+                , calendar.get(Calendar.MONTH)
+                , calendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     @Override
@@ -170,11 +171,11 @@ public class SthreeFragment extends BaseFragment {
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(isVisibleToUser){
+        if (isVisibleToUser) {
             lst.clear();
             //TODO 可见操作
             lst = getData(myDatebaseHelper);
-            adapter = new jingBaoAdapter(getActivity(),lst);
+            adapter = new jingBaoAdapter(getActivity(), lst);
             listView.setAdapter(adapter);
         } else {
             //TODO 不可见操作

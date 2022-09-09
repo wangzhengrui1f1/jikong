@@ -1,4 +1,5 @@
 package com.vise.bledemo.kailu.fragment;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -28,6 +29,7 @@ public class caozuojiluFragment extends Fragment {
     private MyDatabase myDatebaseHelper;
     List<getCaozuo> ls = new ArrayList<>();
     CaoZuoAdapter adapter;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,18 +53,18 @@ public class caozuojiluFragment extends Fragment {
 
         //sqlite数据库
         myDatebaseHelper = new MyDatabase(getActivity(), SQLITE_NAME, null, 1);
-       // ls = getData(myDatebaseHelper);
-        ls.add(new getCaozuo(1,"GBB79-II","10000/20000","123121255","张继科",disposeTime(),"一级警报值"));
-        ls.add(new getCaozuo(1,"GBB79-II","10000/20000","521512555","张继科",disposeTime(),"一级警报值"));
-        ls.add(new getCaozuo(1,"GBB79-II","10000/20000","521515555","张继科",disposeTime(),"二级警报值"));
-        ls.add(new getCaozuo(1,"GBB79-II","10000/20000","311121321","张继科",disposeTime(),"一级警报值"));
-        ls.add(new getCaozuo(1,"GBB79-II","10000/20000","325152555","张继科",disposeTime(),"一级警报值"));
-        ls.add(new getCaozuo(1,"GBB79-II","10000/20000","123121255","张继科",disposeTime(),"一级警报值"));
-        ls.add(new getCaozuo(1,"GBB79-II","10000/20000","521512555","张继科",disposeTime(),"一级警报值"));
-        ls.add(new getCaozuo(1,"GBB79-II","10000/20000","521515555","张继科",disposeTime(),"二级警报值"));
-        ls.add(new getCaozuo(1,"GBB79-II","10000/20000","311121321","张继科",disposeTime(),"一级警报值"));
-        ls.add(new getCaozuo(1,"GBB79-II","10000/20000","325152555","张继科",disposeTime(),"一级警报值"));
-        adapter = new CaoZuoAdapter(getActivity(),ls);
+        // ls = getData(myDatebaseHelper);
+        ls.add(new getCaozuo(1, "GBB79-II", "10000/20000", "123121255", "张继科", disposeTime(), "一级警报值"));
+        ls.add(new getCaozuo(1, "GBB79-II", "10000/20000", "521512555", "张继科", disposeTime(), "一级警报值"));
+        ls.add(new getCaozuo(1, "GBB79-II", "10000/20000", "521515555", "张继科", disposeTime(), "二级警报值"));
+        ls.add(new getCaozuo(1, "GBB79-II", "10000/20000", "311121321", "张继科", disposeTime(), "一级警报值"));
+        ls.add(new getCaozuo(1, "GBB79-II", "10000/20000", "325152555", "张继科", disposeTime(), "一级警报值"));
+        ls.add(new getCaozuo(1, "GBB79-II", "10000/20000", "123121255", "张继科", disposeTime(), "一级警报值"));
+        ls.add(new getCaozuo(1, "GBB79-II", "10000/20000", "521512555", "张继科", disposeTime(), "一级警报值"));
+        ls.add(new getCaozuo(1, "GBB79-II", "10000/20000", "521515555", "张继科", disposeTime(), "二级警报值"));
+        ls.add(new getCaozuo(1, "GBB79-II", "10000/20000", "311121321", "张继科", disposeTime(), "一级警报值"));
+        ls.add(new getCaozuo(1, "GBB79-II", "10000/20000", "325152555", "张继科", disposeTime(), "一级警报值"));
+        adapter = new CaoZuoAdapter(getActivity(), ls);
         listView = (ListView) view.findViewById(R.id.listview1);
         listView.setAdapter(adapter);
     }

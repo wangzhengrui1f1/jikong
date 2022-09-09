@@ -160,7 +160,7 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
     View view;
     private static String TAG = "MainActivity";
     private Context mContext;
-    private TextView tv_city,jieshu,kaishi,text_caozuoyuan;
+    private TextView tv_city, jieshu, kaishi, text_caozuoyuan;
     private EditText et_keyword;
     private ListView lv_searchAddress, lv_poiSearch;
     private LinearLayout ll_poiSearch;
@@ -203,7 +203,7 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
     private LinearLayout h1;
     private FrameLayout sroot;
     private TextView xiazai, textview_lixianditu;
-    boolean isFrist =true;
+    boolean isFrist = true;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             "android.permission.READ_EXTERNAL_STORAGE",
@@ -217,12 +217,12 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
     private BDLocation dakalocation;
     private ImageView back;
     private int shensuo = 0;//3最长 2中间 1最短
-    List<LatLng> list= new ArrayList<>();
-    private TextView text3,text_shebei;
+    List<LatLng> list = new ArrayList<>();
+    private TextView text3, text_shebei;
     LinearLayout lanyalist;
     Boolean lineStop = false;
     private ListView getdizhiListview;
-    String imaPath="";
+    String imaPath = "";
     int blueone = 0;
     public static BDLocation Shouchisendlocation = null;
     //sqilte sqlite
@@ -250,7 +250,7 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
                 public void run() {
                     if (adapter != null && bluetoothLeDeviceStore != null) {
                         adapter.setListAll(bluetoothLeDeviceStore.getDeviceList());
-                     //   updateItemCount(adapter.getCount());
+                        //   updateItemCount(adapter.getCount());
                     }
                 }
             });
@@ -267,11 +267,12 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
         }
 
     });
-    String savenongdu,savewendu,saveguangqiang;
+    String savenongdu, savewendu, saveguangqiang;
     private ViewPager main_viewPager;
 
     private static final int REQ_CODE_PER = 0x2304;
     private static final int REQ_CODE_ACT = 0x2305;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -308,24 +309,24 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
         //初始化控件
         initView();
         initOnclick();
-        Log.e("aaacheck","1");
+        Log.e("aaacheck", "1");
         //监听输入框
         monitorEditTextChage();
         //todo 初始化地理解析、建议搜索、poi搜索
         initGeoCoder();
-        Log.e("aaacheck","2");
+        Log.e("aaacheck", "2");
         initSuggestionSearch();
         initPoiSearch();
         //todo 初始化地图及定位
         initMap();
-        Log.e("aaacheck","3");
+        Log.e("aaacheck", "3");
         initLocation();
         //todo 监听地图事件（加载完成、拖动等）
         monitorMap();
         //todo 选择地址点击事件
         listViewOncilck();
         monitorMap();
-        Log.e("aaacheck","4");
+        Log.e("aaacheck", "4");
         final ArrayList<MKOLSearchRecord> records2 = mOffline.getOfflineCityList();
         // Toast.makeText(mContext, "" + records2.get(1).cityName, Toast.LENGTH_SHORT).show();
         final lixiancityAdapter adapter2 = new lixiancityAdapter(getActivity(), records2);
@@ -387,7 +388,7 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
             public void run() {
                 pppa.clear();
             }
-        },15000);
+        }, 15000);
         checknetwork();
         return view;
     }
@@ -410,30 +411,30 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
 
         text_shebei = (TextView) view.findViewById(R.id.text_shebei);
         shoudongjilu = (TextView) view.findViewById(R.id.shoudongjilu);
-        kaishi = f(view,R.id.kaishi);
-        text_caozuoyuan = f(view,R.id.text_caozuoyuan);
+        kaishi = f(view, R.id.kaishi);
+        text_caozuoyuan = f(view, R.id.text_caozuoyuan);
         text_caozuoyuan.setText(getpre("username"));
     }
 
     public void InitViewPager() {
-        if(blueone == 0){
-            if(fragmentManager == null) {
+        if (blueone == 0) {
+            if (fragmentManager == null) {
                 fragmentManager = getFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.aatt1, new blueToothDataFragment(), "scone3");
                 fragmentTransaction.commit();
                 blueone = 1;
-                Log.e("blueone","1");
+                Log.e("blueone", "1");
             }
-        } else if(blueone == 1){
+        } else if (blueone == 1) {
             blueToothDataFragment id = (blueToothDataFragment) fragmentManager.findFragmentByTag("scone3");
             id.ssint();
-            Log.e("blueone","2");
+            Log.e("blueone", "2");
             blueone++;
-        }else {
+        } else {
             blueToothDataFragment id = (blueToothDataFragment) fragmentManager.findFragmentByTag("scone3");
             id.createInit();
-            Log.e("blueone","3");
+            Log.e("blueone", "3");
         }
     }
 
@@ -441,16 +442,16 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
         kaishi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(kaishi.getText().toString().equals("开始巡检")){
-                    pre("starttime",disposeTime());
+                if (kaishi.getText().toString().equals("开始巡检")) {
+                    pre("starttime", disposeTime());
                     //todo 开始巡检
                     isStart = true;
                     kaishi.setText("停止巡检");
                     kaishi.setBackgroundResource(R.drawable.bbhuang);
                     kaishi.setTextColor(getResources().getColor(R.color.black));
-                    Log.e("xunjian-开始时间",getpre("starttime"));
+                    Log.e("xunjian-开始时间", getpre("starttime"));
                     sendPostStart();
-                }else {
+                } else {
                     //todo 停止巡检
                     isStart = false;
                     kaishi.setText("开始巡检");
@@ -468,10 +469,10 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
         text_shebei.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(lanyalist.getVisibility()==View.GONE){
+                if (lanyalist.getVisibility() == View.GONE) {
                     startScan();
                     lanyalist.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     stopScan();
                     lanyalist.setVisibility(View.GONE);
                 }
@@ -490,8 +491,8 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.e("aaxianchen","结束线程");
-                Intent intent = new Intent(getActivity(),WelcomeActivity.class);
+                Log.e("aaxianchen", "结束线程");
+                Intent intent = new Intent(getActivity(), WelcomeActivity.class);
                 startActivity(intent);
                 getActivity().finish();
                 System.exit(0);
@@ -503,21 +504,22 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
     }
 
 
-
     public void onClickReqPermission() {
-        Log.e("ajietu","2");
+        Log.e("ajietu", "2");
         if (Build.VERSION.SDK_INT >= 21) {
             startActivityForResult(createScreenCaptureIntent(), REQ_CODE_PER);
         }
-        Log.e("ajietu","4");
+        Log.e("ajietu", "4");
     }
+
     @SuppressLint("WrongConstant")
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private Intent createScreenCaptureIntent() {
         //Here using media_projection instead of Context.MEDIA_PROJECTION_SERVICE to  make it successfully build on low api.
-        Log.e("ajietu","3");
+        Log.e("ajietu", "3");
         return ((MediaProjectionManager) getActivity().getSystemService("media_projection")).createScreenCaptureIntent();
     }
+
     private void checknetwork() {
 //        //动态注册广播
         myNetworkReceiver = new MyNetworkReceiver();
@@ -638,7 +640,7 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
 
         option.setIsNeedAddress(true);// 获取详细信息
         //设置扫描间隔
-      //  option.setScanSpan(10000);
+        //  option.setScanSpan(10000);
 
         mLocationClient.setLocOption(option);
         // 注册监听函数
@@ -662,21 +664,21 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
                 Log.i("baidu_location_result", "offline location fail");
             } else {
                 //路径
-                if(lineStop==false){
-                   // onReceiveLocation2(location);
+                if (lineStop == false) {
+                    // onReceiveLocation2(location);
                 }
 
 //                if (location.getLatitude() > 37.8330 && location.getLatitude() > 49.9377) {
 //                    Toast.makeText(mContext, "打卡成功！", Toast.LENGTH_SHORT).show();
 //                }
                 //  Toast.makeText(mContext, ""+location.getLatitude(), Toast.LENGTH_SHORT).show();
-                if(myNetworkReceiver.getNetwork().equals("无网络连接")){
+                if (myNetworkReceiver.getNetwork().equals("无网络连接")) {
                     //模拟定位
 
                 }
 //                location.setLatitude(gpslatitude+0.008774687519+0.00074331248099);
 //                location.setLongitude(gpslongitude+0.00374531687912+0.00960631645);
-                Log.e("aaasss", (gpslatitude+0.008774687519+0.00074331248099)+"GPS模拟定位---"+(gpslongitude+0.00374531687912+0.00960631645));
+                Log.e("aaasss", (gpslatitude + 0.008774687519 + 0.00074331248099) + "GPS模拟定位---" + (gpslongitude + 0.00374531687912 + 0.00960631645));
                 if (runtime >= 10) {
                     pppa.add(new LatLng(location.getLatitude(), location.getLongitude()));
                     runtime = 0;
@@ -720,7 +722,7 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
         String address = location.getAddrStr();
         if (isFirstLocation) {
             currentLatLng = new LatLng(latitude, longitude);
-            currentLatLng2 =currentLatLng;
+            currentLatLng2 = currentLatLng;
             MapStatus.Builder builder = new MapStatus.Builder();
             MapStatus mapStatus = builder.target(currentLatLng).zoom(17.0f).build();
             mBaiduMap.animateMapStatus(MapStatusUpdateFactory
@@ -821,7 +823,7 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
             public void onMapStatusChangeFinish(MapStatus mapStatus) {
                 center = mBaiduMap.getMapStatus().target;
 //                Log.e(TAG, "地图状态改变结束后：" + center.latitude + "," + center.longitude);
-                if (poiInfoListForGeoCoder != null && poiInfoListForGeoCoder2!= null) {
+                if (poiInfoListForGeoCoder != null && poiInfoListForGeoCoder2 != null) {
                     poiInfoListForGeoCoder.clear();
                     poiInfoListForGeoCoder2.clear();
                 }
@@ -885,7 +887,7 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
 
             @Override
             public void onGetReverseGeoCodeResult(ReverseGeoCodeResult reverseGeoCodeResult) {
-                if (poiInfoListForGeoCoder != null && poiInfoListForGeoCoder2!= null) {
+                if (poiInfoListForGeoCoder != null && poiInfoListForGeoCoder2 != null) {
                     poiInfoListForGeoCoder.clear();
                     poiInfoListForGeoCoder2.clear();
                 }
@@ -902,7 +904,7 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
                 } else {
                     Toast.makeText(mContext, "该位置范围内无信息", Toast.LENGTH_SHORT);
                 }
-               // initGeoCoderListView();
+                // initGeoCoderListView();
             }
         });
     }
@@ -1168,24 +1170,24 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
         super.onResume();
         mMapView.onResume();
         showMapView();
-        Log.e("生命周期","onResume");
-       // toastShow("生命周期-onResume");
+        Log.e("生命周期", "onResume");
+        // toastShow("生命周期-onResume");
     }
 
     @Override
     public void onPause() {
         super.onPause();
         mMapView.onPause();
-        Log.e("生命周期","onPause");
+        Log.e("生命周期", "onPause");
         //toastShow("生命周期-onPause");
     }
 
     @Override
     public void onDestroy() {
         sendPostEnd();
-        Log.e("生命周期","onDestroy");
+        Log.e("生命周期", "onDestroy");
         super.onDestroy();
-      //  toastShow("生命周期-onDestroy");
+        //  toastShow("生命周期-onDestroy");
 //        mMapView.onDestroy();
 //        // 当不需要定位图层时关闭定位图层
 //        mBaiduMap.setMyLocationEnabled(false);
@@ -1196,7 +1198,7 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
 //        mPoiSearch.destroy();
 //        mSuggestionSearch.destroy();
 //        mGeoCoder.destroy();
-        Log.e("aaxianchen",String.valueOf(xianchen));
+        Log.e("aaxianchen", String.valueOf(xianchen));
     }
 
     @Override
@@ -1219,7 +1221,7 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
                 break;
             case MKOfflineMap.TYPE_VER_UPDATE:
                 // 版本更新提示
-                 MKOLUpdateElement e = mOffline.getUpdateInfo(state);
+                MKOLUpdateElement e = mOffline.getUpdateInfo(state);
                 break;
             default:
                 break;
@@ -1383,7 +1385,7 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
 
     public static String saveImageToGallery2(Context context, Bitmap bmp) {
         // 首先保存图片
-        File appDir = new File(Environment.getExternalStorageDirectory(), "jikong"+disposeTime());
+        File appDir = new File(Environment.getExternalStorageDirectory(), "jikong" + disposeTime());
         if (!appDir.exists()) {
             appDir.mkdir();
         }
@@ -1460,9 +1462,9 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
      * 计算两个Marker之间的距离
      */
     private double calculateDistance() {
-     //   pppa.add(new LatLng(39.33333,122.32135));
-     //   pppa.add(new LatLng(39.33335,122.32136));
-        double distance = GeoHasher.GetDistance(39.3333333,122.3213332,39.3333533,122.3213532);
+        //   pppa.add(new LatLng(39.33333,122.32135));
+        //   pppa.add(new LatLng(39.33335,122.32136));
+        double distance = GeoHasher.GetDistance(39.3333333, 122.3213332, 39.3333533, 122.3213532);
         return distance;
     }
 
@@ -1486,20 +1488,20 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
 //                    toastShow("此蓝牙已连接");
 //                    return;
 //                }
-                if (device == null){
+                if (device == null) {
                     return;
 //                }else if (device.getName().equals("未知设备")) {
 //                    toastShow("该设备不可连接");
 //                    return;
-                }else {
+                } else {
                     try {
 
-                    }catch (Exception e) {
+                    } catch (Exception e) {
                         toastShow("该设备不正确");
                     }
-                   // lanyaName2= device.getName();
-                   // Log.e("wzraaa",lanyaName2);
-                   // pre("SHEBEIWEIHAOSHOUCHI",devices.getName());
+                    // lanyaName2= device.getName();
+                    // Log.e("wzraaa",lanyaName2);
+                    // pre("SHEBEIWEIHAOSHOUCHI",devices.getName());
                     String deviceName = device.getDevice().getName();
                     if (deviceName != null && !deviceName.isEmpty()) {
                         devices = device;
@@ -1587,9 +1589,9 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
     private void tips(final String imaPath) {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.tips_che_shou3, null);
-        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
-        final AlertDialog dialog=builder.create();
+        final AlertDialog dialog = builder.create();
         dialog.setCancelable(false);
         final TextView biaoti = view.findViewById(R.id.textView12);
         final TextView info1 = view.findViewById(R.id.info1);
@@ -1604,7 +1606,7 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
         final EditText beizhu = view.findViewById(R.id.beizhu);
         final Button submit = view.findViewById(R.id.button3);
         LinearLayout ssaa = view.findViewById(R.id.ssaa);
-       // imaPath = saveIma(ssaa);
+        // imaPath = saveIma(ssaa);
 //        mBaiduMap.snapshot(new BaiduMap.SnapshotReadyCallback() {
 //            @SuppressLint("NewApi")
 //            @Override
@@ -1612,18 +1614,18 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
 //                imaPath =saveImageToGallery2(getActivity(),bitmap);
 //            }
 //        });
-        if(getpre("setflag").equals("1")){
+        if (getpre("setflag").equals("1")) {
             biaoti.setText("手动取证");
-        }else {
+        } else {
             biaoti.setText("报警取证");
         }
         String usetime = disposeTime();
-        info1.setText(" "+getpre("username"));
-        info2.setText(" "+"手持");
+        info1.setText(" " + getpre("username"));
+        info2.setText(" " + "手持");
 
-        info4.setText(" "+usetime);
+        info4.setText(" " + usetime);
 
-        info9.setText("  起始时间   "+getpre("starttime")+" - "+usetime);
+        info9.setText("  起始时间   " + getpre("starttime") + " - " + usetime);
 
         Glide.with(this).load(imaPath).into(exit);
         submit.setOnClickListener(new View.OnClickListener() {
@@ -1671,12 +1673,12 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
                 mShouDongQuZheng.setGrade("1");
                 mShouDongQuZheng.setFlag("1");
                 mShouDongQuZheng.setUid("1");
-                addCheZaiBaoJingData(myDatebaseHelper,mShouDongQuZheng);
+                addCheZaiBaoJingData(myDatebaseHelper, mShouDongQuZheng);
                 toastShow("保存成功...");
 
                 beizhu.clearFocus();
                 beizhu.setVisibility(View.GONE);
-                closejianpan2(getActivity(),beizhu);
+                closejianpan2(getActivity(), beizhu);
                 dialog.dismiss();
             }
         });
@@ -1687,7 +1689,7 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
 
                 beizhu.clearFocus();
                 beizhu.setVisibility(View.GONE);
-                closejianpan2(getActivity(),beizhu);
+                closejianpan2(getActivity(), beizhu);
                 dialog.dismiss();
             }
         });
@@ -1696,40 +1698,40 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
     }
 
     @TargetApi(Build.VERSION_CODES.FROYO)
-    public String saveIma(View view){
-        String path="";
+    public String saveIma(View view) {
+        String path = "";
 
         File file = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                "手动取证"+disposeTime()+".jpg");
-         Bitmap bitmap = screenShot(getActivity());
+                "手动取证" + disposeTime() + ".jpg");
+        Bitmap bitmap = screenShot(getActivity());
 
 //        if(ScrccView!=null){
 //
 //        }
-        Log.e("aaazzz","1");
-       // Bitmap bitmap = getViewBitmap(view);
+        Log.e("aaazzz", "1");
+        // Bitmap bitmap = getViewBitmap(view);
         //Bitmap bitmap = screenShot(activity);
-        Log.e("aaazzz","2");
+        Log.e("aaazzz", "2");
         try {
             if (!file.exists())
                 file.createNewFile();
-            Log.e("aaazzz","3");
+            Log.e("aaazzz", "3");
             boolean ret = saveSrc(bitmap, file, Bitmap.CompressFormat.JPEG, true);
             if (ret) {
                 path = file.getAbsolutePath();
                 Toast.makeText(getActivity().getApplicationContext(), "截图已保持至 " + file.getAbsolutePath(), Toast.LENGTH_SHORT).show();
             }
         } catch (Exception e) {
-            Log.e("aaazzz","4");
+            Log.e("aaazzz", "4");
             e.printStackTrace();
         }
-        Log.e("aaazzz","5");
+        Log.e("aaazzz", "5");
         //final ImageView imageView = view.findViewById(R.id.imageView4);
         //        Glide.with(this).load(as).into(imageView);
         return path;
     }
 
-    public  Bitmap shotActivity(View view) {
+    public Bitmap shotActivity(View view) {
         view.setDrawingCacheEnabled(true);
         view.buildDrawingCache();
         Bitmap bp = Bitmap.createBitmap(view.getDrawingCache(), 0, 0, view.getMeasuredWidth(),
@@ -1760,6 +1762,7 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
         v.destroyDrawingCache();
         return bitmap;
     }
+
     /**
      * 保存图片到文件File。
      *
@@ -1807,20 +1810,19 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
     /**
      * using {@see ScreenShotActivity} to take screenshot on current Activity directly.
      * If you press home it will take screenshot on another app.
+     *
      * @param view
      */
     public void onClickShot(View view) {
-        startActivityForResult(ScreenShotActivity.createIntent(getActivity(), null,0), REQ_CODE_ACT);
+        startActivityForResult(ScreenShotActivity.createIntent(getActivity(), null, 0), REQ_CODE_ACT);
         // toast("Press home key,open another app.");//if you want to take screenshot on another app.
     }
-
-
 
 
     @SuppressLint("NewApi")
     private String getSavedPath() {
         return getActivity().getExternalFilesDir("screenshot").getAbsoluteFile() + "/"
-                + SystemClock.currentThreadTimeMillis() + disposeTime()+".png";
+                + SystemClock.currentThreadTimeMillis() + disposeTime() + ".png";
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -1831,8 +1833,7 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
                 if (resultCode == RESULT_OK && data != null) {
                     // toast("Screenshot saved at " + data.getData().toString());
 
-                }
-                else{
+                } else {
                     // toast("You got wrong.");
                 }
             }
@@ -1859,13 +1860,14 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
                     );
                 } else if (resultCode == RESULT_CANCELED) {
                     //user canceled.
-                    Log.e("quanxians","quxiao");
+                    Log.e("quanxians", "quxiao");
                 } else {
 
                 }
             }
         }
     }
+
     private void tips_xiazai() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.item_xiazai, null);
@@ -1889,26 +1891,26 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
     }
 
     private void sendPostStart() {
-        Map<String,String> hs=new HashMap<>();
+        Map<String, String> hs = new HashMap<>();
         //http://localhost:6060/user/updateEvent?starttime=1111
         // &endtime=2222&statusId=3333&deviceName=3232&eventId=5555
         Random random = new Random();
-        Log.e("aamima",createMima());
-        pre("sendpoststarttime",disposeTime());
-        hs.put("starttime",getpre("sendpoststarttime"));
+        Log.e("aamima", createMima());
+        pre("sendpoststarttime", disposeTime());
+        hs.put("starttime", getpre("sendpoststarttime"));
         hs.put("endtime", "巡检中");
         hs.put("statusId", "巡检中");
         hs.put("deviceName", getpre("androidIds"));
-        String eventId = disposeTime3()+createMima()+String.valueOf(random.nextInt(900000)+1250);
+        String eventId = disposeTime3() + createMima() + String.valueOf(random.nextInt(900000) + 1250);
         hs.put("eventId", eventId);
-        pre("eventId",eventId);
+        pre("eventId", eventId);
         OkHttpUtils okHttp = OkHttpUtils.getInstance();
-        okHttp.sendDatafForClicent2(SaveEventurl,hs, new OkHttpUtils.FuncJsonString() {
+        okHttp.sendDatafForClicent2(SaveEventurl, hs, new OkHttpUtils.FuncJsonString() {
             @Override
             public void onResponse(String result) {
-                if(result.contains("成功")){
+                if (result.contains("成功")) {
 
-                }else {
+                } else {
                     toastShow("上传信息失败！");
                 }
             }
@@ -1916,22 +1918,22 @@ public class SoneFragment extends BaseFragment implements OnGetPoiSearchResultLi
     }
 
     private void sendPostEnd() {
-        Map<String,String> hs=new HashMap<>();
+        Map<String, String> hs = new HashMap<>();
         //http://localhost:6060/user/updateEvent?starttime=1111
         // &endtime=2222&statusId=3333&deviceName=3232&eventId=5555
-        hs.put("starttime",getpre("sendpoststarttime"));
+        hs.put("starttime", getpre("sendpoststarttime"));
         hs.put("endtime", disposeTime());
         hs.put("statusId", "巡检结束");
         hs.put("deviceName", getpre("androidIds"));
         hs.put("eventId", getpre("eventId"));
-        pre("eventId",getpre("eventId")+"end");
+        pre("eventId", getpre("eventId") + "end");
         OkHttpUtils okHttp = OkHttpUtils.getInstance();
-        okHttp.sendDatafForClicent2(SaveEventurl,hs, new OkHttpUtils.FuncJsonString() {
+        okHttp.sendDatafForClicent2(SaveEventurl, hs, new OkHttpUtils.FuncJsonString() {
             @Override
             public void onResponse(String result) {
-                if(result.contains("成功")){
+                if (result.contains("成功")) {
 
-                }else {
+                } else {
                     toastShow("上传信息失败！");
                 }
             }

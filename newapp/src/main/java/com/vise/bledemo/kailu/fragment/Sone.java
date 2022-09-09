@@ -1,4 +1,5 @@
 package com.vise.bledemo.kailu.fragment;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -112,6 +113,7 @@ public class Sone extends BaseFragment {
     ImageView lanyaima;
     Button buttonlanya;
     LinearLayout lanyalist;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -125,7 +127,7 @@ public class Sone extends BaseFragment {
             Toast.makeText(getActivity(), "已开启定位权限", Toast.LENGTH_LONG).show();
             //存储权限
         }
-        Log.e("aazzaa","1");
+        Log.e("aazzaa", "1");
         //sqlite数据库
         myDatebaseHelper = new MyDatabase(getActivity(), SQLITE_NAME, null, 1);
 
@@ -137,7 +139,7 @@ public class Sone extends BaseFragment {
 
         initBluetooth();
         startScan();
-        
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -145,7 +147,6 @@ public class Sone extends BaseFragment {
                 verifyStoragePermissions(getActivity());
             }
         }, 3000);
-
 
 
         init();
@@ -161,15 +162,15 @@ public class Sone extends BaseFragment {
         buttonlanya.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(lanyalist.getVisibility()==View.GONE){
+                if (lanyalist.getVisibility() == View.GONE) {
                     lanyalist.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     lanyalist.setVisibility(View.GONE);
                 }
             }
         });
 
-        closeblueview =lanyalist;
+        closeblueview = lanyalist;
 
     }
 
@@ -177,9 +178,9 @@ public class Sone extends BaseFragment {
     private void tips() {
         LayoutInflater inflater = LayoutInflater.from(getActivity());
         View view = inflater.inflate(R.layout.tips2, null);
-        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setView(view);
-        final AlertDialog dialog=builder.create();
+        final AlertDialog dialog = builder.create();
         final Button tijiao = (Button) view.findViewById(R.id.button3);
         final TextView xinghao = (TextView) view.findViewById(R.id.textView14);
         final TextView caozuoyuan = (TextView) view.findViewById(R.id.textView16);
@@ -191,9 +192,9 @@ public class Sone extends BaseFragment {
         final TextView nongdu = (TextView) view.findViewById(R.id.textView17);
         final TextView guangqiang = (TextView) view.findViewById(R.id.textView18);
         final TextView wendu = (TextView) view.findViewById(R.id.textView19);
-        nongdu.setText("浓度 "+intentB_q.getNd());
-        guangqiang.setText("光强 "+intentB_q.getWd());
-        wendu.setText("温度 "+intentB_q.getGq());
+        nongdu.setText("浓度 " + intentB_q.getNd());
+        guangqiang.setText("光强 " + intentB_q.getWd());
+        wendu.setText("温度 " + intentB_q.getGq());
         textdidian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -202,23 +203,23 @@ public class Sone extends BaseFragment {
                 tijiao.setText("选择");
             }
         });
-        if(!getpre("WEIHAOSHOUCHI").equals("1")){
-            xinghao.setText("设备型号:"+getpre("WEIHAOSHOUCHI"));
-        }else {
+        if (!getpre("WEIHAOSHOUCHI").equals("1")) {
+            xinghao.setText("设备型号:" + getpre("WEIHAOSHOUCHI"));
+        } else {
             xinghao.setText("设备型号 ");
         }
-        caozuoyuan.setText("操作员 "+getpre("username"));
+        caozuoyuan.setText("操作员 " + getpre("username"));
         tijiao.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceAsColor")
             @Override
             public void onClick(View v) {
-                if(tijiao.getText().equals("选择")){
+                if (tijiao.getText().equals("选择")) {
                     shuju.setVisibility(View.VISIBLE);
                     didian.setVisibility(View.GONE);
-                    textdidian.setText("地点:"+getdidian);
+                    textdidian.setText("地点:" + getdidian);
                     tijiao.setText("提交");
-                }else {
-                    if(!textdidian.getText().toString().equals("地点:未选择")){
+                } else {
+                    if (!textdidian.getText().toString().equals("地点:未选择")) {
 //提交数据
                         //String title;
                         //    String info;
@@ -228,24 +229,24 @@ public class Sone extends BaseFragment {
                         //    String locate;
                         //    String jingdu;
                         //    String weidu;
-                        isStart=true;
+                        isStart = true;
                         dialog.dismiss();
-                        Log.e("aaaaaasa","1");
+                        Log.e("aaaaaasa", "1");
                         //todo 设备型号 getpre("WEIHAOSHOUCHI")
                         Jingbao jingbao = new Jingbao(getpre("WEIHAOSHOUCHI"),
                                 add_content.getText().toString(),
-                                getpre("username"),disposeTime(), intentB_q.getDengji(),
-                                textdidian.getText().toString(),"321","123",intentB_q.getNd(),
-                                intentB_q.getWd(),intentB_q.getGq(),disposeTime2(),getpre("WEIHAOSHOUCHI"));
+                                getpre("username"), disposeTime(), intentB_q.getDengji(),
+                                textdidian.getText().toString(), "321", "123", intentB_q.getNd(),
+                                intentB_q.getWd(), intentB_q.getGq(), disposeTime2(), getpre("WEIHAOSHOUCHI"));
                         //getpre("WEIHAOSHOUCHI")
-                        Log.e("aaaaaasa","2");
-                        addData(myDatebaseHelper,jingbao);
+                        Log.e("aaaaaasa", "2");
+                        addData(myDatebaseHelper, jingbao);
                         toastShow("记录已添加");
-                        Log.e("aaaaaasa","3");
+                        Log.e("aaaaaasa", "3");
                         List<GetJingbao> ls = new ArrayList<>();
                         ls = getData(myDatebaseHelper);
                         //todo 地点未选择
-                    }else {
+                    } else {
                         textdidian.setTextColor(getResources().getColor(R.color.colorAccent));
                         toastShow("地点未选择");
                     }
@@ -261,16 +262,16 @@ public class Sone extends BaseFragment {
 
     }
 
-    private void clean(){
-        Log.e("axianchenSone","执行clean");
+    private void clean() {
+        Log.e("axianchenSone", "执行clean");
         Handler handler2 = new Handler();
         handler2.postDelayed(new Runnable() {
             @Override
             public void run() {
                 guangbaojin = 0;
-                Log.e("axianchenSone","可以自动报警");
+                Log.e("axianchenSone", "可以自动报警");
             }
-        },60000);
+        }, 60000);
     }
 
     public static void verifyStoragePermissions(Activity activity) {
@@ -303,13 +304,13 @@ public class Sone extends BaseFragment {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 //点击某个扫描到的设备进入设备详细信息界面
                 BluetoothLeDevice device = (BluetoothLeDevice) adapter.getItem(position);
-                if (device == null){
+                if (device == null) {
                     return;
-                }else {
+                } else {
                     devices = device;
                     //新-旧
-                    pre("kailushebeiname",device.getName());
-                    pre("kailushebeinameold",device.getName());
+                    pre("kailushebeiname", device.getName());
+                    pre("kailushebeinameold", device.getName());
                     InitViewPager();
                 }
             }
@@ -317,23 +318,23 @@ public class Sone extends BaseFragment {
     }
 
     public void InitViewPager() {
-        if(blueone == 0){
-            if(fragmentManager == null) {
+        if (blueone == 0) {
+            if (fragmentManager == null) {
                 fragmentManager = getFragmentManager();
                 fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.rraa, new blueToothDataFragment2(), "scone3");
                 fragmentTransaction.commit();
                 blueone = 1;
-                Log.e("blueone","1");
+                Log.e("blueone", "1");
             }
-        } else if(blueone == 1){
+        } else if (blueone == 1) {
             blueToothDataFragment2 id = (blueToothDataFragment2) fragmentManager.findFragmentByTag("scone3");
             id.rootinit();
-            Log.e("blueone","2");
-        }else {
+            Log.e("blueone", "2");
+        } else {
             blueToothDataFragment2 id = (blueToothDataFragment2) fragmentManager.findFragmentByTag("scone3");
             id.createInit();
-            Log.e("blueone","3");
+            Log.e("blueone", "3");
         }
     }
 

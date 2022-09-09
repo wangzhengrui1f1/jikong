@@ -43,17 +43,17 @@ public class kailuHome extends BaseFragmentActivity implements OnCheckedChangeLi
     //RadioGroup
     private RadioGroup main_tab_RadioGroup;
     //RadioButton
-    private RadioButton radio_1,radio_2,radio_3;
+    private RadioButton radio_1, radio_2, radio_3;
     //
     private ArrayList<Fragment> fragmentList;
     int current = 0;
-    ImageView shezhi,xj;
+    ImageView shezhi, xj;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        if((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0)
-        {
+        if ((getIntent().getFlags() & Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0) {
             finish();
             return;
         }
@@ -71,7 +71,7 @@ public class kailuHome extends BaseFragmentActivity implements OnCheckedChangeLi
         main_tab_RadioGroup = (RadioGroup) findViewById(R.id.main_tab_RadioGroup);
         radio_1 = (RadioButton) findViewById(R.id.radio_1);
         radio_2 = (RadioButton) findViewById(R.id.radio_2);
-       // radio_3 = (RadioButton) findViewById(R.id.radio_3);
+        // radio_3 = (RadioButton) findViewById(R.id.radio_3);
         main_tab_RadioGroup.setOnCheckedChangeListener(this);
         shezhi = (ImageView) findViewById(R.id.shezhi);
         xj = (ImageView) findViewById(R.id.xj);
@@ -94,20 +94,21 @@ public class kailuHome extends BaseFragmentActivity implements OnCheckedChangeLi
         fragmentList = new ArrayList<Fragment>();
         Fragment fragment1 = new Sone();
         Fragment fragment2 = new shebeixinxiFragment();
-      //  Fragment fragment3 = new caozuojiluFragment();
+        //  Fragment fragment3 = new caozuojiluFragment();
         fragmentList.add(fragment1);
         fragmentList.add(fragment2);
         //todo 学习中心
-       // fragmentList.add(fragment3);
+        // fragmentList.add(fragment3);
         main_viewPager.setAdapter(new MyAdapter(getSupportFragmentManager(), fragmentList));
         main_viewPager.setCurrentItem(0);
         main_viewPager.setOffscreenPageLimit(3);
-       // main_viewPager.addOnPageChangeListener(new MyListner());
+        // main_viewPager.addOnPageChangeListener(new MyListner());
     }
 
 
     public class MyAdapter extends FragmentPagerAdapter {
         ArrayList<Fragment> list;
+
         public MyAdapter(FragmentManager fm, ArrayList<Fragment> list) {
             super(fm);
             this.list = list;
@@ -117,6 +118,7 @@ public class kailuHome extends BaseFragmentActivity implements OnCheckedChangeLi
         public Fragment getItem(int arg0) {
             return list.get(arg0);
         }
+
         @Override
         public int getCount() {
             return list.size();
@@ -169,7 +171,7 @@ public class kailuHome extends BaseFragmentActivity implements OnCheckedChangeLi
                 radio_1.setTextColor(getColor(R.color.e3));
                 radio_2.setTextColor(getColor(R.color.white));
 
-                closejianpan(kailuHome.this,radio_1);
+                closejianpan(kailuHome.this, radio_1);
                 Window_white();
                 play1();
                 break;
@@ -186,7 +188,7 @@ public class kailuHome extends BaseFragmentActivity implements OnCheckedChangeLi
                 radio_1.setTextColor(getColor(R.color.white));
                 radio_2.setTextColor(getColor(R.color.e3));
 
-                closejianpan(kailuHome.this,radio_2);
+                closejianpan(kailuHome.this, radio_2);
                 Window_white();
                 play2();
                 break;
@@ -199,8 +201,9 @@ public class kailuHome extends BaseFragmentActivity implements OnCheckedChangeLi
             main_viewPager.setCurrentItem(current);
         }
     }
+
     private void Window_black() {
-        if (Build.VERSION.SDK_INT >= 21){
+        if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
             decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             getWindow().setStatusBarColor(Color.BLACK);
@@ -209,8 +212,9 @@ public class kailuHome extends BaseFragmentActivity implements OnCheckedChangeLi
             decorView.setSystemUiVisibility(ui);
         }
     }
+
     private void Window_white() {
-        if (Build.VERSION.SDK_INT >= 21){
+        if (Build.VERSION.SDK_INT >= 21) {
             View decorView = getWindow().getDecorView();
             decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             getWindow().setStatusBarColor(Color.TRANSPARENT);

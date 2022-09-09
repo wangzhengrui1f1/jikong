@@ -86,19 +86,19 @@ public class blueToothDataFragment2 extends BaseFragment {
     private List<BluetoothGattService> mGattServices = new ArrayList<>();
     //设备特征值集合
     private List<List<BluetoothGattCharacteristic>> mGattCharacteristics = new ArrayList<>();
-    private TextView nongdu,gq,wd,textlianjie;
+    private TextView nongdu, gq, wd, textlianjie;
     private LinearLayout baojing;
     private static final String TAG = "SHOUCHI_BLUE";
     //浓度
     returnAgreement returnAgreement;
     //低报警
-    int dibao = 0,dibaoflag = 0;
+    int dibao = 0, dibaoflag = 0;
 
     Runnable mRunable = new Runnable() {
         @Override
         public void run() {
             //失败弹窗
-            if(startBiaoding == 1) {
+            if (startBiaoding == 1) {
                 startBiaoding = 0;
                 mTipSuccessOrFaild(false);
             }
@@ -108,35 +108,35 @@ public class blueToothDataFragment2 extends BaseFragment {
     //todo 数据更新获取解析多线程
     public Thread dataCheckThread;
     //todo 数据更新获取解析多线程
-    public Handler dataCheckHandler=new Handler(){
+    public Handler dataCheckHandler = new Handler() {
         @SuppressLint("NewApi")
         @Override
         public void handleMessage(Message msg) {
-            if(msg.what==99){
+            if (msg.what == 99) {
                 status.setText("工作中");
             }
-            if(msg.what==100){
+            if (msg.what == 100) {
                 status.setText("标定中");
             }
             // 定时更新
-            if(msg.what==101){
+            if (msg.what == 101) {
                 //todo 低报逻辑
-                if(dibao == 1){
+                if (dibao == 1) {
                     dibaoflag++;
-                    if(dibaoflag%3==0){
+                    if (dibaoflag % 3 == 0) {
                         baojing.setBackgroundResource(R.drawable.bbhong2);
-                    }else {
+                    } else {
                         baojing.setBackgroundResource(R.drawable.bbhong3);
                         nongdu.setTextColor(getResources().getColor(R.color.hong3));
                     }
-                    if(dibaoflag == 9000000){
+                    if (dibaoflag == 9000000) {
                         dibaoflag = 0;
                     }
                 }
                 //todo 更新 低报高报
                 updatebao();
                 //todo 更新蓝牙
-                if (blueStatusTime <= 0){
+                if (blueStatusTime <= 0) {
                     blueIma.setBackground(getResources().getDrawable(R.drawable.lanya));
                 } else {
                     blueIma.setBackground(getResources().getDrawable(R.drawable.lanya2));
@@ -146,16 +146,17 @@ public class blueToothDataFragment2 extends BaseFragment {
         }
     };
     public static boolean isStart = true;
-    int index=0;
+    int index = 0;
     View view;
-    int s=0;
-    EditText shebeixinxi,shebeimc;
-    String yijianbiaoding="no";
-    TextView textdibao,textgaobao,textbiaoding,danwei,status;
+    int s = 0;
+    EditText shebeixinxi, shebeimc;
+    String yijianbiaoding = "no";
+    TextView textdibao, textgaobao, textbiaoding, danwei, status;
     Switch zhishidengSwitch;
     int blueStatus = 0; //未连接
     int blueStatusTime = 1000;
     ImageView blueIma;
+
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -178,20 +179,20 @@ public class blueToothDataFragment2 extends BaseFragment {
         textbiaoding = view.findViewById(R.id.button10);
         danwei = view.findViewById(R.id.textView40);
         blueIma = view.findViewById(R.id.imageView10);
-        textdibao.setText("低报:"+getpre("dibao")+getpre("kailudanwei"));
-        textgaobao.setText("高报:"+getpre("gaobao")+getpre("kailudanwei"));
+        textdibao.setText("低报:" + getpre("dibao") + getpre("kailudanwei"));
+        textgaobao.setText("高报:" + getpre("gaobao") + getpre("kailudanwei"));
         zhishidengSwitch = view.findViewById(R.id.switch2);
 
         zhishidengSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if(b){
-                    bluesenddata.add(new send(1,Blue0x2801));
-                    bluesenddata.add(new send(1,readConcentrationAgreement));
+                if (b) {
+                    bluesenddata.add(new send(1, Blue0x2801));
+                    bluesenddata.add(new send(1, readConcentrationAgreement));
                     toastShow("打开");
-                }else {
-                    bluesenddata.add(new send(1,Blue0x2800));
-                    bluesenddata.add(new send(1,readConcentrationAgreement));
+                } else {
+                    bluesenddata.add(new send(1, Blue0x2800));
+                    bluesenddata.add(new send(1, readConcentrationAgreement));
                     toastShow("关闭");
                 }
             }
@@ -210,8 +211,8 @@ public class blueToothDataFragment2 extends BaseFragment {
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
     public void createInit() {
         isStart = false;
-        Log.e("aaxianchen","--------------------重启");
-        if (devices!=null){
+        Log.e("aaxianchen", "--------------------重启");
+        if (devices != null) {
             BusManager.getBus().unregister(this);
             BusManager.getBus().register(this);
             init();
@@ -234,46 +235,46 @@ public class blueToothDataFragment2 extends BaseFragment {
                         getActivity().invalidateOptionsMenu();
                     }
                 }
-            },50);
+            }, 50);
         }
         //SendData();
         bluesenddata.clear();
-        bluesenddata.add(new send(0,readConcentrationAgreement));
-        bluesenddata.add(new send(0,readConcentrationAgreement2));
+        bluesenddata.add(new send(0, readConcentrationAgreement));
+        bluesenddata.add(new send(0, readConcentrationAgreement2));
         //bluesenddata.add(new send(0,readConcentrationAgreement3));
-        bluesenddata.add(new send(0,readConcentrationAgreement3));
+        bluesenddata.add(new send(0, readConcentrationAgreement3));
 
         isStart = true;
     }
 
 
     private void updateDataByBuleTooth() {
-        if(dataCheckThread==null){
-            dataCheckThread=new Thread(){
+        if (dataCheckThread == null) {
+            dataCheckThread = new Thread() {
                 @Override
                 public void run() {
                     super.run();
-                    while (true){
+                    while (true) {
                         try {
                             sleep(120);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
                         //判断是否处于结束、暂停
-                        if(!isStart)
+                        if (!isStart)
                             continue;
 
                         blueStatusTime -= 120;
                         //添加 执行的数据
                         addList();
-                        Log.e("aaxianchen","执行中");
+                        Log.e("aaxianchen", "执行中");
                         //判断是否是暂停
                         //TODO 暂停
-                        Log.e("aaxianchen","绘图");
+                        Log.e("aaxianchen", "绘图");
 
                         //发送读取标定请求 5分钟 3.6s读取一次
-                        if (startBiaoding == 1 && indexBiaoding%30 == 0) {
-                            bluesenddata.add(new send(1,getBiaogeng));
+                        if (startBiaoding == 1 && indexBiaoding % 30 == 0) {
+                            bluesenddata.add(new send(1, getBiaogeng));
                         }
                         indexBiaoding++;
                         if (indexBiaoding > 9999999) {
@@ -291,13 +292,13 @@ public class blueToothDataFragment2 extends BaseFragment {
     }
 
     private void addList() {
-        if(index > bluesenddata.size() - 1){
-            index=0;
-        }else {
-            if(bluesenddata.get(index).getFlag()==0){
+        if (index > bluesenddata.size() - 1) {
+            index = 0;
+        } else {
+            if (bluesenddata.get(index).getFlag() == 0) {
                 SendData(bluesenddata.get(index).getData());
-            }else if(bluesenddata.get(index).getFlag()==1){
-                Log.e("aazzaa","sned1111111111111");
+            } else if (bluesenddata.get(index).getFlag() == 1) {
+                Log.e("aazzaa", "sned1111111111111");
                 SendData(bluesenddata.get(index).getData());
                 bluesenddata.remove(index);
 
@@ -339,7 +340,7 @@ public class blueToothDataFragment2 extends BaseFragment {
                             getActivity().invalidateOptionsMenu();
                         }
                     }
-                },50);
+                }, 50);
             }
         });
         //mDevice = getActivity().getIntent().getParcelableExtra(DeviceDetailActivity.EXTRA_DEVICE);
@@ -369,10 +370,10 @@ public class blueToothDataFragment2 extends BaseFragment {
             } else {
                 if (event.isDisconnected()) {
                     textlianjie.setText("• 断开");
-                   // ToastUtil.showToast(getActivity(), "Disconnect!");
+                    // ToastUtil.showToast(getActivity(), "Disconnect!");
                 } else {
                     textlianjie.setText("• 连接失败");
-                 //   ToastUtil.showToast(getActivity(), "Connect Failure!");
+                    //   ToastUtil.showToast(getActivity(), "Connect Failure!");
                 }
                 getActivity().invalidateOptionsMenu();
                 clearUI();
@@ -381,7 +382,7 @@ public class blueToothDataFragment2 extends BaseFragment {
     }
 
     private void zidongadd() {
-        Handler handler =new Handler();
+        Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
             @Override
@@ -404,7 +405,7 @@ public class blueToothDataFragment2 extends BaseFragment {
                     BluetoothDeviceManager.getInstance().registerNotify(mDevice, true);
                 }
             }
-        },50);
+        }, 50);
         handler.postDelayed(new Runnable() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR2)
             @Override
@@ -427,7 +428,7 @@ public class blueToothDataFragment2 extends BaseFragment {
                     BluetoothDeviceManager.getInstance().registerNotify(mDevice, true);
                 }
             }
-        },50);
+        }, 50);
     }
 
     @Subscribe
@@ -520,7 +521,8 @@ public class blueToothDataFragment2 extends BaseFragment {
 
     private void clearUI() {
         mOutputInfo = new StringBuilder();
-        simpleExpandableListAdapter = null;;
+        simpleExpandableListAdapter = null;
+        ;
     }
 
 
@@ -541,7 +543,7 @@ public class blueToothDataFragment2 extends BaseFragment {
         return true;
     }
 
-    public void SendData(String msg){
+    public void SendData(String msg) {
         BluetoothDeviceManager.getInstance().write(mDevice, HexUtil.decodeHex(msg.toCharArray()));
     }
 
@@ -551,16 +553,16 @@ public class blueToothDataFragment2 extends BaseFragment {
         if (event != null && event.getData() != null && event.getBluetoothLeDevice() != null
                 && event.getBluetoothLeDevice().getAddress().equals(mDevice.getAddress())) {
             mOutputInfo.append(HexUtil.encodeHexStr(event.getData())).append("--");
-           // Toast.makeText(getActivity(), "\n"+mOutputInfo.toString(), Toast.LENGTH_LONG).show();
-            String a[]=mOutputInfo.toString().split("--");
-            adata+=a[a.length-1]+'\n';
-           // Toast.makeText(getActivity(), ""+adata, Toast.LENGTH_SHORT).show();
-            Log.e("aaas11223",a[a.length-1]+'\n');
-            returnAgreement = jiexi2(a[a.length-1]);
+            // Toast.makeText(getActivity(), "\n"+mOutputInfo.toString(), Toast.LENGTH_LONG).show();
+            String a[] = mOutputInfo.toString().split("--");
+            adata += a[a.length - 1] + '\n';
+            // Toast.makeText(getActivity(), ""+adata, Toast.LENGTH_SHORT).show();
+            Log.e("aaas11223", a[a.length - 1] + '\n');
+            returnAgreement = jiexi2(a[a.length - 1]);
             allreturnAgreement = returnAgreement;
             blueStatus = 1;
             blueStatusTime = 1000;
-            if(isStart){
+            if (isStart) {
                 setData();
             }
 
@@ -569,37 +571,37 @@ public class blueToothDataFragment2 extends BaseFragment {
 
     private void setData() {
         //浓度命令
-        if(returnAgreement.getCaozuo().equals("5")){
+        if (returnAgreement.getCaozuo().equals("5")) {
             //浓度信息正确
-            if(returnAgreement.getMsg().equals("1") && returnAgreement.getData1()!=null){
-                Log.e("ajiexi","设置浓度");
+            if (returnAgreement.getMsg().equals("1") && returnAgreement.getData1() != null) {
+                Log.e("ajiexi", "设置浓度");
 
                 if (getpre("kailudanwei").equals("PPM.m")) {
-                    nongdu.setText(returnAgreement.getData1()+".00");
+                    nongdu.setText(returnAgreement.getData1() + ".00");
                     danwei.setText("PPM.m");
                 } else if (getpre("kailudanwei").equals("LEL.m")) {
-                    float a = Float.valueOf(returnAgreement.getData1())/500;
-                    nongdu.setText(String.valueOf((float)(Math.round(a*100))/100));
+                    float a = Float.valueOf(returnAgreement.getData1()) / 500;
+                    nongdu.setText(String.valueOf((float) (Math.round(a * 100)) / 100));
                     danwei.setText("LEL.m");
-                }else {
-                    float a = Float.valueOf(returnAgreement.getData1())/10000;
-                    nongdu.setText(String.valueOf((float)(Math.round(a*100))/100));
+                } else {
+                    float a = Float.valueOf(returnAgreement.getData1()) / 10000;
+                    nongdu.setText(String.valueOf((float) (Math.round(a * 100)) / 100));
                     danwei.setText("VOL.m");
                 }
                 //todo 低报 闪烁
-                if(Integer.valueOf(returnAgreement.getData1())>Integer.valueOf(getpre("dibao"))
-                        &&Integer.valueOf(returnAgreement.getData1())<Integer.valueOf(getpre("gaobao"))){
-                   // toastShow("低报模式");
-                    Log.e(TAG,"一级浓度超标");
+                if (Integer.valueOf(returnAgreement.getData1()) > Integer.valueOf(getpre("dibao"))
+                        && Integer.valueOf(returnAgreement.getData1()) < Integer.valueOf(getpre("gaobao"))) {
+                    // toastShow("低报模式");
+                    Log.e(TAG, "一级浓度超标");
                     dibao = 1;
-                //todo 高报 长亮
-                }else if(Integer.valueOf(returnAgreement.getData1())>=Integer.valueOf(getpre("gaobao"))){
-                 //   toastShow("高报模式");
-                    Log.e(TAG,"二级浓度超标");
+                    //todo 高报 长亮
+                } else if (Integer.valueOf(returnAgreement.getData1()) >= Integer.valueOf(getpre("gaobao"))) {
+                    //   toastShow("高报模式");
+                    Log.e(TAG, "二级浓度超标");
                     dibao = 0;
                     baojing.setBackgroundResource(R.drawable.bbhong3);
                     nongdu.setTextColor(getResources().getColor(R.color.hong3));
-                }else {
+                } else {
                     baojing.setBackgroundResource(R.drawable.bbhong2);
                     nongdu.setTextColor(getResources().getColor(R.color.white));
                     dibao = 0;
@@ -607,61 +609,61 @@ public class blueToothDataFragment2 extends BaseFragment {
                 //dataCheckHandler.sendEmptyMessage(100);
             }
             //光强
-        }else if(returnAgreement.getCaozuo().equals("6")){
-            if(returnAgreement.getData1().length()==1){
-                gq.setText("光强:0"+returnAgreement.getData1());
+        } else if (returnAgreement.getCaozuo().equals("6")) {
+            if (returnAgreement.getData1().length() == 1) {
+                gq.setText("光强:0" + returnAgreement.getData1());
             } else {
-                gq.setText("光强:"+returnAgreement.getData1());
+                gq.setText("光强:" + returnAgreement.getData1());
             }
 
 
             //温度
-        }else if(returnAgreement.getCaozuo().equals("7")){
-            wd.setText(returnAgreement.getData1()+"℃");
+        } else if (returnAgreement.getCaozuo().equals("7")) {
+            wd.setText(returnAgreement.getData1() + "℃");
 
-        }else if(returnAgreement.getCaozuo().equals("-1111")){
+        } else if (returnAgreement.getCaozuo().equals("-1111")) {
             //nd.setText("正确");
             //todo 一键标定
-        }else if(returnAgreement.getCaozuo().equals("9")){
+        } else if (returnAgreement.getCaozuo().equals("9")) {
             yijianbiaoding = returnAgreement.getData1();
             //完成
-            if (yijianbiaoding.contains("0")){
-                if (startBiaodingDialog == 0){
+            if (yijianbiaoding.contains("0")) {
+                if (startBiaodingDialog == 0) {
                     status.setText("标定完成");
                 }
                 startBiaoding = 0;
                 mTipSuccessOrFaild(true);
                 //标定中
-            }else if(yijianbiaoding.contains("1")){
-                if (startBiaodingDialog == 0){
+            } else if (yijianbiaoding.contains("1")) {
+                if (startBiaodingDialog == 0) {
                     status.setText("标定中");
                 }
                 //失败
-            }else if(yijianbiaoding.contains("2")){
-                if (startBiaodingDialog == 0){
+            } else if (yijianbiaoding.contains("2")) {
+                if (startBiaodingDialog == 0) {
                     status.setText("标定失败");
                 }
                 startBiaoding = 0;
                 mTipSuccessOrFaild(false);
             }
 
-            Log.e("biaodings",yijianbiaoding);
+            Log.e("biaodings", yijianbiaoding);
         }
 
-        Log.e("biaodings2",returnAgreement.getCaozuo());
+        Log.e("biaodings2", returnAgreement.getCaozuo());
     }
 
 
-    public void updatebao(){
-        if(getpre("kailudanwei").equals("PPM.m")){
-            textdibao.setText("低报:"+getpre("dibao")+getpre("kailudanwei"));
-            textgaobao.setText("高报:"+getpre("gaobao")+getpre("kailudanwei"));
-        }else if(getpre("kailudanwei").equals("LEL.m")){
-            textdibao.setText("低报:"+String.valueOf(Float.valueOf(getpre("dibao"))/500)+getpre("kailudanwei"));
-            textgaobao.setText("高报:"+String.valueOf(Float.valueOf(getpre("gaobao"))/500)+getpre("kailudanwei"));
-        }else {
-            textdibao.setText("低报:"+String.valueOf(Float.valueOf(getpre("dibao"))/10000)+getpre("kailudanwei"));
-            textgaobao.setText("高报:"+String.valueOf(Float.valueOf(getpre("gaobao"))/10000)+getpre("kailudanwei"));
+    public void updatebao() {
+        if (getpre("kailudanwei").equals("PPM.m")) {
+            textdibao.setText("低报:" + getpre("dibao") + getpre("kailudanwei"));
+            textgaobao.setText("高报:" + getpre("gaobao") + getpre("kailudanwei"));
+        } else if (getpre("kailudanwei").equals("LEL.m")) {
+            textdibao.setText("低报:" + String.valueOf(Float.valueOf(getpre("dibao")) / 500) + getpre("kailudanwei"));
+            textgaobao.setText("高报:" + String.valueOf(Float.valueOf(getpre("gaobao")) / 500) + getpre("kailudanwei"));
+        } else {
+            textdibao.setText("低报:" + String.valueOf(Float.valueOf(getpre("dibao")) / 10000) + getpre("kailudanwei"));
+            textgaobao.setText("高报:" + String.valueOf(Float.valueOf(getpre("gaobao")) / 10000) + getpre("kailudanwei"));
         }
 
     }
@@ -680,12 +682,12 @@ public class blueToothDataFragment2 extends BaseFragment {
             @Override
             public void onClick(View v) {
                 intenhandler.removeCallbacks(mRunable);
-                bluesenddata.add(new send(1,Blue0x29));
-                bluesenddata.add(new send(1,getBiaogeng));
+                bluesenddata.add(new send(1, Blue0x29));
+                bluesenddata.add(new send(1, getBiaogeng));
                 dataCheckHandler.sendEmptyMessage(100);
                 startBiaoding = 1;
                 startBiaodingDialog = 0;
-                intenhandler.postDelayed(mRunable,300000);
+                intenhandler.postDelayed(mRunable, 300000);
                 toastShow("开始标定");
                 dialog.dismiss();
             }
@@ -715,9 +717,9 @@ public class blueToothDataFragment2 extends BaseFragment {
         final TextView yes = view.findViewById(R.id.textView29);
         final Button no = view.findViewById(R.id.button5);
 
-        if(success){
+        if (success) {
             yes.setText("标定成功");
-        }else {
+        } else {
             yes.setText("标定失败");
         }
         no.setOnClickListener(new View.OnClickListener() {

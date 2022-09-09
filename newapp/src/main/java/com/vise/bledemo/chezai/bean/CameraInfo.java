@@ -3,8 +3,7 @@ package com.vise.bledemo.chezai.bean;
 
 import com.sun.jna.NativeLong;
 
-public class CameraInfo
-{
+public class CameraInfo {
     private String address;
     private String userName;
     private String pwd;
@@ -13,60 +12,59 @@ public class CameraInfo
     private NativeLong channel;
     private NativeLong key;
 
-    public String getAddress()
-    {
+    public String getAddress() {
         return address;
     }
-    public void setAddress(String address)
-    {
+
+    public void setAddress(String address) {
         this.address = address;
     }
-    public String getUserName()
-    {
+
+    public String getUserName() {
         return userName;
     }
-    public void setUserName(String userName)
-    {
+
+    public void setUserName(String userName) {
         this.userName = userName;
     }
-    public String getPwd()
-    {
+
+    public String getPwd() {
         return pwd;
     }
-    public void setPwd(String pwd)
-    {
+
+    public void setPwd(String pwd) {
         this.pwd = pwd;
     }
-    public short getPort()
-    {
+
+    public short getPort() {
         return port;
     }
-    public void setPort(short port)
-    {
+
+    public void setPort(short port) {
         this.port = port;
     }
-    public NativeLong getUserId()
-    {
+
+    public NativeLong getUserId() {
         return userId;
     }
-    public void setUserId(NativeLong userId)
-    {
+
+    public void setUserId(NativeLong userId) {
         this.userId = userId;
     }
-    public NativeLong getChannel()
-    {
+
+    public NativeLong getChannel() {
         return channel;
     }
-    public void setChannel(NativeLong channel)
-    {
+
+    public void setChannel(NativeLong channel) {
         this.channel = channel;
     }
-    public NativeLong getKey()
-    {
+
+    public NativeLong getKey() {
         return key;
     }
-    public void setKey(NativeLong key)
-    {
+
+    public void setKey(NativeLong key) {
         this.key = key;
     }
 
